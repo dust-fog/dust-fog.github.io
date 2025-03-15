@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>尘雾MBTI性格测试</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;      /* 主绿色 */
+            --secondary-color: #81C784;    /* 辅助绿 */
+            --accent-color: #388E3C;       /* 强调绿 */
+            --text-color: #2E7D32;         /* 文字色 */
+        }
+        body {
+            font-family: 'Helvetica', Arial, sans-serif;
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0 60px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-selector {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .test-option {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .test-option:hover {
+            transform: translateY(-3px);
+            background: var(--secondary-color);
+        }
+        .progress-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .progress {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--accent-color);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: var(--text-color);">🌱 尘雾MBTI性格测试</h1>
+        <div id="testSelector">
+            <h3>请选择测试版本：</h3>
+            <div class="test-selector">
+                <div class="test-option" onclick="startTest(40)">快速版（40题）</div>
+                <div class="test-option" onclick="startTest(70)">标准版（70题）</div>
+                <div class="test-option" onclick="startTest(100)">完整版（100题）</div>
+            </div>
+        </div>
+        <div id="testArea" style="display:none;">
+            <div class="progress-bar"><div class="progress" id="progress"></div></div>
+            <div id="questionContainer"></div>
+        </div>
+        <div id="result" style="display:none;"></div>
+    </div>
+    <footer>作者：尘雾×DeepSeek</footer>
+
+    <script>
+        // 模拟题库（实际需替换为完整100题）
+        const allQuestions = Array(100).fill().map((_,i) => ({
+            id: i+1,
+            text: `问题${i+1}：您更喜欢哪种方式？`,
+            dimension: ['E/I','S/N','T/F','J/P'][i%4],
+            options: [
+                { text: "选项A", value: 1 },
+                { text: "选项B", value: -1 }
+            ]
+        }));
+
+        let currentTest = [];
+        let currentQuestion = 0;
+        const scores = { 'E':0, 'I':0, 'S':0, 'N':0, 'T':0, 'F':0, 'J':0, 'P':0 };
+
+        function startTest(count) {
+            document.getElementById('testSelector').style.display = 'none';
+            document.getElementById('testArea').style.display = 'block';
+            currentTest = allQuestions.slice(0, count);
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = currentTest[currentQuestion];
+            let html = `<h3>${question.text}</h3>`;
+            question.options.forEach((opt, index) => {
+                html += `<label style="display:block; margin:10px 0; padding:10px; 
+                        background:#F1F8E9; border-radius:5px;">
+                        <input type="radio" name="q" value="${opt.value}" 
+                        onchange="nextQuestion()"> ${opt.text}
+                        </label>`;
+            });
+            document.getElementById('questionContainer').innerHTML = html;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / currentTest.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function nextQuestion() {
+            const selected = document.querySelector('input[name="q"]:checked').value;
+            const dimension = currentTest[currentQuestion].dimension;
+            scores[dimension[0]] += selected;
+            scores[dimension[1]] -= selected;
+            
+            if(++currentQuestion < currentTest.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('testArea').style.display = 'none';
+            let mbti = '';
+            mbti += scores.E >= scores.I ? 'E' : 'I';
+            mbti += scores.S >= scores.N ? 'S' : 'N';
+            mbti += scores.T >= scores.F ? 'T' : 'F';
+            mbti += scores.J >= scores.P ? 'J' : 'P';
+            
+            const resultHTML = `<div style="background:white; padding:20px; border-radius:10px;">
+                <h2 style="color:var(--accent-color);">您的性格类型是：${mbti}</h2>
+                <p>${getTypeDescription(mbti)}</p>
+                <button onclick="location.reload()" style="background:var(--primary-color); 
+                color:white; border:none; padding:10px 20px; border-radius:5px;">
+                重新测试</button>
+            </div>`;
+            document.getElementById('result').innerHTML = resultHTML;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function getTypeDescription(type) {
+            // 此处应接入官方数据分析（需扩展）
+            const descriptions = {
+                'ISTJ': '务实尽责的检查者...',
+                'ENFP': '热情洋溢的倡导者...'
+                // 补充其他14种类型描述
+            };
+            return descriptions[type] || '个性鲜明的独特类型';
+        }
+    </script>
+</body>
+</html>
