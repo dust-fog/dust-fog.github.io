@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>尘雾的APK分享</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.2/iconfont/material-icons.min.css">
+    <style>
+        :root {
+            --surface: #FFFFFF;
+            --background: #F5F5F5;
+            --primary: #2196F3;
+            --on-surface: #212121;
+            --card-radius: 28px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --surface: #1E1E1E;
+                --background: #121212;
+                --on-surface: #FFFFFF;
+            }
+        }
+        body {
+            background: var(--background);
+            font-family: 'Roboto', sans-serif;
+            color: var(--on-surface);
+            margin: 0;
+            padding: 16px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        header {
+            padding: 48px 0;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 16px 0;
+        }
+        .card {
+            background: var(--surface);
+            border-radius: var(--card-radius);
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .card-icon {
+            font-size: 24px;
+            color: var(--primary);
+            margin-right: 16px;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        .card-desc {
+            color: #757575;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            min-height: 60px;
+        }
+        .card-footer {
+            margin-top: 16px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .android-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+        .android-button i {
+            font-size: 18px;
+        }
+        .android-button:hover {
+            opacity: 0.9;
+        }
+        .warning-badge {
+            background: #FFC107;
+            color: black;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 8px;
+        }
+        .tag-system { background: #4CAF50; color: white; }
+        .tag-tool { background: #2196F3; color: white; }
+        .tag-custom { background: #9C27B0; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>尘雾的APK分享</h1>
+        </header>
+        
+        <div class="grid">
+            <!-- Via浏览器 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">public</i>
+                    <div class="card-title">Via浏览器<span class="tag tag-system">系统工具</span></div>
+                </div>
+                <p class="card-desc">2MB极简内核，支持扩展脚本与油猴插件，内置隐私保护模式</p>
+                <div class="card-footer">
+                    <a href="https://viayoo.com/zh-cn/" class="android-button" target="_blank">
+                        <i class="material-icons">download_for_offline</i>获取
+                    </a>
+                </div>
+            </div>
+
+            <!-- MT管理器 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">folder_special</i>
+                    <div class="card-title">MT管理器<span class="tag tag-tool">高级功能</span></div>
+                </div>
+                <p class="card-desc">双窗口文件操作+APK逆向工程，支持ZIP签名/资源修改</p>
+                <div class="card-footer">
+                    <a href="https://mt2.cn/" class="android-button" target="_blank">
+                        <i class="material-icons">dns</i>下载
+                    </a>
+                </div>
+            </div>
+
+            <!-- 星空视频壁纸 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">wallpaper</i>
+                    <div class="card-title">星空视频壁纸<span class="tag tag-custom">个性化</span></div>
+                </div>
+                <p class="card-desc">支持4K动态壁纸+息屏显示，内置触控互动效果</p>
+                <div class="card-footer">
+                    <a href="http://www.xkspbz.com/" class="android-button" target="_blank">
+                        <i class="material-icons">style</i>获取
+                    </a>
+                </div>
+            </div>
+
+            <!-- Skip -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">ads_click</i>
+                    <div class="card-title">Skip<span class="tag tag-system">系统优化</span></div>
+                </div>
+                <p class="card-desc">智能跳过开屏广告，自动识别跳过按钮无需配置规则</p>
+                <div class="card-footer">
+                    <a href="https://skip.guoxicheng.top/" class="android-button" target="_blank">
+                        <i class="material-icons">fast_forward</i>下载
+                    </a>
+                </div>
+            </div>
+
+            <!-- Gboard -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">keyboard</i>
+                    <div class="card-title">Gboard<span class="tag tag-tool">输入法</span></div>
+                </div>
+                <p class="card-desc">谷歌官方输入法，支持滑动输入与离线语音识别</p>
+                <div class="card-footer">
+                    <a href="https://play.google.com/store/apps/details?id=com.google.android.inputmethod.latin" class="android-button" target="_blank">
+                        <i class="material-icons">keyboard</i>获取
+                    </a>
+                </div>
+            </div>
+
+            <!-- 清浊 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">cleaning_services</i>
+                    <div class="card-title">清浊<span class="tag tag-system">存储管理</span></div>
+                </div>
+                <p class="card-desc">深度存储空间分析，支持自定义清理规则与重复文件查找</p>
+                <div class="card-footer">
+                    <a href="https://www.dircleaner.com/" class="android-button" target="_blank">
+                        <i class="material-icons">delete_sweep</i>下载
+                    </a>
+                </div>
+            </div>
+
+            <!-- Google Play -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">shop</i>
+                    <div class="card-title">Google Play<span class="tag tag-system">需Root</span></div>
+                </div>
+                <p class="card-desc">官方应用商店国际版，需配合Magisk实现无限制访问</p>
+                <div class="card-footer">
+                    <a href="https://accounts.google.com/InteractiveLogin?service=sj" class="android-button" target="_blank">
+                        <i class="material-icons">security</i>获取
+                    </a>
+                </div>
+            </div>
+
+            <!-- BlackBox -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">app_registration</i>
+                    <div class="card-title">BlackBox<span class="tag tag-tool">多开神器</span></div>
+                </div>
+                <p class="card-desc">免Root应用多开，支持独立账号与虚拟定位功能</p>
+                <div class="card-footer">
+                    <a href="https://github.com/FBlackBox/BlackBox/releases" class="android-button" target="_blank">
+                        <i class="material-icons">copy_all</i>下载
+                    </a>
+                </div>
+            </div>
+
+            <!-- 汽水壁纸 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">collections</i>
+                    <div class="card-title">汽水壁纸<span class="tag tag-custom">视觉美化</span></div>
+                </div>
+                <p class="card-desc">每日更新超清壁纸，支持自动适配屏幕分辨率</p>
+                <div class="card-footer">
+                    <a href="http://cdn.ws.huluxia.com/game/2025/02/27/36403441(1.4.6)0052CAA2.apk" class="android-button" target="_blank">
+                        <i class="material-icons">image</i>获取
+                    </a>
+                </div>
+            </div>
+
+            <!-- tTorrent Lite -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">download</i>
+                    <div class="card-title">tTorrent Lite<span class="tag tag-tool">下载工具</span></div>
+                </div>
+                <p class="card-desc">支持磁力链接与种子文件，可创建下载队列限速</p>
+                <div class="card-footer">
+                    <a href="https://mobile.softpedia.com/apk/ttorrent-lite/1.8.2/" class="android-button" target="_blank">
+                        <i class="material-icons">file_download</i>下载
+                    </a>
+                </div>
+            </div>
+
+            <!-- 一个木函 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">build</i>
+                    <div class="card-title">一个木函<span class="tag tag-tool">全能工具</span></div>
+                </div>
+                <p class="card-desc">集成80+实用工具：从二维码生成到DNS修改</p>
+                <div class="card-footer">
+                    <a href="https://woobx.cn/" class="android-button" target="_blank">
+                        <i class="material-icons">handyman</i>获取
+                    </a>
+                </div>
+            </div>
+
+            <!-- 酷安 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="material-icons card-icon">forum</i>
+                    <div class="card-title">酷安<span class="tag tag-system">社区论坛</span></div>
+                </div>
+                <p class="card-desc">安卓极客社区，涵盖应用评测与系统破解讨论</p>
+                <div class="card-footer">
+                    <a href="https://www.coolapk.com/" class="android-button" target="_blank">
+                        <i class="material-icons">groups</i>访问
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
