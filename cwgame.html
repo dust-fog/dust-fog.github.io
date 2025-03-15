@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>尘雾的游戏资源</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --cyber-red: #ff003c;
+            --metal-gray: #2a2a2a;
+        }
+        body {
+            background: #0a0a0a;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 10px var(--neon-blue);
+            position: relative;
+            display: inline-block;
+            padding: 0 2rem;
+        }
+        h1::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+        .card {
+            background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 2px solid var(--metal-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+            transition: 0.3s all;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px var(--neon-blue);
+            border-color: var(--neon-blue);
+        }
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, var(--neon-blue), transparent) 1;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .card:hover::after {
+            opacity: 1;
+        }
+        .card-icon {
+            font-size: 3rem;
+            color: var(--cyber-red);
+            text-shadow: 0 0 15px var(--cyber-red);
+            margin-bottom: 1rem;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+        }
+        .card-desc {
+            color: #8a8a8a;
+            line-height: 1.6;
+            min-height: 100px;
+            font-family: 'Arial', sans-serif;
+        }
+        .cyber-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: var(--metal-gray);
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            text-decoration: none;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .cyber-button::before {
+            content: "";
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        .cyber-button:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>▣ 尘雾游戏资源库 ▣</h1>
+        </header>
+        
+        <div class="grid">
+            <!-- iOSIPA -->
+            <div class="card">
+                <i class="fas fa-apple-alt card-icon"></i>
+                <h2 class="card-title">iOSIPA</h2>
+                <p class="card-desc">老设备重生计划！专为经典iOS设备打造的越狱游戏库，完美适配iPhone 4s至iPad Air初代机型</p>
+                <a href="https://www.88ipa.com/" 
+                   class="cyber-button" 
+                   target="_blank">
+                    <i class="fas fa-download"></i>越狱入口
+                </a>
+            </div>
+
+            <!-- 7723游戏盒 -->
+            <div class="card">
+                <i class="fas fa-gamepad card-icon"></i>
+                <h2 class="card-title">7723游戏盒</h2>
+                <p class="card-desc">破解版游戏集散地，内含海量MOD与存档资源，每日更新热门手游，支持玩家社区交流</p>
+                <a href="https://www.7723.com/index.html" 
+                   class="cyber-button" 
+                   target="_blank">
+                    <i class="fas fa-box-open"></i>资源仓库
+                </a>
+            </div>
+
+            <!-- QooApp -->
+            <div class="card">
+                <i class="fas fa-globe-asia card-icon"></i>
+                <h2 class="card-title">QooApp</h2>
+                <p class="card-desc">全球游戏服务器枢纽，收录日韩/欧美/东南亚特供版本，附带实时汉化补丁与加速支持</p>
+                <a href="https://m-apps.ppaooq.com/en" 
+                   class="cyber-button" 
+                   target="_blank">
+                    <i class="fas fa-rocket"></i>国际传送
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
