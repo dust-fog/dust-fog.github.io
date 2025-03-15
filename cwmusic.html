@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>尘雾音乐资源</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --text: #1f2937;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem 0;
+            color: var(--text);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+            color: var(--text);
+        }
+        .card-desc {
+            color: #64748b;
+            line-height: 1.6;
+            min-height: 80px;
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white !important;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: opacity 0.2s;
+        }
+        .download-btn i {
+            margin-right: 0.5rem;
+        }
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>尘雾音乐资源推荐</h1>
+        </header>
+        
+        <div class="grid">
+            <!-- 椒盐音乐 -->
+            <div class="card">
+                <i class="fas fa-music card-icon"></i>
+                <h2 class="card-title">椒盐音乐</h2>
+                <p class="card-desc">最好用的本地音乐播放器，功能众多，小巧简洁，UI设计优美</p>
+                <a href="https://moriafly.xyz/HiMoriafly/docs/salt-player/download/" 
+                   class="download-btn" 
+                   target="_blank">
+                    <i class="fas fa-download"></i>立即下载
+                </a>
+            </div>
+
+            <!-- 只因音乐 -->
+            <div class="card">
+                <i class="fas fa-download card-icon"></i>
+                <h2 class="card-title">只因音乐</h2>
+                <p class="card-desc">免费音乐下载神器，支持无损音质、封面歌词下载，完美适配椒盐音乐</p>
+                <a href="https://pan.lanzoue.com/b0259qn2la" 
+                   class="download-btn" 
+                   target="_blank">
+                    <i class="fas fa-download"></i>获取软件
+                </a>
+            </div>
+
+            <!-- Spotify -->
+            <div class="card">
+                <i class="fab fa-spotify card-icon"></i>
+                <h2 class="card-title">Spotify</h2>
+                <p class="card-desc">全球最大的音乐流媒体平台，海量正版音乐资源</p>
+                <a href="https://play.google.com/store/apps/details/Spotify_Music_and_Podcasts?id=com.spotify.music&hl=en_US" 
+                   class="download-btn" 
+                   target="_blank">
+                    <i class="fas fa-external-link-alt"></i>访问官网
+                </a>
+            </div>
+
+            <!-- 酷狗概念版 -->
+            <div class="card">
+                <i class="fas fa-gem card-icon"></i>
+                <h2 class="card-title">酷狗概念版</h2>
+                <p class="card-desc">每日领取VIP特权，免费畅听全网音乐，大厂品质保证</p>
+                <a href="https://sj.qq.com/appdetail/com.kugou.android.lite" 
+                   class="download-btn" 
+                   target="_blank">
+                    <i class="fas fa-mobile-alt"></i>下载APP
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
