@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>尘雾的加速器资源</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --deep-space: #000319;
+            --text-primary: #E6F1FF;
+            --text-secondary: #8A9BA8;
+            --neon-effect: 0 0 8px #00f3ff;
+        }
+
+        body {
+            background: var(--deep-space);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            -webkit-overflow-scrolling: touch;
+            overflow-x: hidden;
+            color: var(--text-primary);
+        }
+
+        .space-bg {
+            position: fixed;
+            width: 200vw;
+            height: 200vh;
+            background: 
+                radial-gradient(circle at 20% 30%, #001144, transparent),
+                radial-gradient(circle at 80% 70%, #110033, transparent);
+            animation: starMove 80s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            position: relative;
+            transform: translateZ(0);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--neon-blue);
+            text-align: center;
+            padding: 1rem 0;
+            text-shadow: var(--neon-effect);
+            letter-spacing: 0.2em;
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 1rem;
+            touch-action: pan-y;
+        }
+
+        .card {
+            background: rgba(0, 3, 25, 0.95);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .card-title {
+            color: var(--neon-blue) !important;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-effect);
+            font-weight: 600;
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .wormhole-btn {
+            display: block;
+            padding: 1rem;
+            background: linear-gradient(45deg, #0011ff, #00f3ff);
+            color: #FFFFFF !important;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+            touch-action: manipulation;
+            transition: transform 0.2s;
+        }
+
+        .wormhole-btn:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --text-primary: #F0FBFF;
+                --text-secondary: #9AB3C5;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .card {
+                margin: 0 0.5rem;
+                padding: 1.2rem;
+            }
+            .card-title {
+                font-size: 1.4rem;
+            }
+            .card-desc {
+                font-size: 1rem;
+            }
+        }
+
+        @keyframes starMove {
+            0% { transform: translate(0,0); }
+            100% { transform: translate(-50%,-50%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="space-bg"></div>
+    <div class="container">
+        <h1>尘雾加速器</h1>
+        <div class="grid">
+            <div class="card">
+                <h2 class="card-title">外星人加速器</h2>
+                <p class="card-desc">永久免费游戏加速，超低延迟全球节点，支持2000+款热门游戏</p>
+                <a href="https://www.et001.com/m/" class="wormhole-btn">立即加速</a>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">MahsaNG</h2>
+                <p class="card-desc">智能协议选择，突破网络限制，自动选择最优传输路径</p>
+                <a href="https://github.com/GFW-knocker/MahsaNG" class="wormhole-btn">下载使用</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
