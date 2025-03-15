@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>尘雾Foggy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #e6e6e6;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: #2d2d2d;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transform: skew(-10deg);
+            display: inline-block;
+            background: linear-gradient(45deg, #fff, #888);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            background: #333;
+        }
+
+        .nav-button {
+            padding: 0.8rem 2rem;
+            background: #404040;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        .nav-button:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .card {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #333;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .contact-item {
+            display: inline-block;
+            margin: 0 1rem;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item:hover {
+            color: #fff;
+        }
+
+        .author {
+            color: #666;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            .nav {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+            .nav-button {
+                width: 100%;
+                margin: 0.2rem 0;
+            }
+            .contact-bar {
+                position: static;
+                padding: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="title">尘雾Foggy</h1>
+    </header>
+
+    <nav class="nav">
+        <button class="nav-button" onclick="showContent('resources')">资源中心</button>
+        <button class="nav-button" onclick="showContent('blog')">个人博客</button>
+    </nav>
+
+    <div id="resources" class="content">
+        <div class="grid">
+            <a href="https://dust-fog.github.io/cwmbti1.html" class="card">
+                <h3>MBTI测试</h3>
+                <p>由Deepseek制作，目前暂未接入API</p>
+            </a>
+            <a href="https://dust-fog.github.io/cwmusic.html" class="card">
+                <h3>音乐资源</h3>
+                <p>尘雾推荐的听歌软件</p>
+            </a>
+            <a href="https://dust-fog.github.io/cwgame.html" class="card">
+                <h3>游戏资源</h3>
+                <p>丰富的游戏下载网站推荐</p>
+            </a>
+            <a href="https://dust-fog.github.io/cwapk.html" class="card">
+                <h3>APK资源</h3>
+                <p>众多实用软件合集</p>
+            </a>
+            <a href="https://dust-fog.github.io/cwvpn.html" class="card">
+                <h3>加速器资源</h3>
+                <p>连接互联网的魔法工具</p>
+            </a>
+        </div>
+    </div>
+
+    <div id="blog" class="content" style="display: none;">
+        <div class="coming-soon">
+            <p>正在努力开发中 🚧</p>
+            <p>请通过下方联系方式催更作者</p>
+        </div>
+    </div>
+
+    <div class="contact-bar">
+        <a href="https://www.instagram.com/emptychenwu?igsh=MWl1c2NjNWgxZjA0Nw==" class="contact-item">📷 Instagram</a>
+        <a href="#" class="contact-item">🎮 Discord</a>
+        <a href="https://b23.tv/H6a470M" class="contact-item">📺 Bilibili</a>
+        <a href="mailto:AxolotlCWue@hotmail.com" class="contact-item">📧 邮箱</a>
+        <a href="https://v.kuaishou.com/r5WJ86" class="contact-item">🎥 快手</a>
+        <a href="https://x.com/ChenWu_Fog?s=09" class="contact-item">🐦 推特</a>
+        <div class="author">作者：尘雾</div>
+    </div>
+
+    <script>
+        function showContent(contentId) {
+            document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
+            document.getElementById(contentId).style.display = 'block';
+        }
+        
+        // 默认显示资源中心
+        showContent('resources');
+    </script>
+</body>
+</html>
