@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>The Weeknd | 终极粉丝站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --main-purple: #6A1B9A;
+            --neon-pink: #FF10F0;
+            --dark-bg: #0A0A0A;
+        }
+
+        body {
+            background: var(--dark-bg);
+            font-family: 'Segoe UI', system-ui;
+            color: white;
+            line-height: 1.6;
+        }
+
+        /* 动态霓虹边框 */
+        .neon-border {
+            position: relative;
+            border: 3px solid var(--neon-pink);
+            box-shadow: 0 0 15px var(--neon-pink);
+            animation: neonGlow 1.5s infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            from { box-shadow: 0 0 5px var(--neon-pink); }
+            to { box-shadow: 0 0 20px var(--neon-pink); }
+        }
+
+        /* 专辑封面3D效果 */
+        .album-cover {
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+        .album-cover:hover {
+            transform: rotateY(20deg) scale(1.1);
+        }
+
+        /* 时间线动画 */
+        .timeline-item {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s;
+        }
+        .timeline-item.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav class="neon-border" style="position: fixed; width: 100%; background: rgba(0,0,0,0.9);">
+        <ul style="display: flex; justify-content: center; gap: 2rem; padding: 1rem;">
+            <li><a href="#bio" style="color: white; text-decoration: none;">人物档案</a></li>
+            <li><a href="#albums" style="color: white; text-decoration: none;">音乐宇宙</a></li>
+            <li><a href="#gallery" style="color: white; text-decoration: none;">视觉盛宴</a></li>
+        </ul>
+    </nav>
+
+    <!-- 头部 -->
+    <header style="height: 100vh; display: grid; place-items: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://tse1-mm.cn.bing.net/th/id/OIP-C.vZZRA44qZH_u9NsImt3T0AHaKX?dpr=3&pid=ImgDetMain') center/cover;">
+        <h1 style="font-size: 4rem; text-align: center; text-shadow: 0 0 20px var(--neon-pink);">THE WEEKND</h1>
+        <audio id="main-audio" controls style="margin: 2rem auto;">
+            <source src="http://music.163.com/song/media/outer/url?id=2670864155.mp3" type="audio/mpeg">
+        </audio>
+    </header>
+
+    <!-- 个人信息 -->
+    <section id="bio" style="padding: 4rem 2rem;">
+        <div class="neon-border" style="max-width: 800px; margin: auto; padding: 2rem;">
+            <h2>🎤 原名:阿贝尔·特斯法耶</h2>
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.feX2SiAAYeRhhubkRmuGpgHaHa?dpr=3&pid=ImgDetMain" alt="The Weeknd" style="width: 100%; border-radius: 50%;" class="album-cover">
+                <div>
+                    <p><strong>出生:</strong> 1990年2月16日 🇨🇦 多伦多</p>
+                    <p><strong>艺名起源:</strong> 17岁离家出走的周末 (去掉了"e"避免重名)</p>
+                    <p><strong>里程碑:</strong> 7首钻石单曲认证 💎 全球流媒体第一人 🎧</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专辑展示 -->
+    <section id="albums" style="padding: 4rem 2rem; background: var(--main-purple);">
+        <div style="max-width: 1200px; margin: auto;">
+            <h2>🎶 黑暗三部曲终章</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="neon-border" style="padding: 1rem;">
+                    <img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.ubjBiS5FpVcZcMmvAndjhQAAAA?dpr=3&pid=ImgDetMain" alt="After Hours" class="album-cover">
+                    <h3>After Hours (2020)</h3>
+                    <ul>
+                        <li>Blinding Lights 🌆</li>
+                        <li>Save Your Tears 💧</li>
+                    </ul>
+                </div>
+                <!-- 其他专辑模块 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 人生时间线 -->
+    <section style="padding: 4rem 2rem;">
+        <div class="timeline-item">
+            <h3>2011年</h3>
+            <p>上传《House of Balloons》三部曲，被Drake发掘</p>
+        </div>
+        <div class="timeline-item">
+            <h3>2015年</h3>
+            <p>凭借《Earned It》斩获首座格莱美
+            发布《starboy》火爆全网 拿下格莱美
+            OS：作者最喜欢的歌曲是《The Hills》</p>
+            <h3>2020年</h3>
+            <p>发布专辑《After Hours》 截至目前为止是全球流媒体播放量最多的专辑，登上过超级碗，被誉为“全世界最伟大的专辑”
+        </div>
+        <!-- 更多时间线条目 -->
+    </section>
+
+    <!-- 图片画廊 -->
+    <section id="gallery" style="padding: 4rem 2rem;">
+        <div style="columns: 3; gap: 1rem;">
+            <img src="https://k.sinaimg.cn/n/sports/2_img/dfic/cf0d0fdd/107/w1024h683/20210208/7292-kiweitv4162219.jpg/w640slw.jpg" alt="演唱会" style="width: 100%; margin-bottom: 1rem;">
+            <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.wnJXo0_wOGZg93fQtKmgAQAAAA?dpr=3&pid=ImgDetMain" alt="录音室" style="width: 100%; margin-bottom: 1rem;">
+            <!-- 更多图片 -->
+        </div>
+    </section>
+
+    <script>
+        // 交互功能
+        // 时间线动画
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.timeline-item').forEach(el => {
+                if(el.getBoundingClientRect().top < window.innerHeight*0.8) {
+                    el.classList.add('active');
+                }
+            });
+        });
+
+        // 音乐播放器控制
+        const audio = document.getElementById('main-audio');
+        audio.volume = 0.3;
+        
+        // 图片灯箱效果
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('click', () => {
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+                    position: fixed; 
+                    top:0; left:0; 
+                    width:100vw; 
+                    height:100vh; 
+                    background: rgba(0,0,0,0.9); 
+                    display: grid; 
+                    place-items: center;
+                    z-index: 999;
+                `;
+                overlay.innerHTML = `<img src="${img.src}" style="max-width:90%; max-height:90%;">`;
+                overlay.onclick = () => overlay.remove();
+                document.body.appendChild(overlay);
+            });
+        });
+    </script>
+</body>
+</html>
