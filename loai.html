@@ -1,193 +1,189 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LoAi - 超越DeepSeek的存在</title>
-    <style>
-        :root {
-            --primary-color: #00f7ff;
-            --bg-gradient: linear-gradient(135deg, #001529 0%, #002d4e 50%, #004d74 100%);
-        }
-
-        body {
-            margin: 0;
-            height: 100vh;
-            background: var(--bg-gradient);
-            font-family: 'Segoe UI', sans-serif;
-            color: var(--primary-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* 科幻星轨背景 */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 300%;
-            height: 300%;
-            background: radial-gradient(circle, 
-                rgba(0, 247, 255, 0.1) 10%,
-                transparent 20%),
-                repeating-linear-gradient(45deg, 
-                    transparent 0px, 
-                    transparent 20px, 
-                    rgba(0, 247, 255, 0.1) 20px, 
-                    rgba(0, 247, 255, 0.1) 40px);
-            animation: starMove 120s linear infinite;
-        }
-
-        .container {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(5px);
-        }
-
-        .header {
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .chat-box {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            scroll-behavior: smooth;
-        }
-
-        .message {
-            margin: 1rem 0;
-            padding: 0.8rem;
-            border-radius: 1rem;
-            max-width: 80%;
-            position: relative;
-            animation: messageAppear 0.3s ease-out;
-        }
-
-        .user-message {
-            background: rgba(0, 247, 255, 0.15);
-            margin-left: auto;
-            border: 1px solid var(--primary-color);
-        }
-
-        .ai-message {
-            background: rgba(0, 64, 77, 0.5);
-            border: 1px solid #004d74;
-        }
-
-        .input-area {
-            display: flex;
-            gap: 0.5rem;
-            padding: 1rem;
-            border-top: 1px solid var(--primary-color);
-        }
-
-        input {
-            flex: 1;
-            padding: 0.8rem;
-            background: rgba(0, 39, 61, 0.8);
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-        }
-
-        button {
-            padding: 0.8rem 1.2rem;
-            background: var(--primary-color);
-            border: none;
-            border-radius: 0.5rem;
-            color: #001529;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            box-shadow: 0 0 15px var(--primary-color);
-        }
-
-        @keyframes starMove {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 480px) {
-            .message {
-                max-width: 90%;
-                font-size: 0.9rem;
-            }
-            input {
-                padding: 0.6rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LoAi - 最伟大Ai，超越deepseek的存在！</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1b1b3a, #3a0f3f);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .header button {
+      background: #222;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .log-modal {
+      position: fixed;
+      top: 20%;
+      left: 10%;
+      right: 10%;
+      background: #111;
+      border: 1px solid #444;
+      padding: 16px;
+      display: none;
+      z-index: 99;
+    }
+    .log-modal h3 {
+      margin-top: 0;
+    }
+    .main {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .button {
+      background: #00ffee;
+      color: #000;
+      padding: 12px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .chat-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .chat-box {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 12px 0;
+      overflow-y: auto;
+      max-height: 60vh;
+    }
+    .chat-input {
+      display: flex;
+      margin-top: 10px;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px 0 0 8px;
+      border: none;
+    }
+    .chat-input button {
+      padding: 10px;
+      border: none;
+      background: #00ffee;
+      color: #000;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+    }
+    .footer {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      font-size: 12px;
+      color: #aaa;
+    }
+    @media (max-width: 600px) {
+      .chat-box {
+        max-height: 50vh;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>LoAi</h1>
-            <p>最伟大AI，超越DeepSeek的存在！</p>
-        </div>
-        
-        <div class="chat-box" id="chatBox">
-            <div class="message ai-message">
-                你好啊！我是Lo，是LoAi，是比肩DeepSeek的超强AI，请问你有什么问题呢？
-            </div>
-        </div>
+  <div class="header">
+    <div><strong>LoAi</strong> - 最伟大Ai，超越deepseek的存在！</div>
+    <button onclick="toggleLog()">更新日志</button>
+  </div>
 
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="输入您的问题...">
-            <button onclick="sendMessage()">发送</button>
-        </div>
+  <div class="log-modal" id="logModal">
+    <h3>更新日志</h3>
+    <ul>
+      <li>v1.0 正式发布</li>
+      <li>v1.1 增加日志，Ai调整</li>
+    </ul>
+    <button onclick="toggleLog()">关闭</button>
+  </div>
+
+  <div class="main" id="startPage">
+    <h1>欢迎使用 LoAi</h1>
+    <button class="button" onclick="startChat()">开始体验</button>
+    <button class="button" onclick="showComingSoon()">创建 / 登录帐号</button>
+  </div>
+
+  <div class="chat-container" id="chatPage">
+    <div class="chat-box" id="chatBox">
+      <div><strong>LoAi:</strong> 你好啊！我是Lo，是LoAi，是比肩deepseek的超强Ai，请问你有什么问题呢？</div>
     </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="输入你的问题..." />
+      <button onclick="sendMessage()">发送</button>
+    </div>
+  </div>
 
-    <script>
-        // 初始化时自动聚焦输入框
-        document.getElementById('userInput').focus();
+  <div class="footer">作者：@尘雾</div>
 
-            // 修改后
-    function generateLoResponse(text) {
-        return Array(text.length).fill('Lo').join(' ');
+  <script>
+    let boostChance = 0;
+    function toggleLog() {
+      const log = document.getElementById('logModal');
+      log.style.display = log.style.display === 'none' || log.style.display === '' ? 'block' : 'none';
     }
 
-        function addMessage(text, isUser = false) {
-            const chatBox = document.getElementById('chatBox');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
-            messageDiv.innerHTML = `
-                ${isUser ? '您：' : 'LoAi：'} 
-                <span style="color: ${isUser ? '#00f7ff' : '#00ff9d'}">${text}</span>
-            `;
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+    function startChat() {
+      document.getElementById('startPage').style.display = 'none';
+      document.getElementById('chatPage').style.display = 'flex';
+    }
 
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const userText = input.value.trim();
-            
-            if (userText) {
-                addMessage(userText, true);
-                input.value = '';
-                
-                // 模拟AI响应延迟
-                setTimeout(() => {
-                    const loResponse = generateLoResponse(userText);
-                    addMessage(loResponse);
-                }, 500);
-            }
-        }
+    function showComingSoon() {
+      alert('功能开发中，请稍后再试。');
+    }
 
-        // 支持回车发送
-        document.getElementById('userInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
-    </script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const chatBox = document.getElementById('chatBox');
+      const userText = input.value.trim();
+      if (!userText) return;
+      const userMessage = document.createElement('div');
+      userMessage.innerHTML = `<strong>你:</strong> ${userText}`;
+      chatBox.appendChild(userMessage);
+
+      let response = '';
+      let beChance = 0.0367 + boostChance;
+      let random = Math.random();
+
+      if (["lo", "Lo", "be", "Be"].includes(userText.trim())) {
+        boostChance += 0.4444;
+      }
+
+      if (random < beChance) {
+        response = 'Be';
+        boostChance = 0;
+      } else if (Math.random() < 0.01) {
+        response = '不是早绝了吗？';
+      } else {
+        response = 'Lo'.repeat(userText.length);
+      }
+
+      const botMessage = document.createElement('div');
+      botMessage.innerHTML = `<strong>LoAi:</strong> ${response}`;
+      chatBox.appendChild(botMessage);
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
 </body>
 </html>
