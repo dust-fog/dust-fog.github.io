@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>意义不明的跳转网页网站</title>
+<style>
+  :root {
+    color-scheme: light only;
+    --bg-gradient: linear-gradient(135deg, #FFF5FC 0%, #F5E6FF 50%, #E8E0FF 100%);
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.9);
+    --glass-shadow: 0 8px 32px rgba(192, 168, 206, 0.25);
+    --text-main: #7B5A9E;
+    --text-sub: #B89DD4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex; justify-content: center;
+    padding: 40px 20px; color: var(--text-main);
+  }
+  .container { width: 100%; max-width: 960px; }
+  h1 { font-size: 30px; font-weight: 670; text-align: center; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .subtitle { text-align: center; color: var(--text-sub); font-size: 14px; margin-bottom: 36px; }
+  .home-cards { display: flex; flex-direction: column; gap: 24px; align-items: center; }
+  .home-card {
+    width: 100%; max-width: 600px; padding: 38px 48px; border-radius: 34px;
+    background: var(--glass-bg); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+    border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
+    display: flex; align-items: center; justify-content: center; gap: 18px;
+    font-size: 24px; font-weight: 590; cursor: pointer; transition: all 0.3s ease; user-select: none;
+  }
+  .home-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(194,166,210,0.41); }
+  .home-card span { font-size: 32px; }
+  .page { display: none; width: 100%; }
+  .page.show { display: block; }
+  .back-row {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px; cursor: pointer;
+    color: var(--text-sub); font-size: 15px; font-weight: 525; width: fit-content;
+    padding: 8px 20px; border-radius: 40px; background: var(--glass-bg);
+    backdrop-filter: blur(10px); border: 1px solid var(--glass-border); transition: color 0.2s;
+  }
+  .back-row:hover { color: var(--text-main); background: rgba(249,238,251,0.86); }
+  .card-group {
+    background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); border-radius: 26px; padding: 24px 26px;
+    margin-bottom: 20px; box-shadow: var(--glass-shadow);
+  }
+  .group-title { font-size: 17px; font-weight: 645; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+  .link-item {
+    padding: 12px 8px; border-radius: 16px; background: rgba(253,246,254,0.82);
+    border: 1px solid rgba(234,214,248,0.51); color: var(--text-main);
+    text-decoration: none; font-size: 13px; font-weight: 520; text-align: center;
+    transition: all 0.2s ease; display: block;
+  }
+  .link-item:hover { background: rgba(253,239,254,0.93); transform: scale(1.03); box-shadow: 0 4px 22px rgba(198,174,217,0.31); }
+  .footer { text-align: center; margin-top: 40px; color: var(--text-sub); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>意义不明的跳转网页网站</h1>
+  <div class="subtitle">点进去就是跳转·无聊的东西·它或许会有用吧(｡-_-｡)</div>
+
+  <div id="homePage" class="home-cards">
+    <div class="home-card" onclick="switchPage('cn')"><span>🌸</span> 国内板块</div>
+    <div class="home-card" onclick="switchPage('oversea')"><span>💜</span> 海外板块</div>
+    <div class="footer">作者@尘雾 无聊的人+臭鱼娘杂鱼DeepSeek制作</div>
+  </div>
+
+  <!-- 国内 -->
+  <div id="page-cn" class="page">
+    <div class="back-row" onclick="switchPage('home')">← 返回首页</div>
+
+    <div class="card-group">
+      <div class="group-title">🌐 浏览板块</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://www.baidu.com" target="_blank" rel="noopener">百度</a>
+        <a class="link-item" href="https://www.sogou.com" target="_blank" rel="noopener">搜狗</a>
+        <a class="link-item" href="https://www.so.com" target="_blank" rel="noopener">360</a>
+        <a class="link-item" href="https://www.toutiao.com" target="_blank" rel="noopener">头条</a>
+      </div>
+    </div>
+
+    <div class="card-group">
+      <div class="group-title">💬 社交板块</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://weixin.qq.com" target="_blank" rel="noopener">微信</a>
+        <a class="link-item" href="https://im.qq.com" target="_blank" rel="noopener">QQ</a>
+        <a class="link-item" href="https://tim.qq.com" target="_blank" rel="noopener">TIM</a>
+        <a class="link-item" href="https://www.dingtalk.com" target="_blank" rel="noopener">钉钉</a>
+        <a class="link-item" href="https://www.feishu.cn" target="_blank" rel="noopener">飞书</a>
+      </div>
+    </div>
+
+    <div class="card-group">
+      <div class="group-title">🎮 游戏板块（国内官中/国服）</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://ys.mihoyo.com" target="_blank" rel="noopener">原神</a>
+        <a class="link-item" href="https://sr.mihoyo.com" target="_blank" rel="noopener">崩坏星穹铁道</a>
+        <a class="link-item" href="https://bh3.mihoyo.com" target="_blank" rel="noopener">崩坏3</a>
+        <a class="link-item" href="https://www.benghuai.com" target="_blank" rel="noopener">崩坏学园2</a>
+        <a class="link-item" href="https://zzz.mihoyo.com" target="_blank" rel="noopener">绝区零</a>
+        <a class="link-item" href="https://mc.kurogames.com/" target="_blank" rel="noopener">鸣潮</a>
+        <a class="link-item" href="https://pns.kurogame.com" target="_blank" rel="noopener">战双帕弥什</a>
+        <a class="link-item" href="https://www.arknights.global" target="_blank" rel="noopener">明日方舟</a>
+        <a class="link-item" href="https://endfield.hypergryph.com" target="_blank" rel="noopener">明日方舟终末地</a>
+        <a class="link-item" href="https://yh.wanmei.com/main.html?nav=1" target="_blank" rel="noopener">异环</a>
+        <a class="link-item" href="https://yys.163.com" target="_blank" rel="noopener">阴阳师</a>
+        <a class="link-item" href="https://n.163.com" target="_blank" rel="noopener">逆水寒</a>
+        <a class="link-item" href="https://roco.qq.com" target="_blank" rel="noopener">洛克王国世界</a>
+        <a class="link-item" href="http://world.qq.com" target="_blank" rel="noopener">王者荣耀世界</a>
+        <a class="link-item" href="https://re.bluepoch.com/home" target="_blank" rel="noopener">重返未来1999</a>
+        <a class="link-item" href="https://wqmt.aisnogames.com/home" target="_blank" rel="noopener">无期迷途</a>
+        <a class="link-item" href="https://id5.163.com" target="_blank" rel="noopener">第五人格</a>
+        <a class="link-item" href="https://infinitynikki.nuanpaper.com/home" target="_blank" rel="noopener">无限暖暖</a>
+        <a class="link-item" href="http://www.megagamelog.com" target="_blank" rel="noopener">交错战线</a>
+        <a class="link-item" href="https://klbq.qq.com" target="_blank" rel="noopener">卡拉彼丘</a>
+        <a class="link-item" href="https://mihoyo.wiki/Phigros/tapToStart/index.html" target="_blank" rel="noopener">Phigros</a>
+        <a class="link-item" href="https://df.qq.com" target="_blank" rel="noopener">三角洲行动</a>
+        <a class="link-item" href="https://pvp.qq.com" target="_blank" rel="noopener">王者荣耀</a>
+        <a class="link-item" href="https://gp.qq.com" target="_blank" rel="noopener">和平精英</a>
+        <a class="link-item" href="https://party.163.com" target="_blank" rel="noopener">蛋仔派对</a>
+        <a class="link-item" href="https://sky.163.com" target="_blank" rel="noopener">光遇</a>
+        <a class="link-item" href="https://codm.qq.com" target="_blank" rel="noopener">使命召唤手游</a>
+        <a class="link-item" href="https://val.qq.com" target="_blank" rel="noopener">无畏契约</a>
+        <a class="link-item" href="https://www.yjwujian.cn" target="_blank" rel="noopener">永劫无间</a>
+        <a class="link-item" href="https://aqtw.qq.com/web202206/index.html" target="_blank" rel="noopener">暗区突围</a>
+      </div>
+    </div>
+
+    <div class="card-group">
+      <div class="group-title">🔧 实用板块</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://tieba.baidu.com" target="_blank" rel="noopener">百度贴吧</a>
+        <a class="link-item" href="https://www.zhihu.com" target="_blank" rel="noopener">知乎</a>
+        <a class="link-item" href="https://www.chsi.com.cn" target="_blank" rel="noopener">学信网</a>
+      </div>
+    </div>
+
+    <div class="card-group">
+      <div class="group-title">🎵 娱乐板块</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://www.douyin.com" target="_blank" rel="noopener">抖音</a>
+        <a class="link-item" href="https://www.kuaishou.com" target="_blank" rel="noopener">快手</a>
+        <a class="link-item" href="https://www.xiaohongshu.com" target="_blank" rel="noopener">小红书</a>
+        <a class="link-item" href="https://www.bilibili.com" target="_blank" rel="noopener">哔哩哔哩</a>
+        <a class="link-item" href="https://www.ixigua.com" target="_blank" rel="noopener">西瓜视频</a>
+        <a class="link-item" href="https://www.toutiao.com" target="_blank" rel="noopener">今日头条</a>
+        <a class="link-item" href="https://weibo.com" target="_blank" rel="noopener">微博</a>
+        <a class="link-item" href="https://v.qq.com" target="_blank" rel="noopener">腾讯视频</a>
+        <a class="link-item" href="https://www.iqiyi.com" target="_blank" rel="noopener">爱奇艺</a>
+        <a class="link-item" href="https://www.youku.com" target="_blank" rel="noopener">优酷</a>
+        <a class="link-item" href="https://music.163.com" target="_blank" rel="noopener">网易云音乐</a>
+        <a class="link-item" href="https://www.kugou.com" target="_blank" rel="noopener">酷狗音乐</a>
+        <a class="link-item" href="https://www.qishui.com" target="_blank" rel="noopener">汽水音乐</a>
+        <a class="link-item" href="https://y.qq.com" target="_blank" rel="noopener">QQ音乐</a>
+        <a class="link-item" href="https://www.ximalaya.com" target="_blank" rel="noopener">喜马拉雅</a>
+        <a class="link-item" href="https://www.mgtv.com" target="_blank" rel="noopener">芒果TV</a>
+        <a class="link-item" href="https://www.taptap.cn" target="_blank" rel="noopener">TapTap</a>
+        <a class="link-item" href="https://www.xiaoheihe.cn" target="_blank" rel="noopener">小黑盒</a>
+        <a class="link-item" href="https://www.coolapk.com" target="_blank" rel="noopener">酷安</a>
+        <a class="link-item" href="https://ac.qq.com" target="_blank" rel="noopener">腾讯动漫</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 海外 -->
+  <div id="page-oversea" class="page">
+    <div class="back-row" onclick="switchPage('home')">← 返回首页</div>
+
+    <div class="card-group">
+      <div class="group-title">🌐 浏览板块</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://www.bing.com" target="_blank" rel="noopener">Bing</a>
+        <a class="link-item" href="https://www.google.com" target="_blank" rel="noopener">Google</a>
+        <a class="link-item" href="https://yandex.com" target="_blank" rel="noopener">Yandex</a>
+        <a class="link-item" href="https://duckduckgo.com" target="_blank" rel="noopener">DuckDuckGo</a>
+        <a class="link-item" href="https://www.yahoo.com" target="_blank" rel="noopener">Yahoo</a>
+      </div>
+    </div>
+
+    <div class="card-group">
+      <div class="group-title">💬 社交板块</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://line.me" target="_blank" rel="noopener">Line</a>
+        <a class="link-item" href="https://x.com" target="_blank" rel="noopener">X</a>
+        <a class="link-item" href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a class="link-item" href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a>
+        <a class="link-item" href="https://www.whatsapp.com" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="link-item" href="https://www.snapchat.com" target="_blank" rel="noopener">Snapchat</a>
+        <a class="link-item" href="https://discord.com" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </div>
+
+    <div class="card-group">
+      <div class="group-title">🎮 游戏板块（海外/国际服）</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://www.pubg.com" target="_blank" rel="noopener">PUBG</a>
+        <a class="link-item" href="https://www.honorofkings.com" target="_blank" rel="noopener">Honor of Kings</a>
+        <a class="link-item" href="https://nikke-en.com/" target="_blank" rel="noopener">NIKKE</a>
+        <a class="link-item" href="https://bandori.furyu.jp" target="_blank" rel="noopener">邦多利</a>
+        <a class="link-item" href="https://bluearchive.jp" target="_blank" rel="noopener">蔚蓝档案</a>
+        <a class="link-item" href="https://www.ea.com/games/apex-legends" target="_blank" rel="noopener">Apex</a>
+        <a class="link-item" href="https://www.counter-strike.net" target="_blank" rel="noopener">CS2</a>
+        <a class="link-item" href="https://terraria.org" target="_blank" rel="noopener">泰拉瑞亚</a>
+        <a class="link-item" href="https://www.minecraft.net" target="_blank" rel="noopener">Minecraft</a>
+        <a class="link-item" href="https://teamfighttactics.leagueoflegends.com" target="_blank" rel="noopener">TFT</a>
+        <a class="link-item" href="https://pjsekai.sega.jp" target="_blank" rel="noopener">pjsk</a>
+        <a class="link-item" href="https://rust.facepunch.com" target="_blank" rel="noopener">Rust</a>
+        <a class="link-item" href="https://www.ubisoft.com/game/rainbow-six-siege" target="_blank" rel="noopener">彩虹六号</a>
+        <a class="link-item" href="https://musedash.peropero.net/" target="_blank" rel="noopener">喵斯快跑</a>
+        <a class="link-item" href="https://clashofclans.com" target="_blank" rel="noopener">部落冲突</a>
+        <a class="link-item" href="https://amongus.com" target="_blank" rel="noopener">Among Us</a>
+        <a class="link-item" href="https://store.steampowered.com" target="_blank" rel="noopener">Steam</a>
+        <a class="link-item" href="https://store.epicgames.com" target="_blank" rel="noopener">Epic</a>
+        <a class="link-item" href="https://www.ea.com/games/battlefield/battlefield-5" target="_blank" rel="noopener">战地五</a>
+        <a class="link-item" href="https://www.roblox.com" target="_blank" rel="noopener">Roblox</a>
+      </div>
+    </div>
+
+    <div class="card-group">
+      <div class="group-title">🔧 实用板块</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+        <a class="link-item" href="https://www.wikipedia.org" target="_blank" rel="noopener">维基百科</a>
+        <a class="link-item" href="https://www.reddit.com/" target="_blank" rel="noopener">Reddit</a>
+      </div>
+    </div>
+
+    <div class="card-group">
+      <div class="group-title">🎵 娱乐板块</div>
+      <div class="link-grid">
+        <a class="link-item" href="https://www.tiktok.com" target="_blank" rel="noopener">TikTok</a>
+        <a class="link-item" href="https://www.netflix.com" target="_blank" rel="noopener">Netflix</a>
+        <a class="link-item" href="https://www.spotify.com" target="_blank" rel="noopener">Spotify</a>
+        <a class="link-item" href="https://soundcloud.com" target="_blank" rel="noopener">SoundCloud</a>
+        <a class="link-item" href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a>
+        <a class="link-item" href="https://www.threads.net" target="_blank" rel="noopener">Threads</a>
+        <a class="link-item" href="https://chat.openai.com" target="_blank" rel="noopener">ChatGPT</a>
+        <a class="link-item" href="https://www.xbox.com" target="_blank" rel="noopener">Xbox</a>
+        <a class="link-item" href="https://www.pixiv.net" target="_blank" rel="noopener">Pixiv</a>
+        <a class="link-item" href="https://music.youtube.com" target="_blank" rel="noopener">YouTube Music</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchPage(target) {
+  document.getElementById('homePage').style.display = 'none';
+  document.querySelectorAll('.page').forEach(el => {
+    el.classList.remove('show');
+    el.style.display = 'none';
+  });
+  if (target === 'home') {
+    document.getElementById('homePage').style.display = 'flex';
+  } else {
+    const page = document.getElementById('page-' + target);
+    page.style.display = 'block';
+    requestAnimationFrame(() => page.classList.add('show'));
+  }
+}
+</script>
+</body>
+</html>
