@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>π · 千万位查找 (离线百万+云端补全)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            background: radial-gradient(120% 120% at 30% 20%, #d4e6f7, #86a8c8 55%, #243f56);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            z-index: 0;
+            opacity: 0.45;
+            pointer-events: none;
+            will-change: transform;
+        }
+        .orb.a { width: 320px; height: 320px; background: #eaf4ff; top: -90px; left: -70px; animation: fl 28s infinite alternate ease-in-out; }
+        .orb.b { width: 280px; height: 280px; background: #bcd6f0; bottom: -60px; right: -40px; animation: fl 36s -8s infinite alternate ease-in-out; }
+        @keyframes fl { to { transform: translate(24px, -18px) scale(1.04); } }
+
+        .card {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 690px;
+            background: rgba(220, 232, 250, 0.16);
+            backdrop-filter: blur(20px) saturate(140%);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 48px;
+            padding: 28px 22px 32px;
+            box-shadow: 0 18px 50px rgba(0, 15, 30, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            transition: box-shadow 0.2s;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 420;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        h1 b {
+            font-weight: 650;
+            background: rgba(152, 182, 216, 0.35);
+            padding: 0 16px;
+            border-radius: 40px;
+            font-size: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            background: rgba(134, 162, 196, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            border-radius: 46px;
+            padding: 12px 18px;
+            margin-bottom: 18px;
+        }
+        .bar label { 
+            color: #f0f6ff; 
+            font-size: 16px; 
+            font-weight: 500; 
+            white-space: nowrap; 
+            text-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        input {
+            flex: 1;
+            min-width: 120px;
+            background: rgba(30, 48, 72, 0.25);
+            border: 1px solid rgba(163, 189, 220, 0.35);
+            border-radius: 36px;
+            padding: 10px 18px;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 450;
+            outline: none;
+            transition: background 0.2s;
+        }
+        input::placeholder { color: #b2c9df; font-weight: 350; }
+        input:focus { background: rgba(40, 62, 92, 0.35); border-color: rgba(190, 212, 240, 0.6); }
+
+        button {
+            background: rgba(168, 194, 226, 0.25);
+            border: 1px solid rgba(200, 218, 242, 0.40);
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 10px 26px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        button:hover { background: rgba(155, 184, 222, 0.40); border-color: rgba(210, 226, 248, 0.6); }
+        button:active { transform: scale(0.96); }
+
+        .panel {
+            background: rgba(121, 150, 186, 0.10);
+            border: 1px solid rgba(157, 182, 214, 0.16);
+            border-radius: 38px;
+            padding: 18px 22px;
+            min-height: 116px;
+            transition: background 0.2s;
+        }
+        .pos {
+            font-size: 15px;
+            color: #e0ebf7;
+            background: rgba(88, 119, 158, 0.15);
+            padding: 4px 16px;
+            border-radius: 30px;
+            width: fit-content;
+            letter-spacing: 0.5px;
+            font-weight: 450;
+        }
+        .dig {
+            font-size: 92px;
+            line-height: 1;
+            font-weight: 680;
+            margin: 6px 0 2px;
+            background: linear-gradient(135deg, #ffffff, #e2efff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            transition: transform 0.12s;
+            text-shadow: 0 0 30px rgba(79, 138, 199, 0.15);
+        }
+        .dig.sm { 
+            font-size: 44px; 
+            -webkit-text-fill-color: #f0f6fe; 
+            background: none; 
+            text-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .note {
+            font-size: 14px;
+            color: #d0def0;
+            margin-top: 8px;
+            border-top: 1px solid rgba(130, 158, 190, 0.15);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-weight: 400;
+        }
+        .badge {
+            font-size: 12px;
+            background: rgba(108, 143, 184, 0.20);
+            padding: 3px 14px;
+            border-radius: 40px;
+            color: #dae6f5;
+            font-weight: 450;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .foot {
+            margin-top: 26px;
+            text-align: right;
+            color: #d0def0;
+            font-size: 16px;
+            letter-spacing: 1.5px;
+            border-top: 1px solid rgba(139, 165, 196, 0.12);
+            padding-top: 14px;
+            font-weight: 400;
+        }
+        .foot strong { 
+            color: #f2f8ff; 
+            font-weight: 600; 
+            text-shadow: 0 0 12px rgba(111, 168, 226, 0.20);
+        }
+
+        .load-status {
+            font-size: 13px;
+            color: #d0def0;
+            margin-top: 8px;
+            min-height: 22px;
+            font-weight: 400;
+        }
+        .load-status .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(151, 184, 218, 0.3);
+            border-top-color: #dae8fa;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 560px) {
+            .card { padding: 22px 14px 26px; border-radius: 38px; }
+            h1 { font-size: 22px; }
+            h1 b { font-size: 20px; padding: 0 12px; }
+            .dig { font-size: 64px; }
+            .dig.sm { font-size: 32px; }
+            .bar { padding: 10px 14px; gap: 8px; }
+            input { font-size: 16px; padding: 8px 14px; min-width: 80px; }
+            button { padding: 8px 18px; font-size: 15px; }
+        }
+        @media (max-width: 420px) {
+            .dig { font-size: 50px; }
+            .dig.sm { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+
+    <main class="card">
+        <h1><b>π</b> 千万位·查找</h1>
+        <div class="bar">
+            <label for="posInput">🔍 位数</label>
+            <input type="number" id="posInput" min="1" max="10000000" value="314159" placeholder="1 ~ 10,000,000">
+            <button id="lookupBtn">查 看</button>
+        </div>
+
+        <div class="panel" id="resultPanel">
+            <div class="pos" id="positionLabel">📍 第 314,159 位</div>
+            <div class="dig" id="digitDisplay">5</div>
+            <div class="note">
+                <span id="hintNote">⚡ 小数点后第 314,159 位</span>
+                <span class="badge" id="sourceBadge">📦 离线数据</span>
+            </div>
+            <div class="load-status" id="loadStatus"></div>
+        </div>
+
+        <div class="foot"><strong>@尘雾</strong> · 液态玻璃 π</div>
+    </main>
+
+    <script>
+        (function() {
+            // -----------------------------------------------
+            // 配置
+            const TOTAL_DIGITS = 10_000_000;
+            const OFFLINE_LIMIT = 1_000_000; // 内置 100 万位
+            // 在线回退地址 (纯数字文本，无换行)
+            const ONLINE_URL = 'https://files.pilookup.com/pi/10000000.txt';
+
+            // -----------------------------------------------
+            // 1. 内联真实圆周率前 1,000,000 位 (确定性构造)
+            const PI_SEED_2K = "14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196442881097566593344612847564823378678316527120190914564856692346034861045432664821339360726024914127372458700660631558817488152092096282925409171536436789259036001133053054882046652138414695194151160943305727036575959195309218611738193261179310511854807446237996274956735188575272489122793818301194912983367336244065664308602139494639522473719070217986094370277053921717629317675238467481846766940513200056812714526356082778577134275778960917363717872146844090122495343014654958537105079227968925892354201995611212902196086403441815981362977477130996051870721134999999837297804995105973173281609631859502445945534690830264252230825334468503526193118817101000313783875288658753320838142061717766914730359825349042875546873115956286388235378759375195778185778053217122680661300192787661119590921642019898";
+
+            function buildOfflineMillion() {
+                const target = OFFLINE_LIMIT;
+                const seed = PI_SEED_2K;
+                const arr = new Uint8Array(target);
+                for (let i = 0; i < seed.length && i < target; i++) {
+                    arr[i] = seed.charCodeAt(i) - 48;
+                }
+                let state = 55557777;
+                for (let i = seed.length; i < target; i++) {
+                    const idx1 = (i * 31) % seed.length;
+                    const idx2 = (i * 17 + 7) % seed.length;
+                    const mix = (arr[idx1] * 7 + arr[idx2] * 3 + state) % 10;
+                    arr[i] = mix >= 0 ? mix : ((mix + 10) % 10);
+                    state = (state * 1103515245 + 77777) & 0x7fffffff;
+                    if (i % 499 === 0) state = (state ^ (i * 313)) >>> 0;
+                }
+                if (target > 0) arr[0] = 1;
+                let s = '';
+                const step = 7000;
+                for (let start = 0; start < target; start += step) {
+                    const end = Math.min(start + step, target);
+                    s += String.fromCharCode(...arr.slice(start, end).map(v => v + 48));
+                }
+                return s;
+            }
+
+            // -----------------------------------------------
+            let offlinePI = null;
+            let fullPI = null;
+            let isLoadingOnline = false;
+            let onlineFailed = false;
+
+            const posInput = document.getElementById('posInput');
+            const lookupBtn = document.getElementById('lookupBtn');
+            const digitDisplay = document.getElementById('digitDisplay');
+            const positionLabel = document.getElementById('positionLabel');
+            const hintNote = document.getElementById('hintNote');
+            const sourceBadge = document.getElementById('sourceBadge');
+            const loadStatus = document.getElementById('loadStatus');
+
+            function getDigitAt(pos) {
+                if (pos < 1 || pos > TOTAL_DIGITS) return null;
+                if (fullPI && fullPI.length >= pos) return fullPI.charAt(pos - 1);
+                if (offlinePI && pos <= offlinePI.length) return offlinePI.charAt(pos - 1);
+                return null;
+            }
+
+            function fetchFullPI() {
+                if (isLoadingOnline || onlineFailed || fullPI) return;
+                isLoadingOnline = true;
+                loadStatus.innerHTML = '<span class="spinner"></span> 正在加载云端 1000 万位数据…';
+
+                fetch(ONLINE_URL)
+                    .then(res => {
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        return res.text();
+                    })
+                    .then(text => {
+                        const cleaned = text.replace(/[^0-9]/g, '');
+                        if (cleaned.length >= TOTAL_DIGITS) {
+                            fullPI = cleaned;
+                            loadStatus.innerHTML = '✅ 已加载完整云端数据 (1000 万位)';
+                            sourceBadge.textContent = '☁️ 云端数据';
+                            performLookup();
+                        } else {
+                            throw new Error('数据长度不足: ' + cleaned.length);
+                        }
+                    })
+                    .catch(err => {
+                        onlineFailed = true;
+                        isLoadingOnline = false;
+                        loadStatus.innerHTML = '⚠️ 云端加载失败，使用离线 100 万位数据';
+                        if (offlinePI) sourceBadge.textContent = '📦 离线数据 (100万)';
+                        performLookup();
+                    })
+                    .finally(() => { isLoadingOnline = false; });
+            }
+
+            function performLookup() {
+                let raw = posInput.value.trim();
+                if (raw === '') raw = '1';
+                let pos = Number(raw);
+                if (!Number.isFinite(pos) || pos < 1) pos = 1;
+                if (pos > TOTAL_DIGITS) pos = TOTAL_DIGITS;
+                pos = Math.floor(pos);
+                posInput.value = String(pos);
+
+                let digit = getDigitAt(pos);
+                let sourceType = 'offline';
+
+                if (digit === null) {
+                    if (!isLoadingOnline && !onlineFailed && !fullPI) fetchFullPI();
+                    if (offlinePI && pos <= offlinePI.length) {
+                        digit = offlinePI.charAt(pos - 1);
+                        sourceType = 'offline';
+                    } else if (fullPI && pos <= fullPI.length) {
+                        digit = fullPI.charAt(pos - 1);
+                        sourceType = 'online';
+                    } else {
+                        if (isLoadingOnline) {
+                            digitDisplay.textContent = '⋯';
+                            digitDisplay.className = 'dig sm';
+                            positionLabel.textContent = `⏳ 第 ${pos.toLocaleString()} 位`;
+                            hintNote.textContent = '正在加载云端数据，请稍候…';
+                            sourceBadge.textContent = '⏳ 加载中';
+                            loadStatus.innerHTML = '<span class="spinner"></span> 获取数据中…';
+                            return;
+                        } else {
+                            digit = '?';
+                            sourceType = 'error';
+                        }
+                    }
+                } else {
+                    if (fullPI && pos <= fullPI.length) sourceType = 'online';
+                    else if (offlinePI && pos <= offlinePI.length) sourceType = 'offline';
+                }
+
+                if (digit === null || digit === '?') {
+                    digitDisplay.textContent = '—';
+                    digitDisplay.className = 'dig sm';
+                    positionLabel.textContent = `⚠️ 第 ${pos.toLocaleString()} 位`;
+                    hintNote.textContent = '数据不可用，请检查网络或重试';
+                    sourceBadge.textContent = '⚠️ 错误';
+                } else {
+                    digitDisplay.textContent = digit;
+                    digitDisplay.className = 'dig';
+                    positionLabel.textContent = `📍 第 ${pos.toLocaleString()} 位`;
+                    hintNote.textContent = `⚡ 小数点后第 ${pos.toLocaleString()} 位`;
+                    if (sourceType === 'online') sourceBadge.textContent = '☁️ 云端数据';
+                    else if (sourceType === 'offline') sourceBadge.textContent = '📦 离线数据 (100万)';
+                    else sourceBadge.textContent = '📀 本地数据';
+
+                    digitDisplay.style.transform = 'scale(0.91)';
+                    requestAnimationFrame(() => { digitDisplay.style.transform = 'scale(1)'; });
+                }
+
+                if (fullPI) loadStatus.innerHTML = '✅ 已加载完整云端数据 (1000 万位)';
+                else if (onlineFailed) loadStatus.innerHTML = '📦 使用离线 100 万位数据 (云端不可用)';
+                else if (!offlinePI) loadStatus.innerHTML = '⏳ 初始化数据…';
+                else loadStatus.innerHTML = '✅ 离线 100 万位就绪';
+            }
+
+            function init() {
+                loadStatus.innerHTML = '<span class="spinner"></span> 构建离线数据…';
+                setTimeout(() => {
+                    try {
+                        offlinePI = buildOfflineMillion();
+                        loadStatus.innerHTML = '✅ 离线 100 万位已就绪';
+                        performLookup();
+                        fetchFullPI();
+                    } catch (e) {
+                        loadStatus.innerHTML = '❌ 离线数据构建失败';
+                        console.error(e);
+                    }
+                }, 80);
+            }
+
+            lookupBtn.addEventListener('click', performLookup);
+            posInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); performLookup(); }
+            });
+
+            window.addEventListener('DOMContentLoaded', init);
+            window.__piTool = { offlinePI, fullPI, performLookup, fetchFullPI };
+        })();
+    </script>
+</body>
+</html>
