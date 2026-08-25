@@ -6,73 +6,164 @@
 <title>意义不明的跳转网页网站</title>
 <style>
   :root {
-    color-scheme: light only;
-    --bg-gradient: linear-gradient(135deg, #FFF5FC 0%, #F5E6FF 50%, #E8E0FF 100%);
-    --glass-bg: rgba(255, 255, 255, 0.65);
-    --glass-border: rgba(255, 255, 255, 0.9);
-    --glass-shadow: 0 8px 32px rgba(192, 168, 206, 0.25);
-    --text-main: #7B5A9E;
-    --text-sub: #B89DD4;
+    color-scheme: light;
+    /* 亮色柔彩渐变，更接近截图 */
+    --bg-base: linear-gradient(135deg, #f9a8cb 0%, #cbb3ef 45%, #a3b6f1 100%);
+    --b1c: radial-gradient(circle at 32% 30%, #f9aed3 0%, #f18fc0 55%, #e076ac 100%);
+    --b2c: radial-gradient(circle at 32% 30%, #cfb4f4 0%, #b795ec 55%, #9b77dd 100%);
+    --b3c: radial-gradient(circle at 32% 30%, #9db2f4 0%, #849bf0 55%, #6d84e3 100%);
+    --b4c: radial-gradient(circle at 32% 30%, #e0c4f8 0%, #c8a4ef 55%, #a983dd 100%);
+    --b5c: radial-gradient(circle at 32% 30%, #a6b8f4 0%, #8fa6f0 55%, #7890e0 100%);
+    --b6c: radial-gradient(circle at 32% 30%, #f7c3dd 0%, #efa5cc 55%, #e087b8 100%);
+    --blob-opacity: 0.7;
+    --blob-blur: 55px;
+
+    --text-main: #5a3fa8;
+    --text-sub: #8b79c8;
+    --mui-radius: 28px;
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --glass-hover: rgba(255, 255, 255, 0.65);
+    --glass-shadow: 0 8px 30px rgba(140, 110, 190, 0.2);
+    --link-bg: rgba(255, 255, 255, 0.4);
+    --link-border: rgba(255, 255, 255, 0.6);
+    --link-hover: rgba(255, 255, 255, 0.75);
+    --overlay-bg: #ffffff;
   }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg-gradient);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "MiSans", "Microsoft YaHei", sans-serif;
+    background: transparent;
     min-height: 100vh;
     display: flex; justify-content: center;
     padding: 40px 20px; color: var(--text-main);
   }
-  .container { width: 100%; max-width: 960px; }
-  h1 { font-size: 30px; font-weight: 670; text-align: center; margin-bottom: 10px; letter-spacing: -0.3px; }
-  .subtitle { text-align: center; color: var(--text-sub); font-size: 14px; margin-bottom: 36px; }
-  .home-cards { display: flex; flex-direction: column; gap: 24px; align-items: center; }
-  .home-card {
-    width: 100%; max-width: 600px; padding: 38px 48px; border-radius: 34px;
-    background: var(--glass-bg); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
-    border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
-    display: flex; align-items: center; justify-content: center; gap: 18px;
-    font-size: 24px; font-weight: 590; cursor: pointer; transition: all 0.3s ease; user-select: none;
+  .container { width: 100%; max-width: 960px; position: relative; }
+
+  /* ===== HyperOS 柔彩动态背景（更快流动） ===== */
+  .bg-anim {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background: var(--bg-base);
   }
-  .home-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(194,166,210,0.41); }
-  .home-card span { font-size: 32px; }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(var(--blob-blur));
+    opacity: var(--blob-opacity);
+    will-change: transform;
+  }
+  .b1 { width: 36vmax; height: 36vmax; background: var(--b1c); top: -16%; left: -8%;  animation: d1 6s ease-in-out infinite alternate; }
+  .b2 { width: 34vmax; height: 34vmax; background: var(--b2c); top: 6%;  right: -10%; animation: d2 7s ease-in-out infinite alternate; }
+  .b3 { width: 36vmax; height: 36vmax; background: var(--b3c); bottom: -16%; left: 0%; animation: d3 8s ease-in-out infinite alternate; }
+  .b4 { width: 30vmax; height: 30vmax; background: var(--b4c); top: 32%; right: 12%; animation: d4 7s ease-in-out infinite alternate; }
+  .b5 { width: 32vmax; height: 32vmax; background: var(--b5c); bottom: 10%; right: -8%; animation: d5 8s ease-in-out infinite alternate; }
+  .b6 { width: 28vmax; height: 28vmax; background: var(--b6c); top: -12%; right: 32%; animation: d6 9s ease-in-out infinite alternate; }
+
+  @keyframes d1 { 0% { transform: translate(0,0) rotate(0deg) scale(1); }   100% { transform: translate(34vw,24vh) rotate(40deg) scale(1.5); } }
+  @keyframes d2 { 0% { transform: translate(0,0) rotate(0deg) scale(1); }   100% { transform: translate(-32vw,20vh) rotate(-38deg) scale(1.55); } }
+  @keyframes d3 { 0% { transform: translate(0,0) rotate(0deg) scale(1); }   100% { transform: translate(28vw,-26vh) rotate(34deg) scale(1.46); } }
+  @keyframes d4 { 0% { transform: translate(0,0) rotate(0deg) scale(1); }   100% { transform: translate(-34vw,-20vh) rotate(-42deg) scale(1.52); } }
+  @keyframes d5 { 0% { transform: translate(0,0) rotate(0deg) scale(1); }   100% { transform: translate(-26vw,-30vh) rotate(38deg) scale(1.48); } }
+  @keyframes d6 { 0% { transform: translate(0,0) rotate(0deg) scale(1); }   100% { transform: translate(32vw,30vh) rotate(-36deg) scale(1.55); } }
+
+  h1 { font-size: 30px; font-weight: 700; text-align: center; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .subtitle { text-align: center; color: var(--text-sub); font-size: 14px; margin-bottom: 36px; }
+
+  .home-cards { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+  .home-card {
+    width: 100%; max-width: 460px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 28px;
+    border-radius: var(--mui-radius);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    cursor: pointer; transition: all 0.22s cubic-bezier(.2,.8,.3,1); user-select: none;
+  }
+  .home-card:hover { transform: translateY(-2px); background: var(--glass-hover); box-shadow: 0 14px 40px rgba(140,110,190,.3); }
+  .home-card:active { transform: scale(0.98); }
+  .home-title { font-size: 1.3rem; font-weight: 650; letter-spacing: 0.4px; color: var(--text-main); }
+  .home-arrow { color: var(--text-sub); font-size: 1.4rem; }
+
   .page { display: none; width: 100%; }
   .page.show { display: block; }
   .back-row {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 20px; cursor: pointer;
-    color: var(--text-sub); font-size: 15px; font-weight: 525; width: fit-content;
-    padding: 8px 20px; border-radius: 40px; background: var(--glass-bg);
-    backdrop-filter: blur(10px); border: 1px solid var(--glass-border); transition: color 0.2s;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px; cursor: pointer;
+    color: var(--text-sub); font-size: 15px; font-weight: 550; width: fit-content;
+    padding: 9px 20px; border-radius: 999px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border); transition: color 0.2s, background 0.2s;
   }
-  .back-row:hover { color: var(--text-main); background: rgba(249,238,251,0.86); }
+  .back-row:hover { color: var(--text-main); background: var(--glass-hover); }
+
   .card-group {
-    background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border); border-radius: 26px; padding: 24px 26px;
-    margin-bottom: 20px; box-shadow: var(--glass-shadow);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--mui-radius);
+    padding: 22px 24px; margin-bottom: 14px;
+    box-shadow: var(--glass-shadow);
   }
-  .group-title { font-size: 17px; font-weight: 645; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+  .group-title { font-size: 1rem; font-weight: 650; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--text-main); }
+  .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
   .link-item {
-    padding: 12px 8px; border-radius: 16px; background: rgba(253,246,254,0.82);
-    border: 1px solid rgba(234,214,248,0.51); color: var(--text-main);
-    text-decoration: none; font-size: 13px; font-weight: 520; text-align: center;
-    transition: all 0.2s ease; display: block;
+    padding: 12px 8px;
+    border-radius: 16px;
+    background: var(--link-bg);
+    border: 1px solid var(--link-border);
+    color: var(--text-main); text-decoration: none;
+    font-size: 13px; font-weight: 550; text-align: center;
+    transition: all 0.18s ease; display: block;
   }
-  .link-item:hover { background: rgba(253,239,254,0.93); transform: scale(1.03); box-shadow: 0 4px 22px rgba(198,174,217,0.31); }
+  .link-item:hover { background: var(--link-hover); transform: scale(1.03); box-shadow: 0 6px 22px rgba(140,110,190,.2); }
   .footer { text-align: center; margin-top: 40px; color: var(--text-sub); font-size: 13px; }
+
+  .white-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--overlay-bg);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+  }
+  .white-overlay.active { opacity: 1; pointer-events: auto; }
 </style>
 </head>
 <body>
+<div class="bg-anim" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="blob b5"></div>
+  <div class="blob b6"></div>
+</div>
+<div class="white-overlay" id="overlay"></div>
+
 <div class="container">
   <h1>意义不明的跳转网页网站</h1>
   <div class="subtitle">点进去就是跳转·无聊的东西·它或许会有用吧(｡-_-｡)</div>
 
   <div id="homePage" class="home-cards">
-    <div class="home-card" onclick="switchPage('cn')"><span>🌸</span> 国内板块</div>
-    <div class="home-card" onclick="switchPage('oversea')"><span>💜</span> 海外板块</div>
-    <div class="footer">作者@尘雾 无聊的人+臭鱼娘杂鱼DeepSeek制作</div>
+    <div class="home-card" onclick="switchPage('cn')">
+      <span class="home-title">🌸 国内板块</span>
+      <span class="home-arrow">→</span>
+    </div>
+    <div class="home-card" onclick="switchPage('oversea')">
+      <span class="home-title">💜 海外板块</span>
+      <span class="home-arrow">→</span>
+    </div>
+    <div class="footer">作者@尘雾 无聊的人+臭鱼娘杂鱼DeepSeek制作 鸣谢我最爱的饱饱永雏塔菲喵😘（2139525974）</div>
   </div>
 
-  <!-- 国内 -->
   <div id="page-cn" class="page">
     <div class="back-row" onclick="switchPage('home')">← 返回首页</div>
 
@@ -112,13 +203,13 @@
         <a class="link-item" href="https://yh.wanmei.com/main.html?nav=1" target="_blank" rel="noopener">异环</a>
         <a class="link-item" href="https://yys.163.com" target="_blank" rel="noopener">阴阳师</a>
         <a class="link-item" href="https://n.163.com" target="_blank" rel="noopener">逆水寒</a>
-        <a class="link-item" href="https://roco.qq.com" target="_blank" rel="noopener">洛克王国世界</a>
-        <a class="link-item" href="http://world.qq.com" target="_blank" rel="noopener">王者荣耀世界</a>
+        <a class="link-item" href="https://rocom.qq.com/main/" target="_blank" rel="noopener">洛克王国世界</a>
+        <a class="link-item" href="https://world.qq.com" target="_blank" rel="noopener">王者荣耀世界</a>
         <a class="link-item" href="https://re.bluepoch.com/home" target="_blank" rel="noopener">重返未来1999</a>
         <a class="link-item" href="https://wqmt.aisnogames.com/home" target="_blank" rel="noopener">无期迷途</a>
         <a class="link-item" href="https://id5.163.com" target="_blank" rel="noopener">第五人格</a>
         <a class="link-item" href="https://infinitynikki.nuanpaper.com/home" target="_blank" rel="noopener">无限暖暖</a>
-        <a class="link-item" href="http://www.megagamelog.com" target="_blank" rel="noopener">交错战线</a>
+        <a class="link-item" href="https://www.megagamelog.com" target="_blank" rel="noopener">交错战线</a>
         <a class="link-item" href="https://klbq.qq.com" target="_blank" rel="noopener">卡拉彼丘</a>
         <a class="link-item" href="https://mihoyo.wiki/Phigros/tapToStart/index.html" target="_blank" rel="noopener">Phigros</a>
         <a class="link-item" href="https://df.qq.com" target="_blank" rel="noopener">三角洲行动</a>
@@ -169,7 +260,6 @@
     </div>
   </div>
 
-  <!-- 海外 -->
   <div id="page-oversea" class="page">
     <div class="back-row" onclick="switchPage('home')">← 返回首页</div>
 
@@ -203,7 +293,7 @@
         <a class="link-item" href="https://www.pubg.com" target="_blank" rel="noopener">PUBG</a>
         <a class="link-item" href="https://www.honorofkings.com" target="_blank" rel="noopener">Honor of Kings</a>
         <a class="link-item" href="https://nikke-en.com/" target="_blank" rel="noopener">NIKKE</a>
-        <a class="link-item" href="https://bandori.furyu.jp" target="_blank" rel="noopener">邦多利</a>
+        <a class="link-item" href="https://bang-dream.bushimo.jp" target="_blank" rel="noopener">邦多利</a>
         <a class="link-item" href="https://bluearchive.jp" target="_blank" rel="noopener">蔚蓝档案</a>
         <a class="link-item" href="https://www.ea.com/games/apex-legends" target="_blank" rel="noopener">Apex</a>
         <a class="link-item" href="https://www.counter-strike.net" target="_blank" rel="noopener">CS2</a>
@@ -251,20 +341,79 @@
 </div>
 
 <script>
-function switchPage(target) {
-  document.getElementById('homePage').style.display = 'none';
-  document.querySelectorAll('.page').forEach(el => {
+var overlay = document.getElementById('overlay');
+var switching = false;
+
+function renderPage(target) {
+  var home = document.getElementById('homePage');
+  document.querySelectorAll('.page').forEach(function (el) {
     el.classList.remove('show');
     el.style.display = 'none';
   });
-  if (target === 'home') {
-    document.getElementById('homePage').style.display = 'flex';
-  } else {
-    const page = document.getElementById('page-' + target);
+  if (target === 'home' || !target) {
+    home.style.display = 'flex';
+    return;
+  }
+  home.style.display = 'none';
+  var page = document.getElementById('page-' + target);
+  if (page) {
     page.style.display = 'block';
-    requestAnimationFrame(() => page.classList.add('show'));
+    requestAnimationFrame(function () { page.classList.add('show'); });
   }
 }
+
+function currentPage() {
+  var h = location.hash.replace('#', '');
+  return (h === 'cn' || h === 'oversea') ? h : 'home';
+}
+
+function doSwitch(target) {
+  var desired = (target === 'cn' || target === 'oversea') ? target : '';
+  if (location.hash.replace('#', '') === desired) {
+    renderPage(desired || 'home');
+  } else {
+    location.hash = desired;
+  }
+}
+
+function switchPage(target) {
+  if (switching) return;
+  switching = true;
+  overlay.classList.add('active');
+  setTimeout(function () {
+    doSwitch(target);
+    setTimeout(function () {
+      overlay.classList.remove('active');
+      switching = false;
+    }, 400);
+  }, 600);
+}
+
+window.addEventListener('hashchange', function () {
+  renderPage(currentPage());
+});
+
+document.querySelectorAll('.link-item').forEach(function (link) {
+  link.addEventListener('click', function (e) {
+    if (switching || overlay.classList.contains('active')) return;
+    e.preventDefault();
+    var url = this.getAttribute('href');
+    var blank = this.getAttribute('target') === '_blank';
+    overlay.classList.add('active');
+    setTimeout(function () {
+      if (blank) {
+        window.open(url, '_blank');
+      } else {
+        window.location.href = url;
+      }
+      setTimeout(function () {
+        overlay.classList.remove('active');
+      }, 300);
+    }, 600);
+  });
+});
+
+renderPage(currentPage());
 </script>
 </body>
 </html>
