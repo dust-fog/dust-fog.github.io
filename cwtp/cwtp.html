@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>二手手机 · 机型库</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ===== CSS变量（浅色默认） ===== */
+        :root {
+            --bg-body: #e8edf5;
+            --bg-radial-start: #d6e4f0;
+            --bg-radial-end: #eef4fa;
+            --text-primary: #1a2332;
+            --text-secondary: rgba(26,35,50,0.4);
+            --text-muted: rgba(26,35,50,0.15);
+            --card-bg: rgba(255,255,255,0.3);
+            --card-border: rgba(255,255,255,0.35);
+            --card-hover-bg: rgba(255,255,255,0.5);
+            --glass-bg: rgba(255,255,255,0.2);
+            --glass-border: rgba(255,255,255,0.25);
+            --glass-bg2: rgba(255,255,255,0.35);
+            --glass-border2: rgba(255,255,255,0.4);
+            --tag-bg: rgba(255,255,255,0.15);
+            --tag-border: rgba(26,35,50,0.08);
+            --price-color: #d4a017;
+            --btn-glass: rgba(255,255,255,0.25);
+            --btn-glass-border: rgba(255,255,255,0.2);
+            --shadow: 0 2px 16px rgba(0,0,0,0.02);
+            --shadow-hover: 0 12px 40px rgba(91,141,239,0.06);
+            --mission-bg: rgba(255,255,255,0.25);
+            --mission-border: rgba(255,255,255,0.3);
+            --modal-overlay: rgba(0,0,0,0.15);
+            --modal-bg: rgba(255,255,255,0.6);
+            --modal-border: rgba(255,255,255,0.3);
+            --log-item-bg: rgba(255,255,255,0.2);
+            --log-item-border: rgba(255,255,255,0.15);
+            --log-item-hover: rgba(255,255,255,0.35);
+            --log-content-bg: rgba(255,255,255,0.15);
+            --tag-pro: #2e7d32;
+            --tag-con: #c62828;
+            --footer-color: rgba(26,35,50,0.15);
+            --footer-author: rgba(26,35,50,0.12);
+        }
+        /* ===== 深色模式 ===== */
+        [data-theme="dark"] {
+            --bg-body: #1a2a2a;
+            --bg-radial-start: #1a2a2a;
+            --bg-radial-end: #0d1a1a;
+            --text-primary: #d4e8d4;
+            --text-secondary: rgba(180,210,180,0.4);
+            --text-muted: rgba(180,210,180,0.15);
+            --card-bg: rgba(40,70,60,0.3);
+            --card-border: rgba(60,100,80,0.35);
+            --card-hover-bg: rgba(50,85,70,0.5);
+            --glass-bg: rgba(40,70,60,0.2);
+            --glass-border: rgba(60,100,80,0.25);
+            --glass-bg2: rgba(40,70,60,0.35);
+            --glass-border2: rgba(60,100,80,0.4);
+            --tag-bg: rgba(60,100,80,0.15);
+            --tag-border: rgba(180,210,180,0.08);
+            --price-color: #e8c84a;
+            --btn-glass: rgba(60,100,80,0.25);
+            --btn-glass-border: rgba(60,100,80,0.2);
+            --shadow: 0 2px 16px rgba(0,0,0,0.15);
+            --shadow-hover: 0 12px 40px rgba(0,0,0,0.25);
+            --mission-bg: rgba(40,70,60,0.25);
+            --mission-border: rgba(60,100,80,0.3);
+            --modal-overlay: rgba(0,0,0,0.5);
+            --modal-bg: rgba(30,50,45,0.7);
+            --modal-border: rgba(60,100,80,0.3);
+            --log-item-bg: rgba(40,70,60,0.2);
+            --log-item-border: rgba(60,100,80,0.15);
+            --log-item-hover: rgba(50,85,70,0.35);
+            --log-content-bg: rgba(40,70,60,0.15);
+            --tag-pro: #81c784;
+            --tag-con: #ef9a9a;
+            --footer-color: rgba(180,210,180,0.15);
+            --footer-author: rgba(180,210,180,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg-body);
+            background-image: radial-gradient(circle at 20% 30%, var(--bg-radial-start) 0%, var(--bg-radial-end) 100%);
+            min-height: 100vh;
+            padding: 30px 24px;
+            color: var(--text-primary);
+            transition: background 0.25s ease, color 0.2s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* ===== 头部居中 ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .header h1 {
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            transition: color 0.2s;
+        }
+        .header h1 i { color: #5b8def; margin-right: 8px; }
+        .header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-top: 2px;
+            transition: color 0.2s;
+        }
+        .header-right {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .header-btn {
+            background: var(--btn-glass);
+            backdrop-filter: blur(8px) saturate(160%);
+            -webkit-backdrop-filter: blur(8px) saturate(160%);
+            border: 1px solid var(--btn-glass-border);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s, transform 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: var(--shadow);
+            will-change: transform;
+        }
+        .header-btn:active { transform: scale(0.95); }
+        .header-btn i { font-size: 13px; color: var(--text-secondary); }
+
+        /* ===== 模态弹窗（液态玻璃+高斯模糊） ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--modal-overlay);
+            backdrop-filter: blur(12px) saturate(120%);
+            -webkit-backdrop-filter: blur(12px) saturate(120%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: modalFade 0.25s ease;
+        }
+        .modal-overlay.active { display: flex; }
+        @keyframes modalFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: var(--modal-bg);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--modal-border);
+            border-radius: 28px;
+            padding: 28px 32px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2);
+            transition: background 0.25s, border-color 0.25s;
+            will-change: transform;
+            animation: modalSlide 0.25s ease;
+        }
+        @keyframes modalSlide {
+            from { opacity: 0; transform: scale(0.96) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-shrink: 0;
+        }
+        .modal-header .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            transition: color 0.2s;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: background 0.15s;
+        }
+        .modal-close:active { background: var(--card-bg); }
+
+        .modal-body {
+            overflow-y: auto;
+            flex: 1;
+            padding-right: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .modal-body::-webkit-scrollbar { width: 3px; }
+        .modal-body::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+
+        .log-item {
+            background: var(--log-item-bg);
+            border: 1px solid var(--log-item-border);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            will-change: transform;
+        }
+        .log-item:active { transform: scale(0.98); }
+        .log-item .log-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: color 0.2s;
+        }
+        .log-item .log-title .log-date {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        .log-item .log-title .log-arrow {
+            color: var(--text-muted);
+            transition: transform 0.25s;
+            margin-left: 6px;
+        }
+        .log-item.open .log-title .log-arrow { transform: rotate(90deg); }
+
+        .log-item .log-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.25s ease;
+            padding: 0 2px;
+        }
+        .log-item.open .log-content {
+            max-height: 600px;
+            padding: 10px 2px 2px;
+        }
+        .log-item .log-content-inner {
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            background: var(--log-content-bg);
+            border-radius: 12px;
+            padding: 12px 16px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            border: 1px solid var(--log-item-border);
+            transition: color 0.2s, background 0.2s;
+        }
+        .log-item .log-content-inner .future { color: var(--price-color); font-weight: 500; }
+
+        /* ===== 其余卡片 ===== */
+        .mission-section {
+            background: var(--mission-bg);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            border: 1px solid var(--mission-border);
+            border-radius: 24px;
+            padding: 24px 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: background 0.25s, border-color 0.25s;
+        }
+        .mission-section .mission-text {
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--text-primary);
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+            position: relative;
+            z-index: 1;
+            transition: color 0.2s;
+        }
+        .mission-section .mission-text .highlight { color: #5b8def; font-weight: 500; }
+        .mission-section .mission-text .highlight-gold { color: var(--price-color); font-weight: 500; }
+
+        .featured-section {
+            margin-bottom: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 20px 24px;
+            box-shadow: var(--shadow);
+            transition: background 0.25s, border-color 0.25s;
+        }
+        .featured-section .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .featured-block {
+            background: var(--log-item-bg);
+            backdrop-filter: blur(8px) saturate(160%);
+            -webkit-backdrop-filter: blur(8px) saturate(160%);
+            border: 1px solid var(--log-item-border);
+            border-radius: 16px;
+            padding: 14px 18px;
+            transition: background 0.2s;
+        }
+        .featured-block:active { background: var(--log-item-hover); }
+        .featured-block .block-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 4px;
+        }
+        .featured-block .block-label i { margin-right: 4px; color: #5b8def; }
+        .featured-block .link-item {
+            display: block;
+            padding: 3px 0;
+            font-size: 14px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.15s;
+            border-bottom: 1px solid rgba(26,35,50,0.02);
+        }
+        .featured-block .link-item:last-child { border-bottom: none; }
+        .featured-block .link-item:active { color: #5b8def; }
+        .featured-block .link-item i { color: var(--text-muted); margin-right: 6px; font-size: 11px; }
+        .featured-block .link-item .desc { font-size: 11px; color: var(--text-secondary); margin-left: 4px; }
+        .featured-block .link-item .arrow { color: var(--text-muted); float: right; }
+
+        .price-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 0;
+        }
+        .price-card {
+            background: var(--glass-bg2);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--glass-border2);
+            border-radius: 28px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            box-shadow: var(--shadow);
+            will-change: transform;
+        }
+        .price-card:active { transform: scale(0.98); }
+        .price-card .label { font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+        .price-card .price-range { font-size: 30px; font-weight: 700; color: var(--text-primary); }
+        .price-card .price-range small { font-size: 18px; font-weight: 400; color: var(--text-muted); }
+        .price-card .slogan {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+        }
+
+        .page { display: none; animation: fadeUp 0.2s ease; }
+        .page.active { display: block; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        .back-bar {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
+            padding-bottom: 12px; border-bottom: 1px solid var(--text-muted);
+        }
+        .back-bar .back-btn {
+            background: var(--btn-glass);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            border: 1px solid var(--btn-glass-border);
+            font-size: 18px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s;
+            box-shadow: var(--shadow);
+        }
+        .back-bar .back-btn:active { background: var(--btn-glass-hover); }
+        .back-bar .title { font-size: 22px; font-weight: 600; color: var(--text-secondary); }
+        .back-bar .title span { color: #5b8def; }
+
+        .phone-grid { display: flex; flex-direction: column; gap: 20px; }
+        .phone-card-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 28px 32px;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            min-height: 280px;
+            box-shadow: var(--shadow);
+            will-change: transform;
+        }
+        .phone-card-item:active { transform: scale(0.99); }
+
+        .phone-image {
+            flex: 0 0 260px;
+            width: 260px;
+            height: 260px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .phone-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 6px;
+            display: block;
+        }
+        .phone-image .brand-placeholder {
+            display: none;
+            font-size: 18px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+        .phone-image img:not([src]) + .brand-placeholder,
+        .phone-image img[src=""] + .brand-placeholder,
+        .phone-image img.error + .brand-placeholder { display: block; }
+
+        .phone-card-item .info-area { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; }
+        .phone-card-item .name-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .phone-card-item .name {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--text-primary);
+            transition: color 0.2s;
+        }
+        .phone-card-item .tag {
+            display: inline-block;
+            padding: 1px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            border: 1.5px solid var(--tag-border);
+            background: var(--tag-bg);
+            flex-shrink: 0;
+        }
+        .phone-card-item .tag.green { color: var(--tag-pro); border-color: rgba(46,125,50,0.2); background: rgba(46,125,50,0.06); }
+        .phone-card-item .tag.blue { color: #1565c0; border-color: rgba(21,101,192,0.2); background: rgba(21,101,192,0.06); }
+        .phone-card-item .tag.purple { color: #6a1b9a; border-color: rgba(106,27,154,0.2); background: rgba(106,27,154,0.06); }
+        .phone-card-item .tag.red { color: var(--tag-con); border-color: rgba(198,40,40,0.2); background: rgba(198,40,40,0.06); }
+        .phone-card-item .tag.white { color: var(--text-primary); border-color: var(--tag-border); background: rgba(255,255,255,0.2); }
+        .phone-card-item .tag.pink { color: #ad1457; border-color: rgba(173,20,87,0.2); background: rgba(173,20,87,0.06); }
+        .phone-card-item .tag.yellow { color: #b8860b; border-color: rgba(184,134,11,0.2); background: rgba(184,134,11,0.06); }
+        .phone-card-item .tag.orange { color: #bf6a00; border-color: rgba(191,106,0,0.2); background: rgba(191,106,0,0.06); }
+
+        .phone-card-item .rating {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 16px;
+            color: rgba(255,182,193,0.6);
+            flex-shrink: 0;
+        }
+        .phone-card-item .rating .star { color: rgba(255,182,193,0.2); }
+        .phone-card-item .rating .star.filled { color: rgba(255,182,193,0.85); }
+        .phone-card-item .rating .score {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,182,193,0.55);
+            margin-left: 2px;
+        }
+
+        .phone-card-item .spec-list { margin: 3px 0 3px; font-size: 22px; color: var(--text-secondary); line-height: 2.4; }
+        .phone-card-item .spec-list span { display: block; }
+        .phone-card-item .spec-list .spec-icon { color: var(--text-muted); margin-right: 12px; width: 28px; display: inline-block; }
+
+        .phone-card-item .pros-cons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+            margin: 3px 0 4px;
+            padding: 6px 0;
+            border-top: 1px solid var(--text-muted);
+            border-bottom: 1px solid var(--text-muted);
+        }
+        .phone-card-item .pros-cons .tag-item {
+            font-size: 13px;
+            padding: 1px 12px;
+            border-radius: 100px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--text-muted);
+            line-height: 1.5;
+        }
+        .phone-card-item .pros-cons .tag-item.pro { color: var(--tag-pro); border-color: rgba(46,125,50,0.1); background: rgba(46,125,50,0.04); }
+        .phone-card-item .pros-cons .tag-item.con { color: var(--tag-con); border-color: rgba(198,40,40,0.1); background: rgba(198,40,40,0.04); }
+
+        .phone-card-item .price-area {
+            margin-top: 3px;
+            padding-top: 6px;
+            border-top: 1px solid var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .phone-card-item .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .phone-card-item .price-row .left {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--price-color);
+            letter-spacing: 0.02em;
+        }
+        .phone-card-item .price-row .left .mem { color: var(--price-color); font-weight: 700; margin-right: 5px; }
+        .phone-card-item .price-row .right {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--price-color);
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .phone-card-item .price-row .right .label {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-left: 5px;
+        }
+        .phone-card-item .price-row .right.empty { color: var(--text-muted); font-size: 16px; }
+
+        .phone-card-item .alt-models {
+            margin-top: 2px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+        .phone-card-item .alt-models span { color: var(--text-primary); font-weight: 500; }
+
+        .phone-card-item .more-btn {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--text-muted);
+            text-align: center;
+        }
+        .phone-card-item .more-btn button {
+            background: var(--btn-glass);
+            backdrop-filter: blur(8px) saturate(160%);
+            -webkit-backdrop-filter: blur(8px) saturate(160%);
+            border: 1px solid var(--btn-glass-border);
+            color: var(--text-secondary);
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.15s;
+            box-shadow: var(--shadow);
+        }
+        .phone-card-item .more-btn button:active { background: var(--btn-glass-hover); }
+
+        /* ===== 底部社交按钮 ===== */
+        .footer {
+            text-align: center;
+            margin-top: 36px;
+        }
+        .footer .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+        .footer .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--glass-bg2);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            border: 1px solid var(--glass-border2);
+            color: var(--text-primary);
+            font-size: 22px;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+            box-shadow: var(--shadow);
+            will-change: transform;
+        }
+        .footer .social-btn:active {
+            transform: scale(0.92);
+            background: var(--card-hover-bg);
+        }
+        .footer .social-btn.bili i {
+            color: #00a1d6;
+        }
+        .footer .social-btn.email i {
+            color: var(--price-color);
+        }
+        .footer .footer-text {
+            font-size: 13px;
+            color: var(--footer-color);
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+        .footer .footer-text .author {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--footer-author);
+            transition: color 0.2s;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            body { padding: 16px 14px; }
+            .header h1 { font-size: 30px; }
+            .header p { font-size: 14px; }
+            .header-btn { font-size: 12px; padding: 5px 12px; }
+            .mission-section { padding: 18px 20px; }
+            .mission-section .mission-text { font-size: 17px; }
+            .featured-grid { grid-template-columns: 1fr; gap: 10px; }
+            .featured-section { padding: 16px 16px; }
+            .price-card { padding: 22px 18px; }
+            .price-card .price-range { font-size: 24px; }
+            .price-card .slogan { font-size: 14px; }
+            .phone-card-item { padding: 18px 20px; gap: 20px; min-height: 180px; border-radius: 20px; flex-wrap: wrap; }
+            .phone-image { flex: 0 0 160px; width: 160px; height: 160px; border-radius: 16px; }
+            .phone-card-item .name { font-size: 24px; }
+            .phone-card-item .tag { font-size: 10px; padding: 1px 10px; }
+            .phone-card-item .rating { font-size: 14px; }
+            .phone-card-item .rating .score { font-size: 12px; }
+            .phone-card-item .spec-list { font-size: 17px; line-height: 2.2; }
+            .phone-card-item .pros-cons .tag-item { font-size: 11px; padding: 1px 8px; }
+            .phone-card-item .price-row .left { font-size: 16px; }
+            .phone-card-item .price-row .right { font-size: 26px; }
+            .back-bar .title { font-size: 18px; }
+            .back-bar .back-btn { font-size: 16px; padding: 6px 14px; }
+            .modal { padding: 20px 18px; margin: 8px; }
+            .log-item .log-title { font-size: 14px; }
+            .log-item .log-content-inner { font-size: 12px; padding: 10px 12px; }
+            .footer .social-btn { width: 44px; height: 44px; font-size: 18px; }
+        }
+        @media (max-width: 480px) {
+            .phone-card-item { flex-direction: column; align-items: stretch; min-height: auto; }
+            .phone-image { flex: 0 0 auto; width: 100%; height: 220px; }
+            .phone-card-item .name { font-size: 22px; }
+            .phone-card-item .spec-list { font-size: 16px; }
+            .phone-card-item .price-row .left { font-size: 15px; }
+            .phone-card-item .price-row .right { font-size: 22px; }
+            .price-card .price-range { font-size: 20px; }
+            .price-card .slogan { font-size: 13px; }
+            .mission-section .mission-text { font-size: 15px; }
+            .modal { padding: 16px 14px; }
+            .log-item { padding: 8px 12px; }
+            .log-item .log-title { font-size: 13px; }
+            .footer .social-btn { width: 40px; height: 40px; font-size: 16px; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <!-- ===== 头部居中 ===== -->
+        <div class="header">
+            <h1><i class="fas fa-phone-alt"></i> 二手手机 · 机型库</h1>
+            <p>按预算筛选 · 快速找到适合你的机型</p>
+            <div class="header-right">
+                <button class="header-btn" id="logBtn"><i class="fas fa-clock"></i> 更新日志</button>
+                <button class="header-btn" id="themeBtn"><i class="fas fa-moon"></i> <span id="themeLabel">深色</span></button>
+            </div>
+        </div>
+
+        <!-- ===== 一级页面 ===== -->
+        <div id="pageHome" class="page active">
+            <div class="mission-section">
+                <div class="mission-text">
+                    二手市场再乱，我也要帮你把钱花明白。<br>
+                    涨价不是你踩坑的理由，<span class="highlight">选对机器才是</span>。<br>
+                    水再深，路我替你蹚。<br>
+                    你只管闭眼跟，<span class="highlight-gold">坑我来排</span>。
+                </div>
+            </div>
+
+            <div class="featured-section">
+                <div class="section-title"><i class="fas fa-star" style="margin-right:4px;color:var(--text-muted);"></i> 精选内容</div>
+                <div class="featured-grid">
+                    <div class="featured-block">
+                        <div class="block-label"><i class="fas fa-microchip"></i> 移动端芯片 SoC 综合性能排行</div>
+                        <a href="https://www.socpk.com/allperf" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-external-link-alt"></i> SOCPK 综合性能排行
+                            <span class="desc">· 极客湾</span>
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="featured-block">
+                        <div class="block-label"><i class="fas fa-users"></i> 二手博主推荐</div>
+                        <a href="https://b23.tv/TYLAQc8" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-user"></i> Caibao菜包
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <a href="https://b23.tv/31SbFpd" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-user"></i> 浮叶光
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <a href="https://b23.tv/Mqa2kmC" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-user"></i> 穷测数码
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <a href="https://b23.tv/X1mK9q9" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-user"></i> 穷测云栖
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="price-grid">
+                <a href="#" class="price-card" data-range="100-200"><div class="label">预算</div><div class="price-range">¥100 <small>—</small> ¥200</div><div class="slogan">轻量备用机 + 主力过渡<br>听歌小说刷视频流畅使用</div></a>
+                <a href="#" class="price-card" data-range="200-350"><div class="label">预算</div><div class="price-range">¥200 <small>—</small> ¥350</div><div class="slogan">可以主力 + 轻量游戏使用</div></a>
+                <a href="#" class="price-card" data-range="350-500"><div class="label">预算</div><div class="price-range">¥350 <small>—</small> ¥500</div><div class="slogan">主力首推 游玩众多游戏首选<br>高刷续航性能全覆盖</div></a>
+                <a href="#" class="price-card" data-range="500-750"><div class="label">预算</div><div class="price-range">¥500 <small>—</small> ¥750</div><div class="slogan">大型游戏随便玩 主力推荐极佳<br>性价比最多的机器推荐</div></a>
+                <a href="#" class="price-card" data-range="750-1000"><div class="label">预算</div><div class="price-range">¥750 <small>—</small> ¥1000</div><div class="slogan">主力机最优选 无脑入就行</div></a>
+            </div>
+        </div>
+
+        <!-- ===== 二级页面 ===== -->
+        <div id="pageDetail" class="page">
+            <div class="back-bar">
+                <button class="back-btn" id="backHome"><i class="fas fa-arrow-left"></i> 返回</button>
+                <div class="title">价位 · <span id="rangeTitle">¥100-200</span></div>
+            </div>
+            <div class="phone-grid" id="phoneGrid"></div>
+        </div>
+
+        <!-- ===== 三级页面 ===== -->
+        <div id="pageMore" class="page">
+            <div class="back-bar">
+                <button class="back-btn" id="backMore"><i class="fas fa-arrow-left"></i> 返回</button>
+                <div class="title">其他推荐机型 <span style="font-size:14px;color:var(--text-muted);font-weight:400;">（仅供参考）</span></div>
+            </div>
+            <div class="phone-grid" id="moreGrid"></div>
+        </div>
+
+        <!-- ===== 底部 ===== -->
+        <div class="footer">
+            <div class="social-links">
+                <a href="https://b23.tv/BWNbHFA" target="_blank" rel="noopener noreferrer" class="social-btn bili" aria-label="哔哩哔哩主页">
+                    <i class="fab fa-bilibili"></i>
+                </a>
+                <a href="mailto:thin3encw@outlook.com" class="social-btn email" aria-label="发送邮件">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <div class="footer-text">
+                数据来源：用户提供 · 图片为占位示意
+                <span class="author">@尘雾+杂口笨蛋鱼娘DeepSeek制作</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 更新日志模态弹窗 ===== -->
+    <div class="modal-overlay" id="logModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title"><i class="fas fa-clock" style="margin-right:8px;color:#5b8def;"></i> 更新日志</span>
+                <button class="modal-close" id="logClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="logBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const IMAGE_BASE = 'images/';
+
+        // ============================================================
+        //  更新日志数据
+        // ============================================================
+        const changelogData = [{
+            title: 'v1.0版本上线 正式发布',
+            date: '2026.08.26',
+            content: `2026.08.25
+        v1.0 正式上线 版本为「九月大选」
+        · 提供了千元内价位的推荐的二手机焚决
+        · 推荐了一些对二手有帮助的up主以及网页链接
+        · 添加昼夜更替的功能
+        · mjmjmj mj下架了
+
+        未来会更新的内容
+        · 千元以上的手机焚决
+        · 千元内的平板焚决
+
+        1.0版本正式上线🎉 感谢大家访问 也感谢大家提更多的建议 作者会更加鞭策杂口笨蛋鱼娘DeepSeek的 我们共同努力💪 1.1版本再次一起见面😘`
+        }];
+
+        // ============================================================
+        //  渲染更新日志
+        // ============================================================
+        function renderChangelog() {
+            const container = document.getElementById('logBody');
+            container.innerHTML = changelogData.map((item, idx) => `
+                <div class="log-item" data-index="${idx}">
+                    <div class="log-title">
+                        <span>${item.title}</span>
+                        <span class="log-date">${item.date} <i class="fas fa-chevron-right log-arrow"></i></span>
+                    </div>
+                    <div class="log-content">
+                        <div class="log-content-inner">${item.content}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.querySelectorAll('.log-item').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('open');
+                });
+            });
+        }
+
+        // ============================================================
+        //  模态弹窗控制
+        // ============================================================
+        const logModal = document.getElementById('logModal');
+        const logBtn = document.getElementById('logBtn');
+        const logClose = document.getElementById('logClose');
+
+        function openLog() {
+            renderChangelog();
+            logModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLog() {
+            logModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        logBtn.addEventListener('click', openLog);
+        logClose.addEventListener('click', closeLog);
+        logModal.addEventListener('click', function(e) {
+            if (e.target === this) closeLog();
+        });
+
+        // 侧滑关闭弹窗
+        let modalTouchStartX = 0, modalTouchStartY = 0, modalIsSwiping = false;
+        logModal.addEventListener('touchstart', function(e) {
+            if (e.target.closest('.modal')) return;
+            const touch = e.touches[0];
+            modalTouchStartX = touch.clientX;
+            modalTouchStartY = touch.clientY;
+            modalIsSwiping = true;
+        }, { passive: true });
+
+        logModal.addEventListener('touchmove', function(e) {
+            if (!modalIsSwiping || e.target.closest('.modal')) return;
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - modalTouchStartX;
+            const deltaY = touch.clientY - modalTouchStartY;
+            if (Math.abs(deltaX) > Math.abs(deltaY) * 1.5 && deltaX > 40) {
+                e.preventDefault();
+                closeLog();
+                modalIsSwiping = false;
+            }
+        }, { passive: false });
+
+        logModal.addEventListener('touchend', function() { modalIsSwiping = false; }, { passive: true });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && logModal.classList.contains('active')) closeLog();
+        });
+
+        // ============================================================
+        //  昼夜更替
+        // ============================================================
+        const themeBtn = document.getElementById('themeBtn');
+        const themeLabel = document.getElementById('themeLabel');
+        let currentTheme = 'light';
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeLabel.textContent = '浅色';
+                themeBtn.querySelector('i').className = 'fas fa-sun';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                themeLabel.textContent = '深色';
+                themeBtn.querySelector('i').className = 'fas fa-moon';
+            }
+        }
+
+        themeBtn.addEventListener('click', function() {
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        // ============================================================
+        //  评分星星
+        // ============================================================
+        function renderStars(rating) {
+            const full = Math.floor(rating);
+            const half = rating % 1 >= 0.5 ? 1 : 0;
+            const empty = 5 - full - half;
+            let html = '';
+            for (let i = 0; i < full; i++) html += '<span class="star filled">★</span>';
+            if (half) html += '<span class="star filled">★</span>';
+            for (let i = 0; i < empty; i++) html += '<span class="star">★</span>';
+            html += `<span class="score">${rating.toFixed(1)}</span>`;
+            return html;
+        }
+
+        // ============================================================
+        //  机型数据（精简版）
+        // ============================================================
+        const allPhones = [
+            { id: 1, name: '华为nova5z', brand: '华为', tag: '主力', tagColor: 'green', rating: 4.8, price: '¥200', range: '100-200', screen: '6.26" 极点屏', cpu: '麒麟810', battery: '4000mAh + 20W', image: 'id1.jpeg',
+              priceList: ['6+64 185-220', '6+128 200-220'], refPrice: '200', hasPrice: true,
+              pros: ['此价位处理器最优选', '主力机的考虑', '有耳机孔和外置存储卡'],
+              cons: ['没有红外NFC'] },
+            { id: 2, name: '荣耀9x', brand: '荣耀', tag: '主力', tagColor: 'green', rating: 4.5, price: '¥175', range: '100-200', screen: '6.59" 升降全面屏', cpu: '麒麟810', battery: '4000mAh（无快充）', image: 'id2.png',
+              priceList: ['6+64 175-190', '8/6+128 190-220'], refPrice: '175', hasPrice: true,
+              pros: ['真全面屏', '升降摄像头'],
+              cons: ['很重', '只有10w快充', '传家宝多'] },
+            { id: 3, name: '华为mate10', brand: '华为', tag: '备用', tagColor: 'purple', rating: 4.0, price: '¥137', range: '100-200', screen: '5.9" 2K RGBW', cpu: '麒麟970', battery: '4000mAh + SuperCharge', image: 'id3.png',
+              priceList: ['4+64 145-165', '6+128 160-190'], refPrice: '137', hasPrice: true,
+              pros: ['2kLCD顶级屏幕', '外围齐全', '徕卡镜头', '双扬声器', '旗舰配置', 'USB3'],
+              cons: ['不适合主力', '970著名虚焊王', '老化严重', '屏幕抽奖'] },
+            { id: 4, name: '小米6', brand: '小米', tag: '备用', tagColor: 'purple', rating: 4.0, price: '¥160', range: '100-200', screen: '5.15" 护眼屏', cpu: '骁龙835', battery: '3350mAh + 18W', image: 'id4.jpeg',
+              priceList: ['6+64 150-175', '6+128 175-200'], refPrice: '160', hasPrice: true,
+              pros: ['小屏手感好', '外围不错', '著名刷机王'],
+              cons: ['没有耳机孔', '传家宝问题久远目前依旧还有', '老化问题严重'] },
+            { id: 5, name: '努比亚z17', brand: '努比亚', tag: '备用', tagColor: 'purple', rating: 3.5, price: '¥145', range: '100-200', screen: '5.5" 无边框屏', cpu: '骁龙835', battery: '3200mAh + QC4+', image: 'id5.jpeg',
+              priceList: ['8/6+64 140-170', '8/6+128 160-180'], refPrice: '145', hasPrice: true,
+              pros: ['无边框LCD观感舒适', '红外NFC都有'],
+              cons: ['维修困难', '屏幕很脆'] },
+            { id: 6, name: '荣耀x20', brand: '荣耀', tag: '水桶', tagColor: 'blue', rating: 4.5, price: '¥300', range: '200-350', screen: '6.67" 120Hz LCD', cpu: '天玑900', battery: '4300mAh + 66W', image: 'id6.png',
+              priceList: ['6/8+128 260-285', '8+256 285-325'], refPrice: '300', hasPrice: true,
+              pros: ['有高刷', 'LCD素质很好', '没有塑料支架', '有5G', '系统流畅'],
+              cons: ['外围一般', '单扬声器'] },
+            { id: 7, name: '真我q2', brand: '真我', tag: '水桶', tagColor: 'blue', rating: 4.5, price: '¥258', range: '200-350', screen: '6.5" 120Hz畅速屏', cpu: '天玑800U', battery: '5000mAh + 30W', image: 'id7.png',
+              priceList: ['6+128 240-270'], refPrice: '258', hasPrice: true,
+              pros: ['有5G', '大电池', 'LCD', '高刷', '有耳机孔外接存储卡'],
+              cons: ['依旧单扬声器', '拍照一坨', '有4G版本'] },
+            { id: 8, name: '红米note9 5G', brand: '红米', tag: '备用', tagColor: 'purple', rating: 4.0, price: '¥210', range: '200-350', screen: '6.53" FHD+', cpu: '天玑800U', battery: '5000mAh + 18W', image: 'id8.jpeg',
+              priceList: ['6+128 230-270', '8+128 270-290'], refPrice: '210', hasPrice: true,
+              pros: ['5G', '大电池', '有红外耳机孔外接存储卡', '双扬声器'],
+              cons: ['没有高刷', '拍照一坨', '有4G版本'] },
+            { id: 9, name: 'iqooz5', brand: 'iQOO', tag: '主力', tagColor: 'green', rating: 4.5, price: '', range: '200-350', screen: '6.67" 120Hz原色屏', cpu: '骁龙778G', battery: '5000mAh + 44W', image: 'id9.webp',
+              priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
+            { id: 10, name: 'oppok9s', brand: 'OPPO', tag: '主力', tagColor: 'green', rating: 4.0, price: '', range: '200-350', screen: '6.59" 120Hz LCD', cpu: '骁龙778G', battery: '5000mAh + 30W', image: 'id10.png',
+              priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
+            { id: 11, name: '荣耀v20', brand: '荣耀', tag: '备用', tagColor: 'purple', rating: 4.5, price: '', range: '200-350', screen: '6.4" 魅眼全视屏', cpu: '麒麟980', battery: '4000mAh + 22.5W', image: 'id11.jpeg',
+              priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
+            { id: 12, name: '华为mate20', brand: '华为', tag: '备用', tagColor: 'purple', rating: 4.5, price: '', range: '200-350', screen: '6.53" 珍珠屏', cpu: '麒麟980', battery: '4000mAh + 22.5W', image: 'id12.png',
+              priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
+            { id: 13, name: '华为nova6', brand: '华为', tag: '主力', tagColor: 'green', rating: 4.5, price: '', range: '200-350', screen: '6.57" 双摄极点屏', cpu: '麒麟990（4G）', battery: '4200mAh + 40W', image: 'id13.png',
+              priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
+            { id: 14, name: 'opporenoace', brand: 'OPPO', tag: '性能', tagColor: 'red', rating: 4.0, price: '', range: '200-350', screen: '6.55" 90Hz电竞屏', cpu: '骁龙855 Plus', battery: '4000mAh + 65W', image: 'id14.jpeg',
+              priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
+            { id: 15, name: 'iqooneo3', brand: 'iQOO', tag: '游戏', tagColor: 'pink', rating: 4.5, price: '¥399', range: '200-350', screen: '6.57" 144Hz竞速屏', cpu: '骁龙865', battery: '4500mAh + 44W', image: 'id15.jpeg',
+              priceList: ['8+128 340-380', '8+256 380-420'], refPrice: '399', hasPrice: true, showMore: true,
+              pros: ['骁龙865性能好', '144Hz高刷LCD', '有耳机孔', '立体空间双扬', '有NFC'],
+              cons: ['转子马达', '拍照一般', '续航拉跨', '价位不好收', '传家宝多'] },
+            { id: 16, name: '红米k30pro', brand: '红米', tag: '性能', tagColor: 'red', rating: 3.0, price: '', range: '200-350', screen: '6.67" 全面屏', cpu: '骁龙865', battery: '4700mAh + 33W', image: 'id16.jpeg',
+              priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
+            { id: 17, name: 'iqoo3', brand: 'iQOO', tag: '性能', tagColor: 'red', rating: 4.0, price: '', range: '350-500', screen: '6.44" 180Hz采样', cpu: '骁龙865', battery: '4440mAh + 55W', image: 'id17.webp',
+              priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
+            { id: 18, name: '小米10', brand: '小米', tag: '水桶', tagColor: 'blue', rating: 3.5, price: '¥360', range: '350-500', screen: '6.67" 90Hz双曲面', cpu: '骁龙865', battery: '4780mAh + 30W有/无', image: 'id18.png',
+              priceList: ['8+256 370-400', '8/12+256 400-500'], refPrice: '360', hasPrice: true,
+              pros: ['配置均衡水桶', '外围配置很好', '有无线充', '双频GPS', '双1216扬声器外放很好'],
+              cons: ['很容易烧屏', '完美的机器不好收', '最高可以升级澎湃系统'] },
+            { id: 19, name: 'vivot2x', brand: 'vivo', tag: '续航', tagColor: 'yellow', rating: 3.8, price: '¥407', range: '350-500', screen: '6.58" 144Hz LCD水滴', cpu: '天玑1300', battery: '6000mAh + 44W', image: 'id19.png',
+              priceList: ['8+128 380-420', '8+256 400-450'], refPrice: '407', hasPrice: true,
+              pros: ['6000毫安大电池', '性能意外发挥好', '144Hz高刷', '有耳机孔', 'NFC'],
+              cons: ['拍照一般', '质感不咋地', '水滴屏'] },
+            { id: 20, name: '红米note11tpro', brand: '红米', tag: '主力', tagColor: 'green', rating: 3.9, price: '¥460', range: '350-500', screen: '6.6" 144Hz LCD', cpu: '天玑8100', battery: '5080mAh + 67W', image: 'id20.png',
+              priceList: ['8+128 420-470', '8+256 480-520'], refPrice: '460', hasPrice: true,
+              pros: ['天玑8100神U', '144Hz高刷', 'LCD素质不错', '有红外耳机孔NFC'],
+              cons: ['拍照一坨', '散热不好', '支持澎湃系统'] },
+            { id: 21, name: '红米note11tpro+', brand: '红米', tag: '主力', tagColor: 'green', rating: 4.0, price: '¥460', range: '350-500', screen: '6.6" 144Hz LCD', cpu: '天玑8100', battery: '4400mAh + 120W', image: 'id21.png',
+              priceList: ['8+128 420-470', '8+256 480-520'], refPrice: '460', hasPrice: true,
+              pros: ['天玑8100神U', '144Hz高刷', 'LCD素质不错', '有红外耳机孔NFC'],
+              cons: ['拍照一坨', '散热不好', '支持澎湃系统'] },
+            { id: 22, name: 'oppok10', brand: 'OPPO', tag: '主力', tagColor: 'green', rating: 4.3, price: '¥530', range: '350-500', screen: '6.59" 120Hz LCD', cpu: '天玑8000-MAX', battery: '5000mAh + 67W', image: 'id22.png',
+              priceList: ['8+128/256 420-490', '12+256 480-540'], refPrice: '530', hasPrice: true,
+              pros: ['性能好', '续航不错', '有耳机孔', '配置性价比高'],
+              cons: ['拍照一般', '没有红外', '手感不好'] },
+            { id: 23, name: '荣耀x40gt', brand: '荣耀', tag: '备用', tagColor: 'purple', rating: 3.8, price: '¥430', range: '350-500', screen: '6.81" 144Hz LCD', cpu: '骁龙888', battery: '4800mAh + 66W', image: 'id23.png',
+              priceList: ['8+256 400-450', '12+256 450-490'], refPrice: '430', hasPrice: true,
+              pros: ['144Hz高刷', 'LCD素质不错', '性能足够', '存货多', '散热好'],
+              cons: ['骁龙888但疑似大削版', '单扬声器', '拍照一般', '个人觉得颜值很丑'] },
+            { id: 24, name: 'vivos15pro', brand: 'vivo', tag: '主力', tagColor: 'green', rating: 4.5, price: '¥510', range: '350-500', screen: '6.56" 120Hz E5曲面', cpu: '天玑8100', battery: '4500mAh + 80W', image: 'id24.webp',
+              priceList: ['12+256 470-550'], refPrice: '510', hasPrice: true,
+              pros: ['拍照不错', 'X轴马达', '双扬声器', '有额外的独显芯片', '有80瓦快充'],
+              cons: ['续航一般', '没有红外', '容易烧屏出线（但是售后有保险', '问题存货少）'] },
+            { id: 25, name: '小米10至尊纪念版', brand: '小米', tag: '影像', tagColor: 'white', rating: 3.9, price: '¥413', range: '350-500', screen: '6.67" 120Hz曲面屏', cpu: '骁龙865', battery: '4500mAh + 120W+50W无', image: 'id25.png',
+              priceList: ['12+256 470-530'], refPrice: '413', hasPrice: true,
+              pros: ['影像很顶', '外围配置不错', '有120瓦快充'],
+              cons: ['续航一般', '重量重', '有长焦泛白通病', '屏幕老化祖传', '支持澎湃系统'] },
+            { id: 26, name: '红米note12tpro', brand: '红米', tag: '主力', tagColor: 'green', rating: 4.0, price: '¥620', range: '500-750', screen: '6.6" 144Hz LCD', cpu: '天玑8200', battery: '5080mAh + 67W', image: 'id26.png',
+              priceList: ['8+256 520-555', '12+256 560-650'], refPrice: '620', hasPrice: true,
+              pros: ['目前安卓依旧26年最强LCD天玑8200', '续航不错', '有耳机孔', '与上代一样有好的口碑以及性价比'],
+              cons: ['套娃note11tpro', '祖传问题'] },
+            { id: 27, name: 'vivoy100t', brand: 'vivo', tag: '主力', tagColor: 'green', rating: 4.5, price: '¥570', range: '500-750', screen: '6.64" 120Hz LCD', cpu: '天玑8200', battery: '5000mAh + 120W', image: 'id27.webp',
+              priceList: ['8+256 570-650', '12+256 630-700'], refPrice: '570', hasPrice: true,
+              pros: ['天玑8200', '续航不错', '有耳机孔', '120瓦快充'],
+              cons: ['Y100t存量太少不好收', 'Z8价格太离谱', '拍照一般', '电池健康不抗造'] },
+            { id: 28, name: '红米note12turbo', brand: '红米', tag: '性能', tagColor: 'red', rating: 4.5, price: '¥641', range: '500-750', screen: '6.67" 120Hz OLED', cpu: '骁龙7+ Gen2', battery: '5000mAh + 67W', image: 'id28.png',
+              priceList: ['12+256 580-650', '12+512 670-720'], refPrice: '641', hasPrice: true,
+              pros: ['机身轻薄', '性能绝佳', '有红外NFC耳机孔', '最便宜大存储之一'],
+              cons: ['单频GPS', '全塑料机身', '拍照一般', '依旧澎湃系统'] },
+            { id: 29, name: '真我gt neo5se', brand: '真我', tag: '性能', tagColor: 'red', rating: 4.7, price: '¥700', range: '500-750', screen: '6.74" 144Hz 1.5K直屏', cpu: '骁龙7+ Gen2', battery: '5500mAh + 100W', image: 'id29.jpeg',
+              priceList: ['12+256 640-680', '12+512 720-760', '16+1T 800-850'], refPrice: '700', hasPrice: true,
+              pros: ['配置比红米的更好', '有100瓦快充', '系统维护不错', '最便宜大存储之一'],
+              cons: ['依旧塑料感', '拍照一般', '存货太少', '价格虚高'] },
+            { id: 30, name: 'opporeno9pro+', brand: 'OPPO', tag: '影像', tagColor: 'white', rating: 4.6, price: '¥688', range: '500-750', screen: '6.7" 120Hz双曲面', cpu: '骁龙8+ Gen1', battery: '4700mAh + 80W', image: 'id30.png',
+              priceList: ['16+256 660-720', '16+512 720-780'], refPrice: '688', hasPrice: true,
+              pros: ['轻薄', '质感顶', '影像可以', '依旧双频GPS红外齐全', '有80瓦快充', '起步大内存16G', '支持colorOS16', '系统流畅'],
+              cons: ['续航差', '烧屏情况普遍', '降频8+'],
+              alt: '备选 iQOO neo8 荣耀80GT' },
+            { id: 31, name: '小米12s', brand: '小米', tag: '小屏', tagColor: 'orange', rating: 4.0, price: '¥600', range: '500-750', screen: '6.28" 120Hz微曲屏', cpu: '骁龙8+ Gen1', battery: '4500mAh + 67W+50W无', image: 'id31.jpeg',
+              priceList: ['8+256 620-680', '12+256 660-720'], refPrice: '600', hasPrice: true,
+              pros: ['小屏手感好', '有无线50瓦', '大底徕卡', '配置水桶'],
+              cons: ['散热不好', '性能释放不出来', '续航拉（小屏常见问题）'] },
+            { id: 32, name: '红米k70e', brand: '红米', tag: '性能', tagColor: 'red', rating: 4.0, price: '¥750', range: '500-750', screen: '6.67" 120Hz 1.5K直屏', cpu: '天玑8300-Ultra', battery: '5500mAh + 90W', image: 'id32.jpeg',
+              priceList: ['12+256 720-770'], refPrice: '750', hasPrice: true,
+              pros: ['天玑8300ultra性能略胜8+', '维护有保障', '电池大', '红外NFC都有'],
+              cons: ['支持澎湃系统', '单频GPS'] },
+            { id: 33, name: '真我gtneo6se', brand: '真我', tag: '水桶', tagColor: 'blue', rating: 3.0, price: '¥745', range: '750-1000', screen: '6.74" 120Hz 1.5K LTPO', cpu: '骁龙7+ Gen3', battery: '5500mAh + 100W', image: 'id33.webp',
+              priceList: ['12+256 740-820'], refPrice: '745', hasPrice: true,
+              pros: ['配置水桶', '性能强', '外围配置好', '有100瓦快充'],
+              cons: ['依旧塑料'] },
+            { id: 34, name: '小米13', brand: '小米', tag: '小屏', tagColor: 'orange', rating: 3.8, price: '¥890', range: '750-1000', screen: '6.36" 120Hz E6直屏', cpu: '骁龙8 Gen2', battery: '4500mAh + 67W+50W无', image: 'id34.png',
+              priceList: ['12+256 850-935', '12+512 900-1100'], refPrice: '890', hasPrice: true,
+              pros: ['小屏手感好', '有无线充', '徕卡影像', '外围配置好', '配置均衡'],
+              cons: ['依旧小屏常见问题'] },
+            { id: 35, name: '一加ace3', brand: '一加', tag: '主力', tagColor: 'green', rating: 4.3, price: '¥970', range: '750-1000', screen: '6.78" 120Hz 1.5K曲屏', cpu: '骁龙8 Gen2', battery: '5500mAh + 100W', image: 'id35.png',
+              priceList: ['12+256 880-1000', '12+512 960-1100'], refPrice: '970', hasPrice: true,
+              pros: ['质感不错', '超薄指纹', '百瓦快充', '配置均衡水桶'],
+              cons: ['烧屏多', '涨价'] },
+            { id: 36, name: '真我gt5', brand: '真我', tag: '游戏', tagColor: 'pink', rating: 4.5, price: '¥950', range: '750-1000', screen: '6.74" 144Hz 1.5K直屏', cpu: '骁龙8 Gen2', battery: '5240mAh + 150W', image: 'id36.png',
+              priceList: ['16+512 880-1150'], refPrice: '950', hasPrice: true,
+              pros: ['性能不错', '外围配置齐全', '拥有150瓦和240瓦的超级快充版本', '16G大内存便宜', '均衡水桶'],
+              cons: ['质感拉完了', '真我性能调度偏保守'] }
+        ];
+
+        const pricedPhones = allPhones.filter(p => p.hasPrice === true);
+        const unpricedPhones = allPhones.filter(p => p.hasPrice === false);
+
+        const rangeMap = {
+            '100-200': [1, 2, 3, 4, 5],
+            '200-350': [6, 7, 8, 15],
+            '350-500': [18, 19, 20, 21, 22, 23, 24, 25],
+            '500-750': [26, 27, 28, 29, 30, 31, 32],
+            '750-1000': [33, 34, 35, 36]
+        };
+
+        // ============================================================
+        //  页面逻辑
+        // ============================================================
+        const pageHome = document.getElementById('pageHome');
+        const pageDetail = document.getElementById('pageDetail');
+        const pageMore = document.getElementById('pageMore');
+        const phoneGrid = document.getElementById('phoneGrid');
+        const moreGrid = document.getElementById('moreGrid');
+        const rangeTitle = document.getElementById('rangeTitle');
+        const backHome = document.getElementById('backHome');
+        const backMore = document.getElementById('backMore');
+
+        let currentRange = null;
+        let currentPage = 'home';
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            if (pageId === 'home') {
+                pageHome.classList.add('active');
+                currentPage = 'home';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: 'home' }, '');
+            } else if (pageId === 'detail') {
+                pageDetail.classList.add('active');
+                currentPage = 'detail';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: 'detail', range: currentRange }, '');
+            } else if (pageId === 'more') {
+                pageMore.classList.add('active');
+                currentPage = 'more';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: 'more' }, '');
+            }
+        }
+
+        function renderPhones(range) {
+            const ids = rangeMap[range] || [];
+            const list = pricedPhones.filter(p => ids.includes(p.id));
+            if (list.length === 0) {
+                phoneGrid.innerHTML = `<div style="text-align:center; padding:30px 0; color:var(--text-muted); font-size:16px;">该价位暂无机型</div>`;
+                return;
+            }
+            phoneGrid.innerHTML = list.map(p => {
+                const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
+                const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
+                const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
+
+                let prosHtml = '';
+                if (p.pros && p.pros.length > 0) prosHtml = p.pros.map(t => `<span class="tag-item pro">${t}</span>`).join('');
+                let consHtml = '';
+                if (p.cons && p.cons.length > 0) consHtml = p.cons.map(t => `<span class="tag-item con">${t}</span>`).join('');
+                const prosConsHtml = (prosHtml || consHtml) ? `<div class="pros-cons">${prosHtml}${consHtml}</div>` : '';
+
+                let priceRowsHtml = '';
+                if (p.priceList && p.priceList.length > 0) {
+                    p.priceList.forEach((item, index) => {
+                        const parts = item.split(' ');
+                        const mem = parts[0] || '';
+                        const rangeVal = parts.slice(1).join(' ') || '';
+                        const refDisplay = (index === 0 && p.refPrice && p.refPrice.trim() !== '')
+                            ? `<span class="right">¥${p.refPrice} <span class="label">参考价</span></span>`
+                            : (index === 0 ? `<span class="right empty">—</span>` : '');
+                        priceRowsHtml += `
+                            <div class="price-row">
+                                <span class="left"><span class="mem">${mem}</span> ${rangeVal}</span>
+                                ${refDisplay}
+                            </div>
+                        `;
+                    });
+                } else {
+                    priceRowsHtml = `<div class="price-row"><span class="left" style="color:var(--text-muted);font-weight:400;">—</span></div>`;
+                }
+
+                let altHtml = p.alt ? `<div class="alt-models"><span>${p.alt}</span></div>` : '';
+                let moreBtnHtml = p.showMore ? `
+                    <div class="more-btn">
+                        <button onclick="showMorePage()">📱 其他推荐机型（仅供参考）</button>
+                    </div>
+                ` : '';
+
+                return `<div class="phone-card-item">
+                    <div class="phone-image">
+                        <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
+                        <span class="brand-placeholder">${p.brand}</span>
+                    </div>
+                    <div class="info-area">
+                        <div>
+                            <div class="name-row">
+                                <span class="name">${p.name}</span>
+                                ${tagHtml}
+                                ${ratingHtml}
+                            </div>
+                            <div class="spec-list">
+                                <span><span class="spec-icon"><i class="fas fa-mobile-screen"></i></span>${p.screen}</span>
+                                <span><span class="spec-icon"><i class="fas fa-microchip"></i></span>${p.cpu}</span>
+                                <span><span class="spec-icon"><i class="fas fa-battery-full"></i></span>${p.battery}</span>
+                            </div>
+                        </div>
+                        ${prosConsHtml}
+                        <div class="price-area">${priceRowsHtml}</div>
+                        ${altHtml}
+                        ${moreBtnHtml}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderMorePhones() {
+            if (unpricedPhones.length === 0) {
+                moreGrid.innerHTML = `<div style="text-align:center; padding:30px 0; color:var(--text-muted); font-size:16px;">暂无推荐机型</div>`;
+                return;
+            }
+            moreGrid.innerHTML = unpricedPhones.map(p => {
+                const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
+                const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
+                const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
+                return `<div class="phone-card-item">
+                    <div class="phone-image">
+                        <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
+                        <span class="brand-placeholder">${p.brand}</span>
+                    </div>
+                    <div class="info-area">
+                        <div>
+                            <div class="name-row">
+                                <span class="name">${p.name}</span>
+                                ${tagHtml}
+                                ${ratingHtml}
+                            </div>
+                            <div class="spec-list">
+                                <span><span class="spec-icon"><i class="fas fa-mobile-screen"></i></span>${p.screen}</span>
+                                <span><span class="spec-icon"><i class="fas fa-microchip"></i></span>${p.cpu}</span>
+                                <span><span class="spec-icon"><i class="fas fa-battery-full"></i></span>${p.battery}</span>
+                            </div>
+                        </div>
+                        <div class="price-area" style="border-top:none;padding-top:0;display:flex;justify-content:center;align-items:center;min-height:28px;">
+                            <span style="color:var(--text-muted);font-size:13px;">仅供参考 · 无价格信息</span>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function showMorePage() { renderMorePhones(); showPage('more'); }
+        function showDetail(range) {
+            const labels = { '100-200': '¥100-200', '200-350': '¥200-350', '350-500': '¥350-500', '500-750': '¥500-750', '750-1000': '¥750-1000' };
+            currentRange = range;
+            rangeTitle.textContent = labels[range] || range;
+            renderPhones(range);
+            showPage('detail');
+        }
+        function goHome() { showPage('home'); }
+
+        backHome.addEventListener('click', goHome);
+        backMore.addEventListener('click', function() { showPage('detail'); });
+
+        document.querySelectorAll('.price-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const range = this.dataset.range;
+                if (range) showDetail(range);
+            });
+        });
+
+        // 浏览器后退/侧滑
+        window.addEventListener('popstate', function(e) {
+            if (e.state) {
+                if (e.state.page === 'home') { showPage('home'); }
+                else if (e.state.page === 'detail' && e.state.range) {
+                    currentRange = e.state.range;
+                    const labels = { '100-200': '¥100-200', '200-350': '¥200-350', '350-500': '¥350-500', '500-750': '¥500-750', '750-1000': '¥750-1000' };
+                    rangeTitle.textContent = labels[currentRange] || currentRange;
+                    renderPhones(currentRange);
+                    showPage('detail');
+                } else if (e.state.page === 'more') { renderMorePhones(); showPage('more'); }
+            } else {
+                if (currentPage === 'home') return;
+                if (currentPage === 'more') showPage('detail');
+                else showPage('home');
+            }
+        });
+
+        let touchStartX = 0, touchStartY = 0, isSwiping = false;
+        document.addEventListener('touchstart', function(e) {
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            isSwiping = true;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!isSwiping) return;
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = touch.clientY - touchStartY;
+            if (Math.abs(deltaX) > Math.abs(deltaY) * 1.5 && deltaX > 40) {
+                e.preventDefault();
+                if (currentPage === 'more') showPage('detail');
+                else if (currentPage === 'detail') showPage('home');
+                isSwiping = false;
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchend', function() { isSwiping = false; }, { passive: true });
+
+        showPage('home');
+        history.replaceState({ page: 'home' }, '');
+    </script>
+</body>
+</html>
