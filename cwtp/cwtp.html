@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>尘雾的二手手机终极焚决</title>
+    <title>尘雾的二手终极焚决</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ===== CSS变量（浅色默认） ===== */
         :root {
             --bg-body: #e8edf5;
             --bg-radial-start: #d6e4f0;
@@ -43,7 +42,6 @@
             --footer-color: rgba(26,35,50,0.15);
             --footer-author: rgba(26,35,50,0.12);
         }
-        /* ===== 深色模式 ===== */
         [data-theme="dark"] {
             --bg-body: #1a2a2a;
             --bg-radial-start: #1a2a2a;
@@ -93,86 +91,50 @@
         }
         .container { max-width: 1000px; margin: 0 auto; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 28px;
-        }
+        .header { text-align: center; margin-bottom: 28px; }
         .header h1 {
-            font-size: 38px;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            transition: color 0.2s;
+            font-size: 38px; font-weight: 700; color: var(--text-primary);
+            letter-spacing: -0.02em; transition: color 0.2s;
         }
-        .header h1 i { color: #5b8def; margin-right: 8px; }
-        .header p {
-            color: var(--text-secondary);
-            font-size: 16px;
-            margin-top: 2px;
-            transition: color 0.2s;
-        }
-        .header-right {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
+        .header p { color: var(--text-secondary); font-size: 16px; margin-top: 2px; transition: color 0.2s; }
+        .header-right { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
         .header-btn {
             background: var(--btn-glass);
             backdrop-filter: blur(8px) saturate(160%);
             -webkit-backdrop-filter: blur(8px) saturate(160%);
             border: 1px solid var(--btn-glass-border);
             color: var(--text-primary);
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 13px;
-            cursor: pointer;
-            font-family: inherit;
+            padding: 6px 14px; border-radius: 100px; font-size: 13px;
+            cursor: pointer; font-family: inherit;
             transition: background 0.2s, transform 0.15s;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: var(--shadow);
-            will-change: transform;
+            display: inline-flex; align-items: center; gap: 5px;
+            box-shadow: var(--shadow); will-change: transform;
         }
         .header-btn:active { transform: scale(0.95); }
         .header-btn i { font-size: 13px; color: var(--text-secondary); }
 
         .modal-overlay {
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
             background: var(--modal-overlay);
             backdrop-filter: blur(12px) saturate(120%);
             -webkit-backdrop-filter: blur(12px) saturate(120%);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-            animation: modalFade 0.25s ease;
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000; padding: 20px; animation: modalFade 0.25s ease;
         }
         .modal-overlay.active { display: flex; }
-        @keyframes modalFade {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
 
         .modal {
             background: var(--modal-bg);
             backdrop-filter: blur(40px) saturate(180%);
             -webkit-backdrop-filter: blur(40px) saturate(180%);
             border: 1px solid var(--modal-border);
-            border-radius: 28px;
-            padding: 28px 32px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
+            border-radius: 28px; padding: 28px 32px;
+            max-width: 600px; width: 100%; max-height: 85vh;
+            display: flex; flex-direction: column;
             box-shadow: 0 24px 60px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2);
             transition: background 0.25s, border-color 0.25s;
-            will-change: transform;
-            animation: modalSlide 0.25s ease;
+            will-change: transform; animation: modalSlide 0.25s ease;
         }
         @keyframes modalSlide {
             from { opacity: 0; transform: scale(0.96) translateY(12px); }
@@ -180,169 +142,84 @@
         }
 
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-            flex-shrink: 0;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 14px; flex-shrink: 0;
         }
-        .modal-header .modal-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
-            transition: color 0.2s;
-        }
+        .modal-header .modal-title { font-size: 22px; font-weight: 700; color: var(--text-primary); transition: color 0.2s; }
         .modal-close {
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: background 0.15s;
+            background: none; border: none; font-size: 22px; color: var(--text-muted);
+            cursor: pointer; padding: 4px 8px; border-radius: 8px; transition: background 0.15s;
         }
         .modal-close:active { background: var(--card-bg); }
-
-        .modal-body {
-            overflow-y: auto;
-            flex: 1;
-            padding-right: 4px;
-            -webkit-overflow-scrolling: touch;
-        }
+        .modal-body { overflow-y: auto; flex: 1; padding-right: 4px; -webkit-overflow-scrolling: touch; }
         .modal-body::-webkit-scrollbar { width: 3px; }
         .modal-body::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
 
         .log-item {
-            background: var(--log-item-bg);
-            border: 1px solid var(--log-item-border);
-            border-radius: 16px;
-            padding: 12px 16px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
-            will-change: transform;
+            background: var(--log-item-bg); border: 1px solid var(--log-item-border);
+            border-radius: 16px; padding: 12px 16px; margin-bottom: 10px;
+            cursor: pointer; transition: background 0.2s, transform 0.15s; will-change: transform;
         }
         .log-item:active { transform: scale(0.98); }
         .log-item .log-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            transition: color 0.2s;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 16px; font-weight: 600; color: var(--text-primary); transition: color 0.2s;
         }
-        .log-item .log-title .log-date {
-            font-size: 12px;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-        .log-item .log-title .log-arrow {
-            color: var(--text-muted);
-            transition: transform 0.25s;
-            margin-left: 6px;
-        }
+        .log-item .log-title .log-date { font-size: 12px; font-weight: 400; color: var(--text-secondary); }
+        .log-item .log-title .log-arrow { color: var(--text-muted); transition: transform 0.25s; margin-left: 6px; }
         .log-item.open .log-title .log-arrow { transform: rotate(90deg); }
-
-        .log-item .log-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease, padding 0.25s ease;
-            padding: 0 2px;
-        }
-        .log-item.open .log-content {
-            max-height: 600px;
-            padding: 10px 2px 2px;
-        }
+        .log-item .log-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s ease; padding: 0 2px; }
+        .log-item.open .log-content { max-height: 600px; padding: 10px 2px 2px; }
         .log-item .log-content-inner {
-            font-size: 13px;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            background: var(--log-content-bg);
-            border-radius: 12px;
-            padding: 12px 16px;
-            white-space: pre-wrap;
-            word-break: break-word;
-            border: 1px solid var(--log-item-border);
-            transition: color 0.2s, background 0.2s;
+            font-size: 13px; line-height: 1.7; color: var(--text-secondary);
+            background: var(--log-content-bg); border-radius: 12px; padding: 12px 16px;
+            white-space: pre-wrap; word-break: break-word;
+            border: 1px solid var(--log-item-border); transition: color 0.2s, background 0.2s;
         }
-        .log-item .log-content-inner .future { color: var(--price-color); font-weight: 500; }
 
         .mission-section {
-            background: var(--mission-bg);
-            backdrop-filter: blur(12px) saturate(160%);
+            background: var(--mission-bg); backdrop-filter: blur(12px) saturate(160%);
             -webkit-backdrop-filter: blur(12px) saturate(160%);
-            border: 1px solid var(--mission-border);
-            border-radius: 24px;
-            padding: 24px 30px;
-            margin-bottom: 20px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid var(--mission-border); border-radius: 24px;
+            padding: 24px 30px; margin-bottom: 20px; text-align: center;
+            box-shadow: var(--shadow); position: relative; overflow: hidden;
             transition: background 0.25s, border-color 0.25s;
         }
         .mission-section .mission-text {
-            font-size: 20px;
-            font-weight: 400;
-            color: var(--text-primary);
-            line-height: 1.7;
-            letter-spacing: 0.02em;
-            position: relative;
-            z-index: 1;
-            transition: color 0.2s;
+            font-size: 20px; font-weight: 400; color: var(--text-primary);
+            line-height: 1.7; letter-spacing: 0.02em; position: relative; z-index: 1; transition: color 0.2s;
         }
         .mission-section .mission-text .highlight { color: #5b8def; font-weight: 500; }
         .mission-section .mission-text .highlight-gold { color: var(--price-color); font-weight: 500; }
 
         .featured-section {
-            margin-bottom: 20px;
-            background: var(--glass-bg);
+            margin-bottom: 20px; background: var(--glass-bg);
             backdrop-filter: blur(12px) saturate(160%);
             -webkit-backdrop-filter: blur(12px) saturate(160%);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 20px 24px;
-            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border); border-radius: 24px;
+            padding: 20px 24px; box-shadow: var(--shadow);
             transition: background 0.25s, border-color 0.25s;
         }
         .featured-section .section-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 12px;
-            text-align: center;
+            font-size: 12px; font-weight: 600; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; text-align: center;
         }
         .featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .featured-block {
-            background: var(--log-item-bg);
-            backdrop-filter: blur(8px) saturate(160%);
+            background: var(--log-item-bg); backdrop-filter: blur(8px) saturate(160%);
             -webkit-backdrop-filter: blur(8px) saturate(160%);
-            border: 1px solid var(--log-item-border);
-            border-radius: 16px;
-            padding: 14px 18px;
-            transition: background 0.2s;
+            border: 1px solid var(--log-item-border); border-radius: 16px;
+            padding: 14px 18px; transition: background 0.2s;
         }
         .featured-block:active { background: var(--log-item-hover); }
         .featured-block .block-label {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 4px;
+            font-size: 11px; font-weight: 600; color: var(--text-secondary);
+            text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;
         }
         .featured-block .block-label i { margin-right: 4px; color: #5b8def; }
         .featured-block .link-item {
-            display: block;
-            padding: 3px 0;
-            font-size: 14px;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: color 0.15s;
+            display: block; padding: 3px 0; font-size: 14px; color: var(--text-primary);
+            text-decoration: none; transition: color 0.15s;
             border-bottom: 1px solid rgba(26,35,50,0.02);
         }
         .featured-block .link-item:last-child { border-bottom: none; }
@@ -351,38 +228,45 @@
         .featured-block .link-item .desc { font-size: 11px; color: var(--text-secondary); margin-left: 4px; }
         .featured-block .link-item .arrow { color: var(--text-muted); float: right; }
 
-        .price-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 0;
-        }
-        .price-card {
-            background: var(--glass-bg2);
-            backdrop-filter: blur(16px) saturate(180%);
+        .entry-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 0; }
+        .entry-card {
+            background: var(--glass-bg2); backdrop-filter: blur(16px) saturate(180%);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid var(--glass-border2);
-            border-radius: 28px;
-            padding: 28px 24px;
-            text-align: center;
+            border: 1px solid var(--glass-border2); border-radius: 30px;
+            padding: 40px 28px; text-align: center;
             transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            box-shadow: var(--shadow);
-            will-change: transform;
+            cursor: pointer; text-decoration: none; color: inherit;
+            display: block; box-shadow: var(--shadow); will-change: transform;
+        }
+        .entry-card:active { transform: scale(0.98); }
+        .entry-card .entry-title {
+            font-size: 28px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em;
+        }
+        .entry-card .entry-desc { font-size: 15px; color: var(--text-secondary); margin-top: 8px; line-height: 1.6; }
+        .entry-card .entry-tag {
+            display: inline-block; margin-top: 12px; font-size: 12px;
+            color: var(--price-color); background: rgba(212,160,23,0.08);
+            border: 1px solid rgba(212,160,23,0.15);
+            padding: 3px 14px; border-radius: 100px; letter-spacing: 0.04em;
+        }
+
+        .price-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 0; }
+        .price-card {
+            background: var(--glass-bg2); backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--glass-border2); border-radius: 28px;
+            padding: 28px 24px; text-align: center;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            cursor: pointer; text-decoration: none; color: inherit;
+            display: block; box-shadow: var(--shadow); will-change: transform;
         }
         .price-card:active { transform: scale(0.98); }
         .price-card .label { font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
         .price-card .price-range { font-size: 30px; font-weight: 700; color: var(--text-primary); }
         .price-card .price-range small { font-size: 18px; font-weight: 400; color: var(--text-muted); }
         .price-card .slogan {
-            font-size: 16px;
-            color: var(--text-secondary);
-            margin-top: 6px;
-            line-height: 1.5;
-            letter-spacing: 0.02em;
+            font-size: 16px; color: var(--text-secondary);
+            margin-top: 6px; line-height: 1.5; letter-spacing: 0.02em;
         }
 
         .page { display: none; animation: fadeUp 0.2s ease; }
@@ -394,21 +278,13 @@
             padding-bottom: 12px; border-bottom: 1px solid var(--text-muted);
         }
         .back-bar .back-btn {
-            background: var(--btn-glass);
-            backdrop-filter: blur(12px) saturate(160%);
+            background: var(--btn-glass); backdrop-filter: blur(12px) saturate(160%);
             -webkit-backdrop-filter: blur(12px) saturate(160%);
             border: 1px solid var(--btn-glass-border);
-            font-size: 18px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 8px 18px;
-            border-radius: 100px;
-            font-family: inherit;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: background 0.15s;
-            box-shadow: var(--shadow);
+            font-size: 18px; color: var(--text-secondary);
+            cursor: pointer; padding: 8px 18px; border-radius: 100px;
+            font-family: inherit; display: flex; align-items: center; gap: 6px;
+            transition: background 0.15s; box-shadow: var(--shadow);
         }
         .back-bar .back-btn:active { background: var(--btn-glass-hover); }
         .back-bar .title { font-size: 22px; font-weight: 600; color: var(--text-secondary); }
@@ -416,74 +292,42 @@
 
         .phone-grid { display: flex; flex-direction: column; gap: 20px; }
         .phone-card-item {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px) saturate(180%);
+            background: var(--card-bg); backdrop-filter: blur(16px) saturate(180%);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid var(--card-border);
-            border-radius: 28px;
+            border: 1px solid var(--card-border); border-radius: 28px;
             padding: 28px 32px;
             transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 36px;
-            min-height: 280px;
-            box-shadow: var(--shadow);
-            will-change: transform;
+            display: flex; align-items: center; gap: 36px;
+            min-height: 280px; box-shadow: var(--shadow); will-change: transform;
         }
         .phone-card-item:active { transform: scale(0.99); }
 
         .phone-image {
-            flex: 0 0 260px;
-            width: 260px;
-            height: 260px;
-            border-radius: 20px;
-            overflow: hidden;
+            flex: 0 0 260px; width: 260px; height: 260px;
+            border-radius: 20px; overflow: hidden;
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
         .phone-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 6px;
-            display: block;
+            width: 100%; height: 100%; object-fit: contain; padding: 6px; display: block;
         }
         .phone-image .brand-placeholder {
-            display: none;
-            font-size: 18px;
-            color: var(--text-muted);
-            letter-spacing: 0.05em;
+            display: none; font-size: 18px; color: var(--text-muted); letter-spacing: 0.05em;
         }
         .phone-image img:not([src]) + .brand-placeholder,
         .phone-image img[src=""] + .brand-placeholder,
         .phone-image img.error + .brand-placeholder { display: block; }
 
         .phone-card-item .info-area { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; }
-        .phone-card-item .name-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .phone-card-item .name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .phone-card-item .name {
-            font-size: 30px;
-            font-weight: 700;
-            color: var(--text-primary);
-            transition: color 0.2s;
+            font-size: 30px; font-weight: 700; color: var(--text-primary); transition: color 0.2s;
         }
         .phone-card-item .tag {
-            display: inline-block;
-            padding: 1px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            border: 1.5px solid var(--tag-border);
-            background: var(--tag-bg);
-            flex-shrink: 0;
+            display: inline-block; padding: 1px 14px; border-radius: 6px;
+            font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+            border: 1.5px solid var(--tag-border); background: var(--tag-bg); flex-shrink: 0;
         }
         .phone-card-item .tag.green { color: var(--tag-pro); border-color: rgba(46,125,50,0.2); background: rgba(46,125,50,0.06); }
         .phone-card-item .tag.blue { color: #1565c0; border-color: rgba(21,101,192,0.2); background: rgba(21,101,192,0.06); }
@@ -495,163 +339,95 @@
         .phone-card-item .tag.orange { color: #bf6a00; border-color: rgba(191,106,0,0.2); background: rgba(191,106,0,0.06); }
 
         .phone-card-item .rating {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            font-size: 16px;
-            color: rgba(255,182,193,0.6);
+            display: inline-flex; align-items: center; gap: 3px;
+            font-size: 16px; color: rgba(255,182,193,0.6);
             flex-shrink: 0;
         }
         .phone-card-item .rating .star { color: rgba(255,182,193,0.2); }
         .phone-card-item .rating .star.filled { color: rgba(255,182,193,0.85); }
         .phone-card-item .rating .score {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(255,182,193,0.55);
-            margin-left: 2px;
+            font-size: 13px; font-weight: 500;
+            color: rgba(255,182,193,0.55); margin-left: 2px;
         }
 
-        .phone-card-item .spec-list { margin: 3px 0 3px; font-size: 22px; color: var(--text-secondary); line-height: 2.4; }
+        .phone-card-item .spec-list { margin: 3px 0 3px; font-size: 20px; color: var(--text-secondary); line-height: 2.2; }
         .phone-card-item .spec-list span { display: block; }
         .phone-card-item .spec-list .spec-icon { color: var(--text-muted); margin-right: 12px; width: 28px; display: inline-block; }
 
         .phone-card-item .pros-cons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px 10px;
-            margin: 3px 0 4px;
-            padding: 6px 0;
+            display: flex; flex-wrap: wrap; gap: 4px 10px;
+            margin: 3px 0 4px; padding: 6px 0;
             border-top: 1px solid var(--text-muted);
             border-bottom: 1px solid var(--text-muted);
         }
         .phone-card-item .pros-cons .tag-item {
-            font-size: 13px;
-            padding: 1px 12px;
-            border-radius: 100px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid var(--text-muted);
+            font-size: 13px; padding: 1px 12px; border-radius: 100px;
+            background: rgba(255,255,255,0.08); border: 1px solid var(--text-muted);
             line-height: 1.5;
         }
         .phone-card-item .pros-cons .tag-item.pro { color: var(--tag-pro); border-color: rgba(46,125,50,0.1); background: rgba(46,125,50,0.04); }
         .phone-card-item .pros-cons .tag-item.con { color: var(--tag-con); border-color: rgba(198,40,40,0.1); background: rgba(198,40,40,0.04); }
 
         .phone-card-item .price-area {
-            margin-top: 3px;
-            padding-top: 6px;
+            margin-top: 3px; padding-top: 6px;
             border-top: 1px solid var(--text-muted);
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
+            display: flex; flex-direction: column; gap: 3px;
         }
         .phone-card-item .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
+            display: flex; justify-content: space-between; align-items: center; gap: 12px;
         }
         .phone-card-item .price-row .left {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--price-color);
-            letter-spacing: 0.02em;
+            font-size: 20px; font-weight: 700; color: var(--price-color); letter-spacing: 0.02em;
         }
         .phone-card-item .price-row .left .mem { color: var(--price-color); font-weight: 700; margin-right: 5px; }
         .phone-card-item .price-row .right {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--price-color);
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-            flex-shrink: 0;
+            font-size: 32px; font-weight: 700; color: var(--price-color);
+            letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0;
         }
         .phone-card-item .price-row .right .label {
-            font-size: 12px;
-            font-weight: 400;
-            color: var(--text-muted);
-            margin-left: 5px;
+            font-size: 12px; font-weight: 400; color: var(--text-muted); margin-left: 5px;
         }
         .phone-card-item .price-row .right.empty { color: var(--text-muted); font-size: 16px; }
 
         .phone-card-item .alt-models {
-            margin-top: 2px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            letter-spacing: 0.02em;
+            margin-top: 2px; font-size: 14px; color: var(--text-secondary); letter-spacing: 0.02em;
         }
         .phone-card-item .alt-models span { color: var(--text-primary); font-weight: 500; }
 
         .phone-card-item .more-btn {
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid var(--text-muted);
-            text-align: center;
+            margin-top: 8px; padding-top: 8px;
+            border-top: 1px solid var(--text-muted); text-align: center;
         }
         .phone-card-item .more-btn button {
-            background: var(--btn-glass);
-            backdrop-filter: blur(8px) saturate(160%);
+            background: var(--btn-glass); backdrop-filter: blur(8px) saturate(160%);
             -webkit-backdrop-filter: blur(8px) saturate(160%);
             border: 1px solid var(--btn-glass-border);
-            color: var(--text-secondary);
-            padding: 6px 20px;
-            border-radius: 100px;
-            font-size: 14px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: background 0.15s;
-            box-shadow: var(--shadow);
+            color: var(--text-secondary); padding: 6px 20px; border-radius: 100px;
+            font-size: 14px; cursor: pointer; font-family: inherit;
+            transition: background 0.15s; box-shadow: var(--shadow);
         }
         .phone-card-item .more-btn button:active { background: var(--btn-glass-hover); }
 
-        .footer {
-            text-align: center;
-            margin-top: 36px;
-        }
-        .footer .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 10px;
-        }
+        .footer { text-align: center; margin-top: 36px; }
+        .footer .social-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 10px; }
         .footer .social-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: var(--glass-bg2);
-            backdrop-filter: blur(12px) saturate(160%);
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 52px; height: 52px; border-radius: 50%;
+            background: var(--glass-bg2); backdrop-filter: blur(12px) saturate(160%);
             -webkit-backdrop-filter: blur(12px) saturate(160%);
             border: 1px solid var(--glass-border2);
-            color: var(--text-primary);
-            font-size: 22px;
-            text-decoration: none;
+            color: var(--text-primary); font-size: 22px; text-decoration: none;
             transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-            box-shadow: var(--shadow);
-            will-change: transform;
+            box-shadow: var(--shadow); will-change: transform;
         }
-        .footer .social-btn:active {
-            transform: scale(0.92);
-            background: var(--card-hover-bg);
-        }
-        .footer .social-btn.bili i {
-            color: #00a1d6;
-        }
-        .footer .social-btn.email i {
-            color: var(--price-color);
-        }
+        .footer .social-btn:active { transform: scale(0.92); background: var(--card-hover-bg); }
+        .footer .social-btn.bili i { color: #00a1d6; }
+        .footer .social-btn.email i { color: var(--price-color); }
         .footer .footer-text {
-            font-size: 13px;
-            color: var(--footer-color);
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
+            font-size: 13px; color: var(--footer-color); letter-spacing: 0.05em; transition: color 0.2s;
         }
         .footer .footer-text .author {
-            display: block;
-            margin-top: 4px;
-            font-size: 12px;
-            color: var(--footer-author);
-            transition: color 0.2s;
+            display: block; margin-top: 4px; font-size: 12px; color: var(--footer-author); transition: color 0.2s;
         }
 
         @media (max-width: 768px) {
@@ -663,6 +439,9 @@
             .mission-section .mission-text { font-size: 17px; }
             .featured-grid { grid-template-columns: 1fr; gap: 10px; }
             .featured-section { padding: 16px 16px; }
+            .entry-card { padding: 30px 22px; }
+            .entry-card .entry-title { font-size: 24px; }
+            .entry-card .entry-desc { font-size: 14px; }
             .price-card { padding: 22px 18px; }
             .price-card .price-range { font-size: 24px; }
             .price-card .slogan { font-size: 14px; }
@@ -690,6 +469,9 @@
             .phone-card-item .spec-list { font-size: 16px; }
             .phone-card-item .price-row .left { font-size: 15px; }
             .phone-card-item .price-row .right { font-size: 22px; }
+            .entry-card { padding: 26px 18px; }
+            .entry-card .entry-title { font-size: 20px; }
+            .entry-card .entry-desc { font-size: 13px; }
             .price-card .price-range { font-size: 20px; }
             .price-card .slogan { font-size: 13px; }
             .mission-section .mission-text { font-size: 15px; }
@@ -699,11 +481,22 @@
             .footer .social-btn { width: 40px; height: 40px; font-size: 16px; gap: 12px; }
         }
     </style>
+    <script>
+        // 提前应用主题，避免刷新时闪白/闪黑
+        (function () {
+            try {
+                var saved = localStorage.getItem('cwtp-theme');
+                if (saved === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
     <div class="container" id="app">
         <div class="header">
-            <h1>尘雾的二手手机终极焚决</h1>
+            <h1>尘雾的二手终极焚决</h1>
             <p>按预算筛选 · 快速找到适合你的机型</p>
             <div class="header-right">
                 <button class="header-btn" id="logBtn"><i class="fas fa-clock"></i> 更新日志</button>
@@ -711,6 +504,7 @@
             </div>
         </div>
 
+        <!-- ===== 一级页面 ===== -->
         <div id="pageHome" class="page active">
             <div class="mission-section">
                 <div class="mission-text">
@@ -726,7 +520,7 @@
                 <div class="featured-grid">
                     <div class="featured-block">
                         <div class="block-label"><i class="fas fa-microchip"></i> 移动端芯片 SoC 综合性能排行</div>
-                        <a href="https://www.socpk.com/allperf" target="_blank" rel="noopener noreferrer" class="link-item">
+                        <a href="https://kqakqakqa.github.io/socpk/" target="_blank" rel="noopener noreferrer" class="link-item">
                             <i class="fas fa-external-link-alt"></i> SOCPK 综合性能排行
                             <span class="desc">· 极客湾</span>
                             <span class="arrow"><i class="fas fa-chevron-right"></i></span>
@@ -754,6 +548,26 @@
                 </div>
             </div>
 
+            <div class="entry-grid">
+                <a href="#" class="entry-card" id="phoneEntry">
+                    <div class="entry-title">100-1000元二手手机焚决</div>
+                    <div class="entry-desc">千元内各价位二手手机推荐 · 按预算精准筛选</div>
+                    <span class="entry-tag">点击进入</span>
+                </a>
+                <a href="#" class="entry-card" id="padEntry">
+                    <div class="entry-title">100-1500二手平板焚决</div>
+                    <div class="entry-desc">平板选购指南 · 按预算精准筛选</div>
+                    <span class="entry-tag">点击进入</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- ===== 手机二级 ===== -->
+        <div id="pagePhone" class="page">
+            <div class="back-bar">
+                <button class="back-btn" id="backHomeFromPhone"><i class="fas fa-arrow-left"></i> 返回</button>
+                <div class="title">100-1000元二手手机焚决</div>
+            </div>
             <div class="price-grid">
                 <a href="#" class="price-card" data-range="100-200"><div class="label">预算</div><div class="price-range">¥100 <small>—</small> ¥200</div><div class="slogan">轻量备用机 + 主力过渡<br>听歌小说刷视频流畅使用</div></a>
                 <a href="#" class="price-card" data-range="200-350"><div class="label">预算</div><div class="price-range">¥200 <small>—</small> ¥350</div><div class="slogan">可以主力 + 轻量游戏使用</div></a>
@@ -763,20 +577,44 @@
             </div>
         </div>
 
+        <!-- ===== 手机三级 ===== -->
         <div id="pageDetail" class="page">
             <div class="back-bar">
-                <button class="back-btn" id="backHome"><i class="fas fa-arrow-left"></i> 返回</button>
+                <button class="back-btn" id="backPhone"><i class="fas fa-arrow-left"></i> 返回</button>
                 <div class="title">价位 · <span id="rangeTitle">¥100-200</span></div>
             </div>
             <div class="phone-grid" id="phoneGrid"></div>
         </div>
 
+        <!-- ===== 手机四级 ===== -->
         <div id="pageMore" class="page">
             <div class="back-bar">
                 <button class="back-btn" id="backMore"><i class="fas fa-arrow-left"></i> 返回</button>
                 <div class="title">其他推荐机型 <span style="font-size:14px;color:var(--text-muted);font-weight:400;">（仅供参考）</span></div>
             </div>
             <div class="phone-grid" id="moreGrid"></div>
+        </div>
+
+        <!-- ===== 平板二级 ===== -->
+        <div id="pagePadPrice" class="page">
+            <div class="back-bar">
+                <button class="back-btn" id="backHomeFromPad"><i class="fas fa-arrow-left"></i> 返回</button>
+                <div class="title">100-1500二手平板焚决</div>
+            </div>
+            <div class="price-grid">
+                <a href="#" class="price-card" data-pad-range="100-300"><div class="label">预算</div><div class="price-range">¥100 <small>—</small> ¥300</div><div class="slogan">入门平板 · 网课追剧阅读<br>轻量使用足够</div></a>
+                <a href="#" class="price-card" data-pad-range="300-500"><div class="label">预算</div><div class="price-range">¥300 <small>—</small> ¥500</div><div class="slogan">中端平板 · 学习办公兼顾<br>性能与体验平衡</div></a>
+                <a href="#" class="price-card" data-pad-range="500-1500"><div class="label">预算</div><div class="price-range">¥500 <small>—</small> ¥1500</div><div class="slogan">进阶平板 · 全能生产力<br>高刷高芯高体验</div></a>
+            </div>
+        </div>
+
+        <!-- ===== 平板三级 ===== -->
+        <div id="pagePadDetail" class="page">
+            <div class="back-bar">
+                <button class="back-btn" id="backPad"><i class="fas fa-arrow-left"></i> 返回</button>
+                <div class="title">价位 · <span id="padRangeTitle">¥100-300</span></div>
+            </div>
+            <div class="phone-grid" id="padGrid"></div>
         </div>
 
         <div class="footer">
@@ -789,7 +627,6 @@
                 </a>
             </div>
             <div class="footer-text">
-                作者信息·网页制作
                 <span class="author">@尘雾+杂口笨蛋鱼娘DeepSeek制作</span>
             </div>
         </div>
@@ -809,6 +646,27 @@
         const IMAGE_BASE = 'image/';
 
         const changelogData = [{
+            title: 'v1.1版本上线 十月庆典',
+            date: '2026.09.30',
+            content: `2026.09.30
+v1.1版本上线 版本名称为「十月庆典」
+     更新新内容
+     ·上线100-1500二手平板焚决
+     其他一些更新
+     ·替换原来极客湾的网址链接更改为历史版本的镜像（极客湾下架了芯片综合性能天梯图）
+     ·优化了一些代码结构
+     ·修复了一些bug
+     ·黑羽是我妈怎么了？
+      未来一些更新
+     ·二手手机焚决扩大范围
+     ·二手手机焚决洗牌
+     ·会更新平板 win版 手表等一系列设备二手焚决
+     ·添加一些有用的功能
+     ·尘雾自制的性能天梯图
+敬请期待未来的更新（不一定会一下子全部更新完别想了）
+
+      1.1版本正式上线🎉━(*｀∀´*)ﾉ 本来是要添加一些新功能 但是呢无可奈何的是大肥鱼越来越难鞭策了 已经听不懂人话了 但是放心我一定会做到的 刚好更新来到了国庆节 祝大家国庆节快乐(🇨🇳^‿^)/🎉 祝祖国繁荣昌盛国泰民安！我还会继续努力💪我们下个月见 1.2版本我等你(ง•̀_•́)ง`
+        }, {
             title: 'v1.0版本上线 正式发布',
             date: '2026.08.26',
             content: `2026.08.25
@@ -864,9 +722,7 @@
 
         logBtn.addEventListener('click', openLog);
         logClose.addEventListener('click', closeLog);
-        logModal.addEventListener('click', function(e) {
-            if (e.target === this) closeLog();
-        });
+        logModal.addEventListener('click', function(e) { if (e.target === this) closeLog(); });
 
         let modalTouchStartX = 0, modalTouchStartY = 0, modalIsSwiping = false;
         logModal.addEventListener('touchstart', function(e) {
@@ -890,7 +746,6 @@
         }, { passive: false });
 
         logModal.addEventListener('touchend', function() { modalIsSwiping = false; }, { passive: true });
-
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && logModal.classList.contains('active')) closeLog();
         });
@@ -898,6 +753,14 @@
         const themeBtn = document.getElementById('themeBtn');
         const themeLabel = document.getElementById('themeLabel');
         let currentTheme = 'light';
+
+        // 安全读写 localStorage
+        function saveTheme(theme) {
+            try { localStorage.setItem('cwtp-theme', theme); } catch (e) {}
+        }
+        function loadTheme() {
+            try { return localStorage.getItem('cwtp-theme'); } catch (e) { return null; }
+        }
 
         function setTheme(theme) {
             currentTheme = theme;
@@ -910,11 +773,23 @@
                 themeLabel.textContent = '深色';
                 themeBtn.querySelector('i').className = 'fas fa-moon';
             }
+            saveTheme(theme);
         }
 
         themeBtn.addEventListener('click', function() {
             setTheme(currentTheme === 'light' ? 'dark' : 'light');
         });
+
+        // 页面加载时读取上次保存的主题
+        (function initTheme() {
+            const saved = loadTheme();
+            if (saved === 'dark' || saved === 'light') {
+                setTheme(saved);
+            } else {
+                // 没有保存过时，保持默认浅色并写入
+                saveTheme('light');
+            }
+        })();
 
         function renderStars(rating) {
             const full = Math.floor(rating);
@@ -928,6 +803,9 @@
             return html;
         }
 
+        // ============================================================
+        //  手机数据
+        // ============================================================
         const allPhones = [
             { id: 1, name: '华为nova5z', brand: '华为', tag: '主力', tagColor: 'green', rating: 4.8, price: '¥200', range: '100-200', screen: '6.26" 极点屏', cpu: '麒麟810', battery: '4000mAh + 20W', image: 'id1.jpeg',
               priceList: ['6+64 185-220', '6+128 200-220'], refPrice: '200', hasPrice: true,
@@ -1071,35 +949,215 @@
             '750-1000': [33, 34, 35, 36]
         };
 
+        // ============================================================
+        //  平板数据
+        // ============================================================
+        const allPads = [
+            { id: 'a1', name: '小米平板4', image: 'a1.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
+              chip: '高通骁龙660 AIE', screen: '8英寸 1920×1200 LCD 60Hz',
+              battery: '6000mAh', charge: '10W', system: 'MIUI 10（基于Android 8.1）',
+              priceList: ['3+32 140-200', '4+64 200往上'], refPrice: '205',
+              pros: ['刷机资源多', '日用流畅', 'c口', '价格便宜', '有耳机扣和外接存储卡'],
+              cons: ['单扬声器', 'emmc闪存'] },
+            { id: 'a2', name: '荣耀平板5', image: 'a2.png', tag: '备用', tagColor: 'purple', rating: 3.5,
+              chip: '海思麒麟659', screen: '10.1英寸 1920×1200 LCD 60Hz',
+              battery: '5100mAh（典型值）', charge: '10W', system: 'Magic UI 2.x / 鸿蒙HarmonyOS 2（部分批次）',
+              priceList: ['3+32 160-200', '4+64 200-230'], refPrice: '195',
+              pros: ['对称扬声器', '可升级至鸿蒙2', '性能与去年畅享新机相当'],
+              cons: ['micro-USB接口', 'emmc闪存', '要买8英寸版本'] },
+            { id: 'a3', name: '华为平板M5', image: 'a3.png', tag: '备用', tagColor: 'purple', rating: 3.5,
+              chip: '海思麒麟960s', screen: '8.4英寸/10.8英寸 2560×1600 LCD 60Hz',
+              battery: '8.4英寸版5100mAh / 10.8英寸版7500mAh', charge: '18W', system: 'EMUI 9.x（未获鸿蒙正式推送）',
+              priceList: ['4+64 220-275'], refPrice: '201',
+              pros: ['超高分辨率', '哈曼卡顿双扬', 'type C接口'],
+              cons: ['性能价格不值得', '传家宝多'] },
+            { id: 'a4', name: 'iPad（第5代）', image: 'a4.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
+              chip: '苹果A9仿生', screen: '9.7英寸 2048×1536 Retina LCD 60Hz',
+              battery: '32.4瓦时', charge: '12W（标配12W，不支持PD快充）', system: 'iPadOS 16.7.12（最终版本）',
+              priceList: ['3+32 170-210'], refPrice: '220',
+              pros: ['大平板够用', '比例舒适', '系统强', '指纹识别', '看视频漫画一绝'],
+              cons: ['传家宝多', '不建议高价位收'] },
+            { id: 'a5', name: '小米平板4 Plus', image: 'a5.jpg', tag: '备用', tagColor: 'purple', rating: 3.5,
+              chip: '高通骁龙660 AIE', screen: '10.1英寸 1920×1200 LCD 60Hz',
+              battery: '8620mAh', charge: '10W', system: 'MIUI 10（基于Android 8.1）',
+              priceList: ['4+64 240-295'], refPrice: '267',
+              pros: ['可以插卡', '能用4G网络', '10.1英寸大屏幕', '指纹识别'],
+              cons: ['单扬声器', '价格不值得'] },
+            { id: 'a6', name: '三星Galaxy Tab A7 10.4', image: 'a6.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
+              chip: '高通骁龙662', screen: '10.4英寸 2000×1200 LCD 60Hz',
+              battery: '7040mAh', charge: '15W', system: 'Android 12（One UI 4.1）',
+              priceList: ['3+32 230-290'], refPrice: '229',
+              pros: ['10.4英寸大屏幕', '四扬声器', '视频观看极佳', '成色不错', '外放顶'],
+              cons: ['不好收', '传家宝多'] },
+            { id: 'a7', name: 'iPad Pro 9.7英寸', image: 'a7.jpeg', tag: '备用', tagColor: 'purple', rating: 3.3,
+              chip: '苹果A9X + M9协处理器', screen: '9.7英寸 2048×1536 Retina LCD 60Hz，P3广色域/True Tone',
+              battery: '32.4瓦时', charge: '12W（标配12W，不支持29W PD快充）', system: 'iPadOS 16.7.x（最终版本）',
+              priceList: ['2+32 250-300'], refPrice: '284',
+              pros: ['P3广色域+抗反射膜+原彩显示', '四扬声器', '指纹识别', 'iOS极佳', '性能不错'],
+              cons: ['成色普遍差', '屏幕发红老化问题多', '续航差', '价格不值得'] },
+
+            { id: 'a8', name: '华为平板M6', image: 'a8.png', tag: '备用', tagColor: 'purple', rating: 4.5,
+              chip: '海思麒麟980', screen: '8.4英寸/10.8英寸 2560×1600 LCD 60Hz',
+              battery: '8.4英寸版6100mAh / 10.8英寸版7500mAh', charge: '18W', system: 'HarmonyOS 2',
+              priceList: ['4+64 380-450', '6+128高能版 500-600'], refPrice: '437',
+              pros: ['手感不错', '有对称哈曼卡顿扬声器', '支持存储卡扩展', '有插卡版本', '麒麟980神U'],
+              cons: ['没有耳机孔', '传家宝多'] },
+            { id: 'a9', name: 'iPad mini（第5代）', image: 'a9.jpeg', tag: '游戏', tagColor: 'pink', rating: 4.5,
+              chip: '苹果A12仿生', screen: '7.9英寸 2048×1536 Retina LCD 60Hz',
+              battery: '19.1瓦时', charge: '20W PD（标配10W充电器）', system: 'iPadOS 18（A12芯片支持到iPadOS 18）',
+              priceList: ['3+64 450-550', '3+256 550往上'], refPrice: '440',
+              pros: ['性能强劲', '配置均衡', '屏幕素质高', '游戏可以选择'],
+              cons: ['单扬声器', '可升级至iOS26版本体验卡'] },
+            { id: 'a10', name: '华为MatePad 10.4', image: 'a10.png', tag: '备用', tagColor: 'purple', rating: 4.5,
+              chip: '海思麒麟810（2020年4月首发）→ 麒麟820（2020年10月改款）', screen: '10.4英寸 2000×1200 LCD 60Hz',
+              battery: '7250mAh', charge: '18W（麒麟810版）→ 22.5W（麒麟820版）', system: 'HarmonyOS 2 / HarmonyOS 3（部分批次）',
+              priceList: ['4+64 330-370', '6+128 400-500'], refPrice: '422',
+              pros: ['性能不错', '支持外接存储卡'],
+              cons: ['版本多不好选', '屏幕有残影通病'] },
+            { id: 'a11', name: '荣耀平板V6', image: 'a11.png', tag: '性能', tagColor: 'red', rating: 4.5,
+              chip: '海思麒麟985', screen: '10.4英寸 2000×1200 LCD 60Hz',
+              battery: '7250mAh', charge: '22.5W（标配22.5W，硬件最高可支持40W）', system: 'Magic UI 4.x / 鸿蒙HarmonyOS 2（仅KRJ-W09/KRJ-AN00子型号）',
+              priceList: ['6+128 350-400'], refPrice: '412',
+              pros: ['性能不错', '支持外接存储卡', '四扬声器'],
+              cons: ['屏幕有残影通病', '价格不实惠', '鸿蒙系统与Magic OS都可升小心鉴别'] },
+            { id: 'a12', name: '华为MatePad 10.8', image: 'a12.png', tag: '主力', tagColor: 'green', rating: 4.8,
+              chip: '海思麒麟990', screen: '10.8英寸 2560×1600 LCD 60Hz',
+              battery: '7500mAh', charge: '22.5W', system: 'HarmonyOS 3 / HarmonyOS 4',
+              priceList: ['6+128 450-530', '6+256 500-620'], refPrice: '533',
+              pros: ['满血鸿蒙', 'pc级别应用适配高', '有耳机孔存储卡', '哈曼卡顿', '四扬声器', '价格无敌'],
+              cons: ['没有高刷', '成色普遍不好'] },
+            { id: 'a13', name: 'iPad Air（第3代）', image: 'a13.jpeg', tag: '主力', tagColor: 'green', rating: 4.5,
+              chip: '苹果A12仿生', screen: '10.5英寸 2224×1668 Retina LCD 60Hz，P3广色域/True Tone',
+              battery: '30.2瓦时', charge: '30W PD（标配12W充电器，需另购PD充电器）', system: 'iPadOS 18（A12芯片支持到iPadOS 18）',
+              priceList: ['3+64 450-610'], refPrice: '600',
+              pros: ['配置是MINI5的大屏版本', '影音体验好'],
+              cons: ['屏幕通病', '续航差', 'MINI5祖传问题'] },
+            { id: 'a14', name: '华为MatePad Pro 2019', image: 'a14.png', tag: '主力', tagColor: 'green', rating: 4.5,
+              chip: '海思麒麟990', screen: '10.8英寸 2560×1600 LCD 60Hz',
+              battery: '7250mAh', charge: '40W（标配20W充电器，支持15W无线充电/7.5W反向无线）', system: 'HarmonyOS 4 / HarmonyOS NEXT 5.0（Beta）',
+              priceList: ['6+128 480-620'], refPrice: '520',
+              pros: ['极窄边框', '轻', '质感好', '麒麟990', '鸿蒙4.2', '有无线充'],
+              cons: ['没有耳机孔', '没有高刷', '成色普遍不好'] },
+            { id: 'a15', name: '荣耀平板V7', image: 'a15.jpeg', tag: '备用', tagColor: 'purple', rating: 4.0,
+              chip: '联发科迅鲲900T', screen: '10.4英寸 2000×1200 LCD 90Hz',
+              battery: '7250mAh', charge: '22.5W', system: 'Magic UI 6.1（最终稳定版，未获MagicOS 7正式推送）',
+              priceList: ['8+128 420-499'], refPrice: '433',
+              pros: ['有90hz高刷', '性能够用', '支持外接存储卡'],
+              cons: ['没有耳机孔', '系统一般'] },
+
+            { id: 'a16', name: '华为MatePad 11 2021', image: 'a16.png', tag: '主力', tagColor: 'green', rating: 5.0,
+              chip: '高通骁龙865', screen: '10.95英寸 2560×1600 LCD 120Hz',
+              battery: '7250mAh', charge: '22.5W', system: 'HarmonyOS 3（不支持升级HarmonyOS NEXT）',
+              priceList: ['6+128 630-700', '8+128 700-770'], refPrice: '668',
+              pros: ['二手平板界goat', '120赫兹高刷', '鸿蒙4.2', '外接存储卡', '哈曼卡顿', '四扬声器', 'pc级适配高'],
+              cons: ['续航充电一般', '内存抽奖（不要买64G）', '还有2023的重置版不要买'] },
+            { id: 'a17', name: 'iPad（第9代）', image: 'a17.png', tag: '主力', tagColor: 'green', rating: 4.7,
+              chip: '苹果A13仿生', screen: '10.2英寸 2160×1620 Retina LCD 60Hz',
+              battery: '32.4瓦时', charge: '20W PD（标配20W充电器）', system: 'iPadOS 26（当前最新版本，A13芯片仍在支持列表内）',
+              priceList: ['3+64 730-860', '3+256 950-1200'], refPrice: '906',
+              pros: ['iOS系统强', '流畅稳定', '小巧耐摔', '续航不错', '耳机孔', '指纹识别', '最后一代非全面iPad'],
+              cons: ['私人非全贴合', '单扬声器', '内存太小', '不是c口'] },
+            { id: 'a18', name: 'vivo Pad Air', image: 'a18.webp', tag: '主力', tagColor: 'green', rating: 4.6,
+              chip: '高通骁龙870', screen: '11.5英寸 2800×1840 LCD 144Hz',
+              battery: '8500mAh', charge: '44W', system: 'OriginOS 5（基于Android 15）',
+              priceList: ['8+128 800-900', '8+250 900-960'], refPrice: '900',
+              pros: ['续航不错', '2.8k+144Hz体验无敌', '比例适配不错', '质感好', '有NFC一碰传'],
+              cons: ['PC级适配一般'] },
+            { id: 'a19', name: '小米平板6 Pro', image: 'a19.png', tag: '主力', tagColor: 'green', rating: 4.7,
+              chip: '高通骁龙8+ Gen1', screen: '11英寸 2880×1800 LCD 144Hz',
+              battery: '8600mAh', charge: '67W', system: 'HyperOS 3（基于Android 15/16）',
+              priceList: ['8+128 900-1000', '12+256 1200-1300'], refPrice: '1050',
+              pros: ['性价比高', '性能强', '指纹识别', 'USB3接口', '144Hz高刷', '杜比视界', 'PC适配高'],
+              cons: ['澎湃系统拉完了', '质感拉'] },
+            { id: 'a20', name: '荣耀平板V9', image: 'a20.png', tag: '主力', tagColor: 'green', rating: 4.8,
+              chip: '联发科天玑8350至尊版', screen: '11.5英寸 2800×1840 LCD 144Hz',
+              battery: '10100mAh', charge: '66W（标配35W充电器）', system: 'MagicOS 9.0（基于Android 15）',
+              priceList: ['8+128 1050-1250', '8+256 1300左右'], refPrice: '1109',
+              pros: ['性能不错', '比例显示好', '显示无敌', '八扬声器外放绝', '颜值高', '手感不错', 'PC级适配好', '配置均衡'],
+              cons: ['USB2.0'] },
+            { id: 'a21', name: 'vivo Pad3 Pro', image: 'a21.png', tag: '主力&性能', tagColor: 'green', rating: 5.0,
+              chip: '联发科天玑9300', screen: '13英寸 3100×2066 LCD 144Hz',
+              battery: '11500mAh', charge: '66W', system: 'OriginOS 5（基于Android 15）',
+              priceList: ['8+128 1250-1400', '8+256 1450-1600'], refPrice: '1399',
+              pros: ['天玑9300神U', '性能无敌', '13英寸超大屏', '比例好', '续航长', '堆料拉满', '全功能c口', 'PC级适配好', '超高分辨率3.1k'],
+              cons: ['重', '不方便携带', '二手通病多'] },
+            { id: 'a22', name: 'OPPO Pad3 Pro', image: 'a22.jpeg', tag: '主力&性能', tagColor: 'green', rating: 4.8,
+              chip: '高通骁龙8 Gen3 领先版', screen: '12.1英寸 2880×1800 LCD 144Hz',
+              battery: '9510mAh', charge: '67W', system: 'ColorOS 16（基于Android 16）',
+              priceList: ['8+256 1350-1500', '12+256 1450-1700'], refPrice: '1599',
+              pros: ['骁龙8gen3性能无敌', '12.1英寸大屏', '八扬声器', '配置均衡'],
+              cons: ['PC级适配拉', '续航一般'] },
+            { id: 'a23', name: 'iPad Pro 2018', image: 'a23.png', tag: '主力&性能', tagColor: 'green', rating: 4.8,
+              chip: '苹果A12X仿生', screen: '11英寸 2388×1668 / 12.9英寸 2732×2048 Liquid Retina LCD 120Hz',
+              battery: '11英寸版29.37瓦时 / 12.9英寸版36.71瓦时', charge: '30W+ PD（标配18W充电器）', system: 'iPadOS 26（最终版本，iPadOS 27已不再支持A12X）',
+              priceList: ['4+64 1100-1250', '4+256 1450-1600'], refPrice: '1499',
+              pros: ['iPad生态强', '120Hz高刷', '四扬声器', '体验极佳', '3D人脸识别性能A12X强劲'],
+              cons: ['二手老化严重', '传家宝多'] },
+            { id: 'a24', name: '联想小新Pad Pro GT', image: 'a24.jpg', tag: '性能&主力', tagColor: 'red', rating: 5.0,
+              chip: '高通骁龙8 Gen3', screen: '11.1英寸 2560×1600 LCD 144Hz',
+              battery: '8860mAh', charge: '68W', system: 'Android 14（出厂版本，后续更新视联想推送计划）',
+              priceList: ['8+256 1200-1350', '12+256 1350-1550'], refPrice: '1355',
+              pros: ['屏幕素质高', '骁龙8gen3性能爆表', '机身轻薄', 'PC级适配高'],
+              cons: ['小厂系统一般', '续航一般'] },
+            { id: 'a25', name: 'OPPO Pad3', image: 'a25.jpg', tag: '主力', tagColor: 'green', rating: 4.5,
+              chip: '联发科天玑8350', screen: '11.61英寸 2800×2000 LCD 144Hz',
+              battery: '9510mAh', charge: '67W', system: 'ColorOS 16（基于Android 16）',
+              priceList: ['8+128 1000-1200', '8+256 1200-1400'], refPrice: '—',
+              pros: ['性能强', '大屏幕', '闪存好', '屏幕素质高'],
+              cons: ['续航一般', '重', 'PC适配差', '涨价'] }
+        ];
+
+        const padRangeMap = {
+            '100-300': ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'],
+            '300-500': ['a8', 'a9', 'a10', 'a11', 'a12', 'a13', 'a14', 'a15'],
+            '500-1500': ['a16', 'a17', 'a18', 'a19', 'a20', 'a21', 'a22', 'a23', 'a24', 'a25']
+        };
+
+        // ============================================================
+        //  页面逻辑
+        // ============================================================
         const pageHome = document.getElementById('pageHome');
+        const pagePhone = document.getElementById('pagePhone');
         const pageDetail = document.getElementById('pageDetail');
         const pageMore = document.getElementById('pageMore');
+        const pagePadPrice = document.getElementById('pagePadPrice');
+        const pagePadDetail = document.getElementById('pagePadDetail');
         const phoneGrid = document.getElementById('phoneGrid');
         const moreGrid = document.getElementById('moreGrid');
+        const padGrid = document.getElementById('padGrid');
         const rangeTitle = document.getElementById('rangeTitle');
-        const backHome = document.getElementById('backHome');
-        const backMore = document.getElementById('backMore');
+        const padRangeTitle = document.getElementById('padRangeTitle');
 
         let currentRange = null;
+        let currentPadRange = null;
         let currentPage = 'home';
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             if (pageId === 'home') {
-                pageHome.classList.add('active');
-                currentPage = 'home';
+                pageHome.classList.add('active'); currentPage = 'home';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 history.pushState({ page: 'home' }, '');
+            } else if (pageId === 'phone') {
+                pagePhone.classList.add('active'); currentPage = 'phone';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: 'phone' }, '');
             } else if (pageId === 'detail') {
-                pageDetail.classList.add('active');
-                currentPage = 'detail';
+                pageDetail.classList.add('active'); currentPage = 'detail';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 history.pushState({ page: 'detail', range: currentRange }, '');
             } else if (pageId === 'more') {
-                pageMore.classList.add('active');
-                currentPage = 'more';
+                pageMore.classList.add('active'); currentPage = 'more';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 history.pushState({ page: 'more' }, '');
+            } else if (pageId === 'padPrice') {
+                pagePadPrice.classList.add('active'); currentPage = 'padPrice';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: 'padPrice' }, '');
+            } else if (pageId === 'padDetail') {
+                pagePadDetail.classList.add('active'); currentPage = 'padDetail';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: 'padDetail', padRange: currentPadRange }, '');
             }
         }
 
@@ -1114,40 +1172,27 @@
                 const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
                 const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
                 const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
-
                 let prosHtml = '';
                 if (p.pros && p.pros.length > 0) prosHtml = p.pros.map(t => `<span class="tag-item pro">${t}</span>`).join('');
                 let consHtml = '';
                 if (p.cons && p.cons.length > 0) consHtml = p.cons.map(t => `<span class="tag-item con">${t}</span>`).join('');
                 const prosConsHtml = (prosHtml || consHtml) ? `<div class="pros-cons">${prosHtml}${consHtml}</div>` : '';
-
                 let priceRowsHtml = '';
                 if (p.priceList && p.priceList.length > 0) {
                     p.priceList.forEach((item, index) => {
                         const parts = item.split(' ');
                         const mem = parts[0] || '';
                         const rangeVal = parts.slice(1).join(' ') || '';
-                        const refDisplay = (index === 0 && p.refPrice && p.refPrice.trim() !== '')
+                        const refDisplay = (index === 0 && p.refPrice && p.refPrice.trim() !== '' && p.refPrice !== '—')
                             ? `<span class="right">¥${p.refPrice} <span class="label">参考价</span></span>`
                             : (index === 0 ? `<span class="right empty">—</span>` : '');
-                        priceRowsHtml += `
-                            <div class="price-row">
-                                <span class="left"><span class="mem">${mem}</span> ${rangeVal}</span>
-                                ${refDisplay}
-                            </div>
-                        `;
+                        priceRowsHtml += `<div class="price-row"><span class="left"><span class="mem">${mem}</span> ${rangeVal}</span>${refDisplay}</div>`;
                     });
                 } else {
                     priceRowsHtml = `<div class="price-row"><span class="left" style="color:var(--text-muted);font-weight:400;">—</span></div>`;
                 }
-
                 let altHtml = p.alt ? `<div class="alt-models"><span>${p.alt}</span></div>` : '';
-                let moreBtnHtml = p.showMore ? `
-                    <div class="more-btn">
-                        <button onclick="showMorePage()">📱 其他推荐机型（仅供参考）</button>
-                    </div>
-                ` : '';
-
+                let moreBtnHtml = p.showMore ? `<div class="more-btn"><button onclick="showMorePage()">📱 其他推荐机型（仅供参考）</button></div>` : '';
                 return `<div class="phone-card-item">
                     <div class="phone-image">
                         <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
@@ -1155,11 +1200,7 @@
                     </div>
                     <div class="info-area">
                         <div>
-                            <div class="name-row">
-                                <span class="name">${p.name}</span>
-                                ${tagHtml}
-                                ${ratingHtml}
-                            </div>
+                            <div class="name-row"><span class="name">${p.name}</span>${tagHtml}${ratingHtml}</div>
                             <div class="spec-list">
                                 <span><span class="spec-icon"><i class="fas fa-mobile-screen"></i></span>${p.screen}</span>
                                 <span><span class="spec-icon"><i class="fas fa-microchip"></i></span>${p.cpu}</span>
@@ -1191,11 +1232,7 @@
                     </div>
                     <div class="info-area">
                         <div>
-                            <div class="name-row">
-                                <span class="name">${p.name}</span>
-                                ${tagHtml}
-                                ${ratingHtml}
-                            </div>
+                            <div class="name-row"><span class="name">${p.name}</span>${tagHtml}${ratingHtml}</div>
                             <div class="spec-list">
                                 <span><span class="spec-icon"><i class="fas fa-mobile-screen"></i></span>${p.screen}</span>
                                 <span><span class="spec-icon"><i class="fas fa-microchip"></i></span>${p.cpu}</span>
@@ -1210,6 +1247,59 @@
             }).join('');
         }
 
+        function renderPadPhones(range) {
+            const ids = padRangeMap[range] || [];
+            const list = allPads.filter(p => ids.includes(p.id));
+            if (list.length === 0) {
+                padGrid.innerHTML = `<div style="text-align:center; padding:30px 0; color:var(--text-muted); font-size:16px;">该价位暂无平板</div>`;
+                return;
+            }
+            padGrid.innerHTML = list.map(p => {
+                const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
+                const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
+                const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
+                let prosHtml = '';
+                if (p.pros && p.pros.length > 0) prosHtml = p.pros.map(t => `<span class="tag-item pro">${t}</span>`).join('');
+                let consHtml = '';
+                if (p.cons && p.cons.length > 0) consHtml = p.cons.map(t => `<span class="tag-item con">${t}</span>`).join('');
+                const prosConsHtml = (prosHtml || consHtml) ? `<div class="pros-cons">${prosHtml}${consHtml}</div>` : '';
+                let priceRowsHtml = '';
+                if (p.priceList && p.priceList.length > 0) {
+                    p.priceList.forEach((item, index) => {
+                        const parts = item.split(' ');
+                        const mem = parts[0] || '';
+                        const rangeVal = parts.slice(1).join(' ') || '';
+                        const refDisplay = (index === 0 && p.refPrice && p.refPrice.trim() !== '' && p.refPrice !== '—')
+                            ? `<span class="right">¥${p.refPrice} <span class="label">参考价</span></span>`
+                            : (index === 0 ? `<span class="right empty">—</span>` : '');
+                        priceRowsHtml += `<div class="price-row"><span class="left"><span class="mem">${mem}</span> ${rangeVal}</span>${refDisplay}</div>`;
+                    });
+                } else {
+                    priceRowsHtml = `<div class="price-row"><span class="left" style="color:var(--text-muted);font-weight:400;">—</span></div>`;
+                }
+                return `<div class="phone-card-item">
+                    <div class="phone-image">
+                        <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
+                        <span class="brand-placeholder">${p.id.toUpperCase()}</span>
+                    </div>
+                    <div class="info-area">
+                        <div>
+                            <div class="name-row"><span class="name">${p.name}</span>${tagHtml}${ratingHtml}</div>
+                            <div class="spec-list">
+                                <span><span class="spec-icon"><i class="fas fa-microchip"></i></span>${p.chip}</span>
+                                <span><span class="spec-icon"><i class="fas fa-mobile-screen"></i></span>${p.screen}</span>
+                                <span><span class="spec-icon"><i class="fas fa-battery-full"></i></span>${p.battery}</span>
+                                <span><span class="spec-icon"><i class="fas fa-bolt"></i></span>${p.charge}</span>
+                                <span><span class="spec-icon"><i class="fas fa-code-branch"></i></span>${p.system}</span>
+                            </div>
+                        </div>
+                        ${prosConsHtml}
+                        <div class="price-area">${priceRowsHtml}</div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
         function showMorePage() { renderMorePhones(); showPage('more'); }
         function showDetail(range) {
             const labels = { '100-200': '¥100-200', '200-350': '¥200-350', '350-500': '¥350-500', '500-750': '¥500-750', '750-1000': '¥750-1000' };
@@ -1218,22 +1308,41 @@
             renderPhones(range);
             showPage('detail');
         }
-        function goHome() { showPage('home'); }
+        function showPadDetail(range) {
+            const labels = { '100-300': '¥100-300', '300-500': '¥300-500', '500-1500': '¥500-1500' };
+            currentPadRange = range;
+            padRangeTitle.textContent = labels[range] || range;
+            renderPadPhones(range);
+            showPage('padDetail');
+        }
 
-        backHome.addEventListener('click', goHome);
-        backMore.addEventListener('click', function() { showPage('detail'); });
+        document.getElementById('phoneEntry').addEventListener('click', function(e) { e.preventDefault(); showPage('phone'); });
+        document.getElementById('padEntry').addEventListener('click', function(e) { e.preventDefault(); showPage('padPrice'); });
+        document.getElementById('backHomeFromPhone').addEventListener('click', function() { showPage('home'); });
+        document.getElementById('backHomeFromPad').addEventListener('click', function() { showPage('home'); });
+        document.getElementById('backPhone').addEventListener('click', function() { showPage('phone'); });
+        document.getElementById('backMore').addEventListener('click', function() { showPage('detail'); });
+        document.getElementById('backPad').addEventListener('click', function() { showPage('padPrice'); });
 
-        document.querySelectorAll('.price-card').forEach(card => {
+        document.querySelectorAll('.price-card[data-range]').forEach(card => {
             card.addEventListener('click', function(e) {
                 e.preventDefault();
                 const range = this.dataset.range;
                 if (range) showDetail(range);
             });
         });
+        document.querySelectorAll('.price-card[data-pad-range]').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const range = this.dataset.padRange;
+                if (range) showPadDetail(range);
+            });
+        });
 
         window.addEventListener('popstate', function(e) {
             if (e.state) {
                 if (e.state.page === 'home') { showPage('home'); }
+                else if (e.state.page === 'phone') { showPage('phone'); }
                 else if (e.state.page === 'detail' && e.state.range) {
                     currentRange = e.state.range;
                     const labels = { '100-200': '¥100-200', '200-350': '¥200-350', '350-500': '¥350-500', '500-750': '¥500-750', '750-1000': '¥750-1000' };
@@ -1241,9 +1350,19 @@
                     renderPhones(currentRange);
                     showPage('detail');
                 } else if (e.state.page === 'more') { renderMorePhones(); showPage('more'); }
+                else if (e.state.page === 'padPrice') { showPage('padPrice'); }
+                else if (e.state.page === 'padDetail' && e.state.padRange) {
+                    currentPadRange = e.state.padRange;
+                    const labels = { '100-300': '¥100-300', '300-500': '¥300-500', '500-1500': '¥500-1500' };
+                    padRangeTitle.textContent = labels[currentPadRange] || currentPadRange;
+                    renderPadPhones(currentPadRange);
+                    showPage('padDetail');
+                }
             } else {
                 if (currentPage === 'home') return;
                 if (currentPage === 'more') showPage('detail');
+                else if (currentPage === 'detail') showPage('phone');
+                else if (currentPage === 'padDetail') showPage('padPrice');
                 else showPage('home');
             }
         });
@@ -1264,7 +1383,10 @@
             if (Math.abs(deltaX) > Math.abs(deltaY) * 1.5 && deltaX > 40) {
                 e.preventDefault();
                 if (currentPage === 'more') showPage('detail');
-                else if (currentPage === 'detail') showPage('home');
+                else if (currentPage === 'detail') showPage('phone');
+                else if (currentPage === 'phone') showPage('home');
+                else if (currentPage === 'padDetail') showPage('padPrice');
+                else if (currentPage === 'padPrice') showPage('home');
                 isSwiping = false;
             }
         }, { passive: false });
