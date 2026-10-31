@@ -41,6 +41,14 @@
             --tag-con: #c62828;
             --footer-color: rgba(26,35,50,0.15);
             --footer-author: rgba(26,35,50,0.12);
+            --spec-highlight: #1565c0;
+            --spec-highlight-bg: rgba(21,101,192,0.06);
+            --spec-highlight-border: rgba(21,101,192,0.18);
+            --fav-color: #e53935;
+            --compare-color: #5b8def;
+            --notice-bg: rgba(212,160,23,0.08);
+            --notice-border: rgba(212,160,23,0.22);
+            --notice-text: #8a6a0a;
         }
         [data-theme="dark"] {
             --bg-body: #1a2a2a;
@@ -76,6 +84,14 @@
             --tag-con: #ef9a9a;
             --footer-color: rgba(180,210,180,0.15);
             --footer-author: rgba(180,210,180,0.12);
+            --spec-highlight: #79b8ff;
+            --spec-highlight-bg: rgba(121,184,255,0.1);
+            --spec-highlight-border: rgba(121,184,255,0.22);
+            --fav-color: #ff6b6b;
+            --compare-color: #79b8ff;
+            --notice-bg: rgba(232,200,74,0.1);
+            --notice-border: rgba(232,200,74,0.25);
+            --notice-text: #e8c84a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -84,7 +100,7 @@
             background: var(--bg-body);
             background-image: radial-gradient(circle at 20% 30%, var(--bg-radial-start) 0%, var(--bg-radial-end) 100%);
             min-height: 100vh;
-            padding: 30px 24px;
+            padding: 30px 24px 90px;
             color: var(--text-primary);
             transition: background 0.25s ease, color 0.2s ease;
             -webkit-font-smoothing: antialiased;
@@ -97,7 +113,7 @@
             letter-spacing: -0.02em; transition: color 0.2s;
         }
         .header p { color: var(--text-secondary); font-size: 16px; margin-top: 2px; transition: color 0.2s; }
-        .header-right { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+        .header-right { display: flex; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
         .header-btn {
             background: var(--btn-glass);
             backdrop-filter: blur(8px) saturate(160%);
@@ -112,6 +128,16 @@
         }
         .header-btn:active { transform: scale(0.95); }
         .header-btn i { font-size: 13px; color: var(--text-secondary); }
+.header-btn .header-new-dot {
+            position: absolute; top: 2px; right: 2px;
+            font-size: 9px; font-weight: 700; color: #fff;
+            background: linear-gradient(135deg, #ff8a3d, #ff5b5b);
+            padding: 1px 5px; border-radius: 100px; line-height: 1.3;
+            box-shadow: 0 2px 6px rgba(255,91,91,0.4);
+            animation: newBadgePulse 2s ease-in-out infinite;
+        }
+        .header-btn { position: relative; }
+
 
         .modal-overlay {
             position: fixed; inset: 0;
@@ -169,12 +195,39 @@
         .log-item .log-title .log-arrow { color: var(--text-muted); transition: transform 0.25s; margin-left: 6px; }
         .log-item.open .log-title .log-arrow { transform: rotate(90deg); }
         .log-item .log-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s ease; padding: 0 2px; }
-        .log-item.open .log-content { max-height: 600px; padding: 10px 2px 2px; }
+        .log-item.open .log-content { max-height: 2000px; padding: 10px 2px 2px; }
         .log-item .log-content-inner {
             font-size: 13px; line-height: 1.7; color: var(--text-secondary);
             background: var(--log-content-bg); border-radius: 12px; padding: 12px 16px;
             white-space: pre-wrap; word-break: break-word;
             border: 1px solid var(--log-item-border); transition: color 0.2s, background 0.2s;
+        }
+        /* v1.2 最新公告高亮 */
+        .log-item.log-new {
+            background: var(--notice-bg);
+            border-color: var(--notice-border);
+            box-shadow: 0 6px 24px rgba(212,160,23,0.10);
+        }
+        .log-item.log-new .log-title { color: var(--price-color); }
+        .log-item.log-new .log-content-inner {
+            background: rgba(255,255,255,0.22);
+            border-color: var(--notice-border);
+            color: var(--text-primary);
+        }
+        [data-theme="dark"] .log-item.log-new .log-content-inner {
+            background: rgba(60,100,80,0.22);
+        }
+        .log-new-badge {
+            display: inline-block;
+            font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+            color: #fff; background: linear-gradient(135deg, #ff8a3d, #ff5b5b);
+            padding: 2px 8px; border-radius: 100px; margin-left: 8px;
+            vertical-align: middle; box-shadow: 0 2px 8px rgba(255,91,91,0.35);
+            animation: newBadgePulse 2s ease-in-out infinite;
+        }
+        @keyframes newBadgePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.85; }
         }
 
         .mission-section {
@@ -191,6 +244,46 @@
         }
         .mission-section .mission-text .highlight { color: #5b8def; font-weight: 500; }
         .mission-section .mission-text .highlight-gold { color: var(--price-color); font-weight: 500; }
+
+        /* 价位页顶部提示方框 */
+        .range-notice {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--notice-bg);
+            border: 1px solid var(--notice-border);
+            border-radius: 18px;
+            padding: 14px 20px;
+            margin-bottom: 16px;
+            color: var(--notice-text);
+            font-size: 14px;
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+            backdrop-filter: blur(10px) saturate(160%);
+            -webkit-backdrop-filter: blur(10px) saturate(160%);
+            box-shadow: var(--shadow);
+            transition: background 0.25s, border-color 0.25s, color 0.25s;
+        }
+        .range-notice i {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .range-notice .notice-main {
+            flex: 1;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .range-notice .notice-date {
+            flex-shrink: 0;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 100px;
+            background: rgba(212,160,23,0.12);
+            border: 1px solid rgba(212,160,23,0.22);
+            color: var(--price-color);
+            white-space: nowrap;
+        }
 
         .featured-section {
             margin-bottom: 20px; background: var(--glass-bg);
@@ -276,6 +369,7 @@
         .back-bar {
             display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
             padding-bottom: 12px; border-bottom: 1px solid var(--text-muted);
+            flex-wrap: wrap;
         }
         .back-bar .back-btn {
             background: var(--btn-glass); backdrop-filter: blur(12px) saturate(160%);
@@ -286,21 +380,55 @@
             font-family: inherit; display: flex; align-items: center; gap: 6px;
             transition: background 0.15s; box-shadow: var(--shadow);
         }
-        .back-bar .back-btn:active { background: var(--btn-glass-hover); }
+        .back-bar .back-btn:active { background: var(--card-hover-bg); }
         .back-bar .title { font-size: 22px; font-weight: 600; color: var(--text-secondary); }
         .back-bar .title span { color: #5b8def; }
+        .back-bar .spacer { flex: 1; }
 
         .phone-grid { display: flex; flex-direction: column; gap: 20px; }
         .phone-card-item {
             background: var(--card-bg); backdrop-filter: blur(16px) saturate(180%);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
             border: 1px solid var(--card-border); border-radius: 28px;
-            padding: 28px 32px;
+            padding: 28px 32px 56px;
             transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
             display: flex; align-items: center; gap: 36px;
             min-height: 280px; box-shadow: var(--shadow); will-change: transform;
+            position: relative;
         }
         .phone-card-item:active { transform: scale(0.99); }
+        .phone-card-item.selected {
+            border-color: var(--compare-color);
+            box-shadow: 0 0 0 2px var(--compare-color), var(--shadow);
+        }
+
+        /* 卡片操作按钮：放在右下角 */
+        .card-actions {
+            position: absolute;
+            bottom: 14px;
+            right: 18px;
+            display: flex;
+            gap: 8px;
+            z-index: 3;
+        }
+        .card-action-btn {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--btn-glass-border);
+            background: var(--btn-glass);
+            backdrop-filter: blur(10px) saturate(160%);
+            -webkit-backdrop-filter: blur(10px) saturate(160%);
+            color: var(--text-secondary);
+            font-size: 15px;
+            cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            transition: background 0.15s, color 0.15s, transform 0.15s;
+            box-shadow: var(--shadow);
+        }
+        .card-action-btn:active { transform: scale(0.9); }
+        .card-action-btn.fav.active { color: var(--fav-color); }
+        .card-action-btn.compare.active { color: var(--compare-color); }
+        .card-action-btn.compare.disabled { opacity: 0.35; cursor: not-allowed; }
 
         .phone-image {
             flex: 0 0 260px; width: 260px; height: 260px;
@@ -350,13 +478,53 @@
             color: rgba(255,182,193,0.55); margin-left: 2px;
         }
 
-        .phone-card-item .spec-list { margin: 3px 0 3px; font-size: 20px; color: var(--text-secondary); line-height: 2.2; }
-        .phone-card-item .spec-list span { display: block; }
-        .phone-card-item .spec-list .spec-icon { color: var(--text-muted); margin-right: 12px; width: 28px; display: inline-block; }
+        .phone-card-item .spec-list {
+            margin: 8px 0;
+            font-size: 17px;
+            line-height: 1.9;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding: 10px 14px;
+            border-radius: 14px;
+            background: var(--spec-highlight-bg);
+            border: 1px solid var(--spec-highlight-border);
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .phone-card-item .spec-list span.spec-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 3px 0;
+            color: var(--text-primary);
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+        .phone-card-item .spec-list span.spec-line + span.spec-line {
+            border-top: 1px solid var(--spec-highlight-border);
+        }
+        .phone-card-item .spec-list .spec-icon {
+            color: var(--spec-highlight);
+            width: 22px;
+            min-width: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            padding-top: 3px;
+        }
+        .phone-card-item .spec-list .spec-key {
+            color: var(--spec-highlight);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .phone-card-item .spec-list .spec-noicon {
+            padding-left: 32px;
+        }
 
         .phone-card-item .pros-cons {
             display: flex; flex-wrap: wrap; gap: 4px 10px;
-            margin: 3px 0 4px; padding: 6px 0;
+            margin: 6px 0 4px; padding: 6px 0;
             border-top: 1px solid var(--text-muted);
             border-bottom: 1px solid var(--text-muted);
         }
@@ -406,7 +574,155 @@
             font-size: 14px; cursor: pointer; font-family: inherit;
             transition: background 0.15s; box-shadow: var(--shadow);
         }
-        .phone-card-item .more-btn button:active { background: var(--btn-glass-hover); }
+        .phone-card-item .more-btn button:active { background: var(--card-hover-bg); }
+
+        /* ===== 对比栏 ===== */
+        .compare-bar {
+            position: fixed;
+            left: 50%; bottom: 20px;
+            transform: translateX(-50%);
+            z-index: 900;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 100px;
+            background: var(--modal-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--modal-border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            max-width: calc(100% - 32px);
+            animation: fadeUp 0.2s ease;
+        }
+        .compare-bar.active { display: flex; }
+        .compare-bar .count {
+            font-size: 14px; font-weight: 600; color: var(--text-primary);
+            white-space: nowrap;
+        }
+        .compare-bar .count span { color: var(--compare-color); }
+        .compare-bar .count .type-tag {
+            font-size: 11px; font-weight: 500; color: var(--text-secondary);
+            margin-left: 2px;
+        }
+        .compare-bar .btn-clear,
+        .compare-bar .btn-go {
+            border: 1px solid var(--btn-glass-border);
+            background: var(--btn-glass);
+            color: var(--text-primary);
+            font-size: 13px;
+            padding: 7px 16px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-family: inherit;
+            display: inline-flex; align-items: center; gap: 5px;
+            transition: background 0.15s, transform 0.15s;
+            white-space: nowrap;
+        }
+        .compare-bar .btn-go {
+            background: var(--compare-color);
+            border-color: var(--compare-color);
+            color: #fff;
+            font-weight: 600;
+        }
+        .compare-bar .btn-go.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .compare-bar .btn-clear:active,
+        .compare-bar .btn-go:not(.disabled):active { transform: scale(0.94); }
+
+        /* ===== 对比页 ===== */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .compare-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--card-border);
+            border-radius: 22px;
+            padding: 18px;
+            box-shadow: var(--shadow);
+            display: flex; flex-direction: column; gap: 10px;
+            position: relative;
+        }
+        .compare-card .cmp-remove {
+            position: absolute;
+            top: 10px; right: 10px;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--btn-glass-border);
+            background: var(--btn-glass);
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+        .compare-card .cmp-img {
+            width: 100%; height: 140px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .compare-card .cmp-img img {
+            width: 100%; height: 100%; object-fit: contain; padding: 6px;
+        }
+        .compare-card .cmp-name {
+            font-size: 20px; font-weight: 700; color: var(--text-primary);
+            padding-right: 30px;
+        }
+        .compare-card .cmp-meta {
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+        }
+        .compare-card .cmp-row {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            padding: 6px 0;
+            border-top: 1px solid var(--text-muted);
+        }
+        .compare-card .cmp-row .k {
+            color: var(--spec-highlight);
+            font-weight: 700;
+            margin-right: 6px;
+        }
+        .compare-card .cmp-row .v {
+            color: var(--text-primary);
+        }
+        .compare-card .cmp-pros-cons {
+            display: flex; flex-wrap: wrap; gap: 4px 6px;
+        }
+        .compare-card .cmp-pros-cons .tag-item {
+            font-size: 11px; padding: 1px 10px; border-radius: 100px;
+            border: 1px solid var(--text-muted);
+            line-height: 1.5;
+        }
+        .compare-card .cmp-pros-cons .tag-item.pro { color: var(--tag-pro); border-color: rgba(46,125,50,0.15); background: rgba(46,125,50,0.05); }
+        .compare-card .cmp-pros-cons .tag-item.con { color: var(--tag-con); border-color: rgba(198,40,40,0.15); background: rgba(198,40,40,0.05); }
+        .compare-card .cmp-price {
+            font-size: 20px; font-weight: 700; color: var(--price-color);
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px solid var(--text-muted);
+        }
+
+        .empty-hint {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .empty-hint i {
+            display: block;
+            font-size: 36px;
+            margin-bottom: 14px;
+            color: var(--text-muted);
+        }
 
         .footer { text-align: center; margin-top: 36px; }
         .footer .social-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 10px; }
@@ -430,13 +746,39 @@
             display: block; margin-top: 4px; font-size: 12px; color: var(--footer-author); transition: color 0.2s;
         }
 
+        /* ===== 提示 toast ===== */
+        .toast {
+            position: fixed;
+            left: 50%; bottom: 90px;
+            transform: translateX(-50%) translateY(20px);
+            z-index: 1100;
+            padding: 10px 20px;
+            border-radius: 100px;
+            background: var(--modal-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--modal-border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            font-size: 13px;
+            color: var(--text-primary);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            white-space: nowrap;
+            max-width: calc(100% - 32px);
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
         @media (max-width: 768px) {
-            body { padding: 16px 14px; }
+            body { padding: 16px 14px 100px; }
             .header h1 { font-size: 30px; }
             .header p { font-size: 14px; }
             .header-btn { font-size: 12px; padding: 5px 12px; }
             .mission-section { padding: 18px 20px; }
             .mission-section .mission-text { font-size: 17px; }
+            .range-notice { padding: 12px 14px; font-size: 13px; gap: 8px; flex-wrap: wrap; }
+            .range-notice .notice-main { flex: 1 1 100%; }
+            .range-notice .notice-date { margin-left: auto; }
             .featured-grid { grid-template-columns: 1fr; gap: 10px; }
             .featured-section { padding: 16px 16px; }
             .entry-card { padding: 30px 22px; }
@@ -445,13 +787,16 @@
             .price-card { padding: 22px 18px; }
             .price-card .price-range { font-size: 24px; }
             .price-card .slogan { font-size: 14px; }
-            .phone-card-item { padding: 18px 20px; gap: 20px; min-height: 180px; border-radius: 20px; flex-wrap: wrap; }
+            .phone-card-item { padding: 18px 20px 50px; gap: 20px; min-height: 180px; border-radius: 20px; flex-wrap: wrap; }
             .phone-image { flex: 0 0 160px; width: 160px; height: 160px; border-radius: 16px; }
             .phone-card-item .name { font-size: 24px; }
             .phone-card-item .tag { font-size: 10px; padding: 1px 10px; }
             .phone-card-item .rating { font-size: 14px; }
             .phone-card-item .rating .score { font-size: 12px; }
-            .phone-card-item .spec-list { font-size: 17px; line-height: 2.2; }
+            .phone-card-item .spec-list { font-size: 14px; line-height: 1.8; padding: 8px 10px; }
+            .phone-card-item .spec-list span.spec-line { gap: 8px; padding: 2px 0; }
+            .phone-card-item .spec-list .spec-icon { width: 18px; min-width: 18px; font-size: 12px; }
+            .phone-card-item .spec-list .spec-noicon { padding-left: 26px; }
             .phone-card-item .pros-cons .tag-item { font-size: 11px; padding: 1px 8px; }
             .phone-card-item .price-row .left { font-size: 16px; }
             .phone-card-item .price-row .right { font-size: 26px; }
@@ -461,12 +806,20 @@
             .log-item .log-title { font-size: 14px; }
             .log-item .log-content-inner { font-size: 12px; padding: 10px 12px; }
             .footer .social-btn { width: 44px; height: 44px; font-size: 18px; }
+            .card-actions { bottom: 10px; right: 12px; gap: 6px; }
+            .card-action-btn { width: 32px; height: 32px; font-size: 13px; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .compare-bar { bottom: 14px; padding: 8px 12px; gap: 8px; }
+            .compare-bar .count { font-size: 13px; }
+            .compare-bar .btn-clear,
+            .compare-bar .btn-go { font-size: 12px; padding: 6px 12px; }
+            .toast { bottom: 80px; font-size: 12px; }
         }
         @media (max-width: 480px) {
             .phone-card-item { flex-direction: column; align-items: stretch; min-height: auto; }
             .phone-image { flex: 0 0 auto; width: 100%; height: 220px; }
             .phone-card-item .name { font-size: 22px; }
-            .phone-card-item .spec-list { font-size: 16px; }
+            .phone-card-item .spec-list { font-size: 13px; }
             .phone-card-item .price-row .left { font-size: 15px; }
             .phone-card-item .price-row .right { font-size: 22px; }
             .entry-card { padding: 26px 18px; }
@@ -475,6 +828,8 @@
             .price-card .price-range { font-size: 20px; }
             .price-card .slogan { font-size: 13px; }
             .mission-section .mission-text { font-size: 15px; }
+            .range-notice { font-size: 12px; padding: 10px 12px; border-radius: 14px; }
+            .range-notice .notice-date { font-size: 11px; padding: 2px 10px; }
             .modal { padding: 16px 14px; }
             .log-item { padding: 8px 12px; }
             .log-item .log-title { font-size: 13px; }
@@ -482,7 +837,6 @@
         }
     </style>
     <script>
-        // 提前应用主题，避免刷新时闪白/闪黑
         (function () {
             try {
                 var saved = localStorage.getItem('cwtp-theme');
@@ -499,12 +853,12 @@
             <h1>尘雾的二手终极焚决</h1>
             <p>按预算筛选 · 快速找到适合你的机型</p>
             <div class="header-right">
-                <button class="header-btn" id="logBtn"><i class="fas fa-clock"></i> 更新日志</button>
+                <button class="header-btn" id="logBtn"><i class="fas fa-clock"></i> 更新日志<span class="header-new-dot">NEW</span></button>
                 <button class="header-btn" id="themeBtn"><i class="fas fa-moon"></i> <span id="themeLabel">深色</span></button>
+                <button class="header-btn" id="favHeaderBtn"><i class="fas fa-heart"></i> 收藏</button>
             </div>
         </div>
 
-        <!-- ===== 一级页面 ===== -->
         <div id="pageHome" class="page active">
             <div class="mission-section">
                 <div class="mission-text">
@@ -523,6 +877,11 @@
                         <a href="https://kqakqakqa.github.io/socpk/" target="_blank" rel="noopener noreferrer" class="link-item">
                             <i class="fas fa-external-link-alt"></i> SOCPK 综合性能排行
                             <span class="desc">· 极客湾</span>
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <a href="https://www.antutu.com/ranking/soc" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-chart-bar"></i> 安兔兔芯片跑分
+                            <span class="desc">· 安兔兔</span>
                             <span class="arrow"><i class="fas fa-chevron-right"></i></span>
                         </a>
                     </div>
@@ -544,14 +903,30 @@
                             <i class="fas fa-user"></i> 穷测云栖
                             <span class="arrow"><i class="fas fa-chevron-right"></i></span>
                         </a>
+                        <a href="https://b23.tv/eV5nVMM" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-user"></i> i搞机的伍六柒
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <a href="https://b23.tv/pW0wFxm" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-user"></i> 残叶与鱼
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <a href="https://b23.tv/sCqCyhz" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-user"></i> 原色兔
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                        <a href="https://b23.tv/1bx6G8O" target="_blank" rel="noopener noreferrer" class="link-item">
+                            <i class="fas fa-user"></i> 圾佬
+                            <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="entry-grid">
                 <a href="#" class="entry-card" id="phoneEntry">
-                    <div class="entry-title">100-1000元二手手机焚决</div>
-                    <div class="entry-desc">千元内各价位二手手机推荐 · 按预算精准筛选</div>
+                    <div class="entry-title">100-1300元二手手机焚决</div>
+                    <div class="entry-desc">千元级各价位二手手机推荐 · 按预算精准筛选</div>
                     <span class="entry-tag">点击进入</span>
                 </a>
                 <a href="#" class="entry-card" id="padEntry">
@@ -559,14 +934,23 @@
                     <div class="entry-desc">平板选购指南 · 按预算精准筛选</div>
                     <span class="entry-tag">点击进入</span>
                 </a>
+                <a href="#" class="entry-card" id="compareEntry">
+                    <div class="entry-title">机型对比</div>
+                    <div class="entry-desc">机型对比 · 更好购买</div>
+                    <span class="entry-tag">点击进入</span>
+                </a>
             </div>
         </div>
 
-        <!-- ===== 手机二级 ===== -->
         <div id="pagePhone" class="page">
             <div class="back-bar">
                 <button class="back-btn" id="backHomeFromPhone"><i class="fas fa-arrow-left"></i> 返回</button>
-                <div class="title">100-1000元二手手机焚决</div>
+                <div class="title">100-1300元二手手机焚决</div>
+            </div>
+            <div class="range-notice">
+                <i class="fas fa-circle-info"></i>
+                <span class="notice-main">目前整体二手价位调整不大，稍微更新</span>
+                <span class="notice-date">2026.11 更新</span>
             </div>
             <div class="price-grid">
                 <a href="#" class="price-card" data-range="100-200"><div class="label">预算</div><div class="price-range">¥100 <small>—</small> ¥200</div><div class="slogan">轻量备用机 + 主力过渡<br>听歌小说刷视频流畅使用</div></a>
@@ -574,10 +958,10 @@
                 <a href="#" class="price-card" data-range="350-500"><div class="label">预算</div><div class="price-range">¥350 <small>—</small> ¥500</div><div class="slogan">主力首推 游玩众多游戏首选<br>高刷续航性能全覆盖</div></a>
                 <a href="#" class="price-card" data-range="500-750"><div class="label">预算</div><div class="price-range">¥500 <small>—</small> ¥750</div><div class="slogan">大型游戏随便玩 主力推荐极佳<br>性价比最多的机器推荐</div></a>
                 <a href="#" class="price-card" data-range="750-1000"><div class="label">预算</div><div class="price-range">¥750 <small>—</small> ¥1000</div><div class="slogan">主力机最优选 无脑入就行</div></a>
+                <a href="#" class="price-card" data-range="1000-1300"><div class="label">预算</div><div class="price-range">¥1000 <small>—</small> ¥1300</div><div class="slogan">旗舰性能下放 二手真香价位<br>骁龙8 Gen2 / 天玑9200+ 闭眼选</div></a>
             </div>
         </div>
 
-        <!-- ===== 手机三级 ===== -->
         <div id="pageDetail" class="page">
             <div class="back-bar">
                 <button class="back-btn" id="backPhone"><i class="fas fa-arrow-left"></i> 返回</button>
@@ -586,7 +970,6 @@
             <div class="phone-grid" id="phoneGrid"></div>
         </div>
 
-        <!-- ===== 手机四级 ===== -->
         <div id="pageMore" class="page">
             <div class="back-bar">
                 <button class="back-btn" id="backMore"><i class="fas fa-arrow-left"></i> 返回</button>
@@ -595,11 +978,15 @@
             <div class="phone-grid" id="moreGrid"></div>
         </div>
 
-        <!-- ===== 平板二级 ===== -->
         <div id="pagePadPrice" class="page">
             <div class="back-bar">
                 <button class="back-btn" id="backHomeFromPad"><i class="fas fa-arrow-left"></i> 返回</button>
                 <div class="title">100-1500二手平板焚决</div>
+            </div>
+            <div class="range-notice">
+                <i class="fas fa-circle-info"></i>
+                <span class="notice-main">目前整体二手价位调整不大，稍微更新</span>
+                <span class="notice-date">2026.11 更新</span>
             </div>
             <div class="price-grid">
                 <a href="#" class="price-card" data-pad-range="100-300"><div class="label">预算</div><div class="price-range">¥100 <small>—</small> ¥300</div><div class="slogan">入门平板 · 网课追剧阅读<br>轻量使用足够</div></a>
@@ -608,13 +995,28 @@
             </div>
         </div>
 
-        <!-- ===== 平板三级 ===== -->
         <div id="pagePadDetail" class="page">
             <div class="back-bar">
                 <button class="back-btn" id="backPad"><i class="fas fa-arrow-left"></i> 返回</button>
                 <div class="title">价位 · <span id="padRangeTitle">¥100-300</span></div>
             </div>
             <div class="phone-grid" id="padGrid"></div>
+        </div>
+
+        <div id="pageFavorites" class="page">
+            <div class="back-bar">
+                <button class="back-btn" id="backHomeFromFav"><i class="fas fa-arrow-left"></i> 返回</button>
+                <div class="title">我的收藏</div>
+            </div>
+            <div class="phone-grid" id="favGrid"></div>
+        </div>
+
+        <div id="pageCompare" class="page">
+            <div class="back-bar">
+                <button class="back-btn" id="backFromCompare"><i class="fas fa-arrow-left"></i> 返回</button>
+                <div class="title">机型对比 · 更好购买</div>
+            </div>
+            <div class="compare-grid" id="compareGrid"></div>
         </div>
 
         <div class="footer">
@@ -632,6 +1034,13 @@
         </div>
     </div>
 
+    <!-- 对比栏 -->
+    <div class="compare-bar" id="compareBar">
+        <div class="count">已选 <span id="cmpCount">0</span>/3<span class="type-tag" id="cmpTypeTag"></span></div>
+        <button class="btn-clear" id="cmpClear">清空</button>
+        <button class="btn-go disabled" id="cmpGo">开始对比</button>
+    </div>
+
     <div class="modal-overlay" id="logModal">
         <div class="modal">
             <div class="modal-header">
@@ -642,10 +1051,40 @@
         </div>
     </div>
 
+    <div class="toast" id="toast"></div>
+
     <script>
         const IMAGE_BASE = 'image/';
 
         const changelogData = [{
+            title: 'v1.2版本上线 十一月的二手肖邦',
+            date: '2026.10.31',
+            isNew: true,
+            content: `2026.10.31
+v1.2版本上线 版本名称为「十一月的二手肖邦」
+    更新新内容
+   ·扩大二手收集范围 扩大至1300
+   ·新功能收藏机型 喜欢的机型可以收藏保存
+   ·新功能机型对比 可以将机型进行对比方便参考（最多可对比三个机型）
+   ·新增了一些精选内容
+    其他一些更新
+   ·精选内容更新
+   ·机型配置排版优化
+   ·机型内容优化
+   ·优化了一些代码结构
+   ·新增了一些机型以及一些机型的市场波动更改
+   ·修复了一些bug
+   ·灭建国是谁？
+    未来的一些更新
+   ·二手焚决洗牌
+   ·新增新二手类型设备
+   ·添加一些新功能
+   ·尘雾自制的性能天梯图年底之前上线！已经基本完工
+   ·关于网站的视频宣传 年底会发的 希望如此（太忙了没办法哭哭）
+敬请期待未来的更新（耍起）
+
+    1.2版本正式上线 这次版本是目前以来耗时最久的版本 花钱调戏了大肥鱼 一直在盯着市场波动 一直在优化代码结构 作者自己本身还有一堆事情 只能说真的尽力了 这次更新真的挺多东西的 大肥鱼充了钱就是给力 白饭战神哈哈哈(ಡωಡ) 该说的就到这里了 11月了福建为什么还是这么热啊ಥ_ಥ 总之我和大肥鱼会接着继续努力💪 加油 我们下个版本见 1.3 I WILL BACK❤️`
+        }, {
             title: 'v1.1版本上线 十月庆典',
             date: '2026.09.30',
             content: `2026.09.30
@@ -686,9 +1125,9 @@ v1.1版本上线 版本名称为「十月庆典」
         function renderChangelog() {
             const container = document.getElementById('logBody');
             container.innerHTML = changelogData.map((item, idx) => `
-                <div class="log-item" data-index="${idx}">
+                <div class="log-item${item.isNew ? ' open log-new' : ''}" data-index="${idx}">
                     <div class="log-title">
-                        <span>${item.title}</span>
+                        <span>${item.title}${item.isNew ? '<span class="log-new-badge">NEW</span>' : ''}</span>
                         <span class="log-date">${item.date} <i class="fas fa-chevron-right log-arrow"></i></span>
                     </div>
                     <div class="log-content">
@@ -711,6 +1150,8 @@ v1.1版本上线 版本名称为「十月庆典」
 
         function openLog() {
             renderChangelog();
+            const dot = logBtn.querySelector('.header-new-dot');
+            if (dot) dot.remove();
             logModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -754,7 +1195,6 @@ v1.1版本上线 版本名称为「十月庆典」
         const themeLabel = document.getElementById('themeLabel');
         let currentTheme = 'light';
 
-        // 安全读写 localStorage
         function saveTheme(theme) {
             try { localStorage.setItem('cwtp-theme', theme); } catch (e) {}
         }
@@ -780,13 +1220,11 @@ v1.1版本上线 版本名称为「十月庆典」
             setTheme(currentTheme === 'light' ? 'dark' : 'light');
         });
 
-        // 页面加载时读取上次保存的主题
         (function initTheme() {
             const saved = loadTheme();
             if (saved === 'dark' || saved === 'light') {
                 setTheme(saved);
             } else {
-                // 没有保存过时，保持默认浅色并写入
                 saveTheme('light');
             }
         })();
@@ -804,314 +1242,733 @@ v1.1版本上线 版本名称为「十月庆典」
         }
 
         // ============================================================
-        //  手机数据
+        //  提示 toast
+        // ============================================================
+        let toastTimer = null;
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => el.classList.remove('show'), 1800);
+        }
+
+        // ============================================================
+        //  数据
         // ============================================================
         const allPhones = [
             { id: 1, name: '华为nova5z', brand: '华为', tag: '主力', tagColor: 'green', rating: 4.8, price: '¥200', range: '100-200', screen: '6.26" 极点屏', cpu: '麒麟810', battery: '4000mAh + 20W', image: 'id1.jpeg',
+              camera: '后置4800万主摄 + 800万超广角 + 200万景深；前置3200万',
+              performance: '麒麟810 + LPDDR4X + UFS 2.1',
+              screenDetail: '6.26英寸 2340×1080 LCD 60Hz',
               priceList: ['6+64 185-220', '6+128 200-220'], refPrice: '200', hasPrice: true,
               pros: ['此价位处理器最优选', '主力机的考虑', '有耳机孔和外置存储卡'],
               cons: ['没有红外NFC'] },
             { id: 2, name: '荣耀9x', brand: '荣耀', tag: '主力', tagColor: 'green', rating: 4.5, price: '¥175', range: '100-200', screen: '6.59" 升降全面屏', cpu: '麒麟810', battery: '4000mAh（无快充）', image: 'id2.png',
+              camera: '后置4800万主摄 + 200万景深；前置1600万升降',
+              performance: '麒麟810 + LPDDR4X + UFS 2.1',
+              screenDetail: '6.59英寸 2340×1080 LCD 60Hz',
               priceList: ['6+64 175-190', '8/6+128 190-220'], refPrice: '175', hasPrice: true,
               pros: ['真全面屏', '升降摄像头'],
               cons: ['很重', '只有10w快充', '传家宝多'] },
             { id: 3, name: '华为mate10', brand: '华为', tag: '备用', tagColor: 'purple', rating: 4.0, price: '¥137', range: '100-200', screen: '5.9" 2K RGBW', cpu: '麒麟970', battery: '4000mAh + SuperCharge', image: 'id3.png',
-              priceList: ['4+64 145-165', '6+128 160-190'], refPrice: '137', hasPrice: true,
+              camera: '后置2000万黑白 + 1200万彩色徕卡双摄；前置800万',
+              performance: '麒麟970 + LPDDR4X + UFS 2.1',
+              screenDetail: '5.9英寸 2560×1440 LCD 60Hz',
+              priceList: ['4+64 120-155', '6+128 160-190'], refPrice: '137', hasPrice: true,
               pros: ['2kLCD顶级屏幕', '外围齐全', '徕卡镜头', '双扬声器', '旗舰配置', 'USB3'],
               cons: ['不适合主力', '970著名虚焊王', '老化严重', '屏幕抽奖'] },
             { id: 4, name: '小米6', brand: '小米', tag: '备用', tagColor: 'purple', rating: 4.0, price: '¥160', range: '100-200', screen: '5.15" 护眼屏', cpu: '骁龙835', battery: '3350mAh + 18W', image: 'id4.jpeg',
+              camera: '后置1200万广角 + 1200万长焦双摄；前置800万',
+              performance: '骁龙835 + LPDDR4X + UFS 2.1',
+              screenDetail: '5.15英寸 1920×1080 LCD 60Hz',
               priceList: ['6+64 150-175', '6+128 175-200'], refPrice: '160', hasPrice: true,
               pros: ['小屏手感好', '外围不错', '著名刷机王'],
               cons: ['没有耳机孔', '传家宝问题久远目前依旧还有', '老化问题严重'] },
             { id: 5, name: '努比亚z17', brand: '努比亚', tag: '备用', tagColor: 'purple', rating: 3.5, price: '¥145', range: '100-200', screen: '5.5" 无边框屏', cpu: '骁龙835', battery: '3200mAh + QC4+', image: 'id5.jpeg',
+              camera: '后置2300万 + 1200万双摄；前置1600万',
+              performance: '骁龙835 + LPDDR4X + UFS 2.1',
+              screenDetail: '5.5英寸 1920×1080 LCD 60Hz',
               priceList: ['8/6+64 140-170', '8/6+128 160-180'], refPrice: '145', hasPrice: true,
               pros: ['无边框LCD观感舒适', '红外NFC都有'],
               cons: ['维修困难', '屏幕很脆'] },
+            { id: 'id001', name: '小米MIX 2', brand: '小米', tag: '备用', tagColor: 'purple', rating: 4.0, price: '¥145', range: '100-200', screen: '5.99" 18:9 全面屏', cpu: '骁龙835', battery: '3400mAh', image: 'id001.jpeg',
+              camera: '后置1200万像素（1.25μm，4轴光学防抖）；前置500万',
+              performance: '骁龙835 + LPDDR4X + UFS 2.1',
+              screenDetail: '5.99英寸 2160×1080 LCD 60Hz',
+              priceList: ['4+64 145-165', '6+128 170-200'], refPrice: '145', hasPrice: true,
+              pros: ['一体陶瓷机身', '质感好', '全面屏特色', '一代神U骁龙835'],
+              cons: ['二手老化多'] },
             { id: 6, name: '荣耀x20', brand: '荣耀', tag: '水桶', tagColor: 'blue', rating: 4.5, price: '¥300', range: '200-350', screen: '6.67" 120Hz LCD', cpu: '天玑900', battery: '4300mAh + 66W', image: 'id6.png',
+              camera: '后置6400万主摄 + 200万景深 + 200万微距；前置1600万',
+              performance: '天玑900 + LPDDR4X + UFS 2.2',
+              screenDetail: '6.67英寸 2376×1080 LCD 120Hz',
               priceList: ['6/8+128 260-285', '8+256 285-325'], refPrice: '300', hasPrice: true,
               pros: ['有高刷', 'LCD素质很好', '没有塑料支架', '有5G', '系统流畅'],
               cons: ['外围一般', '单扬声器'] },
             { id: 7, name: '真我q2', brand: '真我', tag: '水桶', tagColor: 'blue', rating: 4.5, price: '¥258', range: '200-350', screen: '6.5" 120Hz畅速屏', cpu: '天玑800U', battery: '5000mAh + 30W', image: 'id7.png',
+              camera: '后置4800万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '天玑800U + LPDDR4X + UFS 2.1',
+              screenDetail: '6.5英寸 2400×1080 LCD 120Hz',
               priceList: ['6+128 240-270'], refPrice: '258', hasPrice: true,
               pros: ['有5G', '大电池', 'LCD', '高刷', '有耳机孔外接存储卡'],
               cons: ['依旧单扬声器', '拍照一坨', '有4G版本'] },
             { id: 8, name: '红米note9 5G', brand: '红米', tag: '备用', tagColor: 'purple', rating: 4.0, price: '¥210', range: '200-350', screen: '6.53" FHD+', cpu: '天玑800U', battery: '5000mAh + 18W', image: 'id8.jpeg',
+              camera: '后置4800万主摄 + 800万超广角 + 200万微距；前置1300万',
+              performance: '天玑800U + LPDDR4X + UFS 2.2',
+              screenDetail: '6.53英寸 2340×1080 LCD 60Hz',
               priceList: ['6+128 230-270', '8+128 270-290'], refPrice: '210', hasPrice: true,
               pros: ['5G', '大电池', '有红外耳机孔外接存储卡', '双扬声器'],
               cons: ['没有高刷', '拍照一坨', '有4G版本'] },
             { id: 9, name: 'iqooz5', brand: 'iQOO', tag: '主力', tagColor: 'green', rating: 4.5, price: '', range: '200-350', screen: '6.67" 120Hz原色屏', cpu: '骁龙778G', battery: '5000mAh + 44W', image: 'id9.webp',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '骁龙778G + LPDDR4X + UFS 2.2',
+              screenDetail: '6.67英寸 2400×1080 LCD 120Hz',
               priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
             { id: 10, name: 'oppok9s', brand: 'OPPO', tag: '主力', tagColor: 'green', rating: 4.0, price: '', range: '200-350', screen: '6.59" 120Hz LCD', cpu: '骁龙778G', battery: '5000mAh + 30W', image: 'id10.png',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '骁龙778G + LPDDR4X + UFS 2.2',
+              screenDetail: '6.59英寸 2412×1080 LCD 120Hz',
               priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
             { id: 11, name: '荣耀v20', brand: '荣耀', tag: '备用', tagColor: 'purple', rating: 4.5, price: '', range: '200-350', screen: '6.4" 魅眼全视屏', cpu: '麒麟980', battery: '4000mAh + 22.5W', image: 'id11.jpeg',
+              camera: '后置4800万主摄 + TOF立体深感；前置2500万',
+              performance: '麒麟980 + LPDDR4X + UFS 2.1',
+              screenDetail: '6.4英寸 2310×1080 LCD 60Hz',
               priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
             { id: 12, name: '华为mate20', brand: '华为', tag: '备用', tagColor: 'purple', rating: 4.5, price: '', range: '200-350', screen: '6.53" 珍珠屏', cpu: '麒麟980', battery: '4000mAh + 22.5W', image: 'id12.png',
+              camera: '后置1200万 + 1600万 + 800万徕卡三摄；前置2400万',
+              performance: '麒麟980 + LPDDR4X + UFS 2.1',
+              screenDetail: '6.53英寸 2244×1080 LCD 60Hz',
               priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
             { id: 13, name: '华为nova6', brand: '华为', tag: '主力', tagColor: 'green', rating: 4.5, price: '', range: '200-350', screen: '6.57" 双摄极点屏', cpu: '麒麟990（4G）', battery: '4200mAh + 40W', image: 'id13.png',
+              camera: '后置4000万主摄 + 800万超广角 + 800万长焦；前置3200万 + 800万双摄',
+              performance: '麒麟990 4G + LPDDR4X + UFS 3.0',
+              screenDetail: '6.57英寸 2400×1080 LCD 60Hz',
               priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
             { id: 14, name: 'opporenoace', brand: 'OPPO', tag: '性能', tagColor: 'red', rating: 4.0, price: '', range: '200-350', screen: '6.55" 90Hz电竞屏', cpu: '骁龙855 Plus', battery: '4000mAh + 65W', image: 'id14.jpeg',
+              camera: '后置4800万主摄 + 1300万长焦 + 800万超广角 + 200万黑白；前置1600万',
+              performance: '骁龙855 Plus + LPDDR4X + UFS 3.0',
+              screenDetail: '6.55英寸 2400×1080 AMOLED 90Hz',
               priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
             { id: 15, name: 'iqooneo3', brand: 'iQOO', tag: '游戏', tagColor: 'pink', rating: 4.5, price: '¥399', range: '200-350', screen: '6.57" 144Hz竞速屏', cpu: '骁龙865', battery: '4500mAh + 44W', image: 'id15.png',
+              camera: '后置4800万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '骁龙865 + LPDDR4X + UFS 3.1',
+              screenDetail: '6.57英寸 2408×1080 LCD 144Hz',
               priceList: ['8+128 340-380', '8+256 380-420'], refPrice: '399', hasPrice: true, showMore: true,
               pros: ['骁龙865性能好', '144Hz高刷LCD', '有耳机孔', '立体空间双扬', '有NFC'],
               cons: ['转子马达', '拍照一般', '续航拉跨', '价位不好收', '传家宝多'] },
             { id: 16, name: '红米k30pro', brand: '红米', tag: '性能', tagColor: 'red', rating: 3.0, price: '', range: '200-350', screen: '6.67" 全面屏', cpu: '骁龙865', battery: '4700mAh + 33W', image: 'id16.jpeg',
+              camera: '后置6400万主摄 + 1300万超广角 + 500万长焦 + 200万景深；前置2000万升降',
+              performance: '骁龙865 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.67英寸 2400×1080 AMOLED 60Hz',
               priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
             { id: 17, name: 'iqoo3', brand: 'iQOO', tag: '性能', tagColor: 'red', rating: 4.0, price: '', range: '350-500', screen: '6.44" 180Hz采样', cpu: '骁龙865', battery: '4440mAh + 55W', image: 'id17.webp',
+              camera: '后置4800万主摄 + 1300万超广角 + 1300万长焦 + 200万景深；前置1600万',
+              performance: '骁龙865 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.44英寸 2400×1080 AMOLED 60Hz',
               priceList: [], refPrice: '', hasPrice: false, pros: [], cons: [] },
             { id: 18, name: '小米10', brand: '小米', tag: '水桶', tagColor: 'blue', rating: 3.5, price: '¥360', range: '350-500', screen: '6.67" 90Hz双曲面', cpu: '骁龙865', battery: '4780mAh + 30W有/无', image: 'id18.png',
+              camera: '后置1.08亿主摄 + 1300万超广角 + 200万景深 + 200万微距；前置2000万',
+              performance: '骁龙865 + LPDDR5 + UFS 3.0',
+              screenDetail: '6.67英寸 2340×1080 AMOLED 90Hz',
               priceList: ['8+256 370-400', '8/12+256 400-500'], refPrice: '360', hasPrice: true,
               pros: ['配置均衡水桶', '外围配置很好', '有无线充', '双频GPS', '双1216扬声器外放很好'],
               cons: ['很容易烧屏', '完美的机器不好收', '最高可以升级澎湃系统'] },
             { id: 19, name: 'vivot2x', brand: 'vivo', tag: '续航', tagColor: 'yellow', rating: 3.8, price: '¥407', range: '350-500', screen: '6.58" 144Hz LCD水滴', cpu: '天玑1300', battery: '6000mAh + 44W', image: 'id19.png',
+              camera: '后置5000万主摄 + 200万微距；前置1600万',
+              performance: '天玑1300 + LPDDR4X + UFS 3.1',
+              screenDetail: '6.58英寸 2408×1080 LCD 144Hz',
               priceList: ['8+128 380-420', '8+256 400-450'], refPrice: '407', hasPrice: true,
               pros: ['6000毫安大电池', '性能意外发挥好', '144Hz高刷', '有耳机孔', 'NFC'],
               cons: ['拍照一般', '质感不咋地', '水滴屏'] },
             { id: 20, name: '红米note11tpro', brand: '红米', tag: '主力', tagColor: 'green', rating: 3.9, price: '¥460', range: '350-500', screen: '6.6" 144Hz LCD', cpu: '天玑8100', battery: '5080mAh + 67W', image: 'id20.png',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '天玑8100 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.6英寸 2460×1080 LCD 144Hz',
               priceList: ['8+128 420-470', '8+256 480-520'], refPrice: '460', hasPrice: true,
               pros: ['天玑8100神U', '144Hz高刷', 'LCD素质不错', '有红外耳机孔NFC'],
               cons: ['拍照一坨', '散热不好', '支持澎湃系统'] },
             { id: 21, name: '红米note11tpro+', brand: '红米', tag: '主力', tagColor: 'green', rating: 4.0, price: '¥460', range: '350-500', screen: '6.6" 144Hz LCD', cpu: '天玑8100', battery: '4400mAh + 120W', image: 'id21.png',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '天玑8100 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.6英寸 2460×1080 LCD 144Hz',
               priceList: ['8+128 420-470', '8+256 480-520'], refPrice: '460', hasPrice: true,
               pros: ['天玑8100神U', '144Hz高刷', 'LCD素质不错', '有红外耳机孔NFC'],
               cons: ['拍照一坨', '散热不好', '支持澎湃系统'] },
             { id: 22, name: 'oppok10', brand: 'OPPO', tag: '主力', tagColor: 'green', rating: 4.3, price: '¥530', range: '350-500', screen: '6.59" 120Hz LCD', cpu: '天玑8000-MAX', battery: '5000mAh + 67W', image: 'id22.png',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '天玑8000-MAX + LPDDR5 + UFS 3.1',
+              screenDetail: '6.59英寸 2412×1080 LCD 120Hz',
               priceList: ['8+128/256 420-490', '12+256 480-540'], refPrice: '530', hasPrice: true,
               pros: ['性能好', '续航不错', '有耳机孔', '配置性价比高'],
               cons: ['拍照一般', '没有红外', '手感不好'] },
             { id: 23, name: '荣耀x40gt', brand: '荣耀', tag: '备用', tagColor: 'purple', rating: 3.8, price: '¥430', range: '350-500', screen: '6.81" 144Hz LCD', cpu: '骁龙888', battery: '4800mAh + 66W', image: 'id23.png',
+              camera: '后置5000万主摄 + 200万景深 + 200万微距；前置1600万',
+              performance: '骁龙888 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.81英寸 2388×1080 LCD 144Hz',
               priceList: ['8+256 400-450', '12+256 450-490'], refPrice: '430', hasPrice: true,
               pros: ['144Hz高刷', 'LCD素质不错', '性能足够', '存货多', '散热好'],
               cons: ['骁龙888但疑似大削版', '单扬声器', '拍照一般', '个人觉得颜值很丑'] },
             { id: 24, name: 'vivos15pro', brand: 'vivo', tag: '主力', tagColor: 'green', rating: 4.5, price: '¥510', range: '350-500', screen: '6.56" 120Hz E5曲面', cpu: '天玑8100', battery: '4500mAh + 80W', image: 'id24.webp',
+              camera: '后置5000万主摄 + 1200万超广角 + 200万微距；前置3200万',
+              performance: '天玑8100 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.56英寸 2376×1080 AMOLED 120Hz',
               priceList: ['12+256 470-550'], refPrice: '510', hasPrice: true,
               pros: ['拍照不错', 'X轴马达', '双扬声器', '有额外的独显芯片', '有80瓦快充'],
               cons: ['续航一般', '没有红外', '容易烧屏出线（但是售后有保险', '问题存货少）'] },
             { id: 25, name: '小米10至尊纪念版', brand: '小米', tag: '影像', tagColor: 'white', rating: 3.9, price: '¥413', range: '350-500', screen: '6.67" 120Hz曲面屏', cpu: '骁龙865', battery: '4500mAh + 120W+50W无', image: 'id25.png',
+              camera: '后置4800万主摄 + 4800万长焦 + 1200万人像 + 2000万超广角；前置2000万',
+              performance: '骁龙865 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.67英寸 2340×1080 AMOLED 120Hz',
               priceList: ['12+256 470-530'], refPrice: '413', hasPrice: true,
               pros: ['影像很顶', '外围配置不错', '有120瓦快充'],
               cons: ['续航一般', '重量重', '有长焦泛白通病', '屏幕老化祖传', '支持澎湃系统'] },
             { id: 26, name: '红米note12tpro', brand: '红米', tag: '主力', tagColor: 'green', rating: 4.0, price: '¥620', range: '500-750', screen: '6.6" 144Hz LCD', cpu: '天玑8200', battery: '5080mAh + 67W', image: 'id26.png',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '天玑8200 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.6英寸 2460×1080 LCD 144Hz',
               priceList: ['8+256 520-555', '12+256 560-650'], refPrice: '620', hasPrice: true,
               pros: ['目前安卓依旧26年最强LCD天玑8200', '续航不错', '有耳机孔', '与上代一样有好的口碑以及性价比'],
               cons: ['套娃note11tpro', '祖传问题'] },
             { id: 27, name: 'vivoy100t', brand: 'vivo', tag: '主力', tagColor: 'green', rating: 4.5, price: '¥570', range: '500-750', screen: '6.64" 120Hz LCD', cpu: '天玑8200', battery: '5000mAh + 120W', image: 'id27.webp',
+              camera: '后置6400万主摄 + 200万景深；前置1600万',
+              performance: '天玑8200 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.64英寸 2388×1080 LCD 120Hz',
               priceList: ['8+256 570-650', '12+256 630-700'], refPrice: '570', hasPrice: true,
               pros: ['天玑8200', '续航不错', '有耳机孔', '120瓦快充'],
               cons: ['Y100t存量太少不好收', 'Z8价格太离谱', '拍照一般', '电池健康不抗造'] },
             { id: 28, name: '红米note12turbo', brand: '红米', tag: '性能', tagColor: 'red', rating: 4.5, price: '¥641', range: '500-750', screen: '6.67" 120Hz OLED', cpu: '骁龙7+ Gen2', battery: '5000mAh + 67W', image: 'id28.png',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '骁龙7+ Gen2 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.67英寸 2400×1080 AMOLED 120Hz',
               priceList: ['12+256 580-650', '12+512 670-720'], refPrice: '641', hasPrice: true,
               pros: ['机身轻薄', '性能绝佳', '有红外NFC耳机孔', '最便宜大存储之一'],
               cons: ['单频GPS', '全塑料机身', '拍照一般', '依旧澎湃系统'] },
             { id: 29, name: '真我gt neo5se', brand: '真我', tag: '性能', tagColor: 'red', rating: 4.7, price: '¥700', range: '500-750', screen: '6.74" 144Hz 1.5K直屏', cpu: '骁龙7+ Gen2', battery: '5500mAh + 100W', image: 'id29.jpeg',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '骁龙7+ Gen2 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.74英寸 2772×1240 AMOLED 144Hz',
               priceList: ['12+256 640-680', '12+512 720-760', '16+1T 800-850'], refPrice: '700', hasPrice: true,
               pros: ['配置比红米的更好', '有100瓦快充', '系统维护不错', '最便宜大存储之一'],
               cons: ['依旧塑料感', '拍照一般', '存货太少', '价格虚高'] },
             { id: 30, name: 'opporeno9pro+', brand: 'OPPO', tag: '影像', tagColor: 'white', rating: 4.6, price: '¥688', range: '500-750', screen: '6.7" 120Hz双曲面', cpu: '骁龙8+ Gen1', battery: '4700mAh + 80W', image: 'id30.png',
+              camera: '后置5000万主摄 + 800万超广角 + 200万微距；前置3200万',
+              performance: '骁龙8+ Gen1（降频）+ LPDDR5 + UFS 3.1',
+              screenDetail: '6.7英寸 2412×1080 AMOLED 120Hz',
               priceList: ['16+256 660-720', '16+512 720-780'], refPrice: '688', hasPrice: true,
               pros: ['轻薄', '质感顶', '影像可以', '依旧双频GPS红外齐全', '有80瓦快充', '起步大内存16G', '支持colorOS16', '系统流畅'],
               cons: ['续航差', '烧屏情况普遍', '降频8+'],
               alt: '备选 iQOO neo8 荣耀80GT' },
             { id: 31, name: '小米12s', brand: '小米', tag: '小屏', tagColor: 'orange', rating: 4.0, price: '¥600', range: '500-750', screen: '6.28" 120Hz微曲屏', cpu: '骁龙8+ Gen1', battery: '4500mAh + 67W+50W无', image: 'id31.jpeg',
+              camera: '后置5000万徕卡主摄 + 1300万超广角 + 500万微距；前置3200万',
+              performance: '骁龙8+ Gen1 + LPDDR5 + UFS 3.1',
+              screenDetail: '6.28英寸 2400×1080 AMOLED 120Hz',
               priceList: ['8+256 620-680', '12+256 660-720'], refPrice: '600', hasPrice: true,
               pros: ['小屏手感好', '有无线50瓦', '大底徕卡', '配置水桶'],
               cons: ['散热不好', '性能释放不出来', '续航拉（小屏常见问题）'] },
             { id: 32, name: '红米k70e', brand: '红米', tag: '性能', tagColor: 'red', rating: 4.0, price: '¥750', range: '500-750', screen: '6.67" 120Hz 1.5K直屏', cpu: '天玑8300-Ultra', battery: '5500mAh + 90W', image: 'id32.jpeg',
+              camera: '后置6400万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '天玑8300-Ultra + LPDDR5X + UFS 4.0',
+              screenDetail: '6.67英寸 2712×1220 AMOLED 120Hz',
               priceList: ['12+256 720-770'], refPrice: '750', hasPrice: true,
               pros: ['天玑8300ultra性能略胜8+', '维护有保障', '电池大', '红外NFC都有'],
               cons: ['支持澎湃系统', '单频GPS'] },
             { id: 33, name: '真我gtneo6se', brand: '真我', tag: '水桶', tagColor: 'blue', rating: 3.0, price: '¥745', range: '750-1000', screen: '6.74" 120Hz 1.5K LTPO', cpu: '骁龙7+ Gen3', battery: '5500mAh + 100W', image: 'id33.webp',
+              camera: '后置5000万主摄 + 800万超广角；前置1600万',
+              performance: '骁龙7+ Gen3 + LPDDR5X + UFS 4.0',
+              screenDetail: '6.74英寸 2780×1264 AMOLED 120Hz',
               priceList: ['12+256 740-820'], refPrice: '745', hasPrice: true,
               pros: ['配置水桶', '性能强', '外围配置好', '有100瓦快充'],
               cons: ['依旧塑料'] },
             { id: 34, name: '小米13', brand: '小米', tag: '小屏', tagColor: 'orange', rating: 3.8, price: '¥890', range: '750-1000', screen: '6.36" 120Hz E6直屏', cpu: '骁龙8 Gen2', battery: '4500mAh + 67W+50W无', image: 'id34.png',
+              camera: '后置5000万徕卡主摄 + 1200万超广角 + 1000万长焦；前置3200万',
+              performance: '骁龙8 Gen2 + LPDDR5X + UFS 4.0',
+              screenDetail: '6.36英寸 2400×1080 AMOLED 120Hz',
               priceList: ['12+256 850-935', '12+512 900-1100'], refPrice: '890', hasPrice: true,
               pros: ['小屏手感好', '有无线充', '徕卡影像', '外围配置好', '配置均衡'],
               cons: ['依旧小屏常见问题'] },
             { id: 35, name: '一加ace3', brand: '一加', tag: '主力', tagColor: 'green', rating: 4.3, price: '¥970', range: '750-1000', screen: '6.78" 120Hz 1.5K曲屏', cpu: '骁龙8 Gen2', battery: '5500mAh + 100W', image: 'id35.png',
+              camera: '后置5000万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '骁龙8 Gen2 + LPDDR5X + UFS 4.0',
+              screenDetail: '6.78英寸 2780×1264 AMOLED 120Hz',
               priceList: ['12+256 880-1000', '12+512 960-1100'], refPrice: '970', hasPrice: true,
               pros: ['质感不错', '超薄指纹', '百瓦快充', '配置均衡水桶'],
               cons: ['烧屏多', '涨价'] },
             { id: 36, name: '真我gt5', brand: '真我', tag: '游戏', tagColor: 'pink', rating: 4.5, price: '¥950', range: '750-1000', screen: '6.74" 144Hz 1.5K直屏', cpu: '骁龙8 Gen2', battery: '5240mAh + 150W', image: 'id36.jpeg',
+              camera: '后置5000万主摄 + 800万超广角 + 200万微距；前置1600万',
+              performance: '骁龙8 Gen2 + LPDDR5X + UFS 4.0',
+              screenDetail: '6.74英寸 2772×1240 AMOLED 144Hz',
               priceList: ['16+512 880-1150'], refPrice: '950', hasPrice: true,
               pros: ['性能不错', '外围配置齐全', '拥有150瓦和240瓦的超级快充版本', '16G大内存便宜', '均衡水桶'],
-              cons: ['质感拉完了', '真我性能调度偏保守'] }
+              cons: ['质感拉完了', '真我性能调度偏保守'] },
+            { id: 'aa1', name: '红米K60 Pro', brand: '红米', tag: '游戏', tagColor: 'pink', rating: 4.0, price: '¥978', range: '1000-1300', screen: '6.67" OLED直屏', cpu: '骁龙8 Gen 2', battery: '5000mAh', image: 'aa1.jpeg',
+              camera: '后置5400万 + 800万 + 200万；前置未标注',
+              performance: '骁龙8 Gen 2 + LPDDR5X + UFS 4.0',
+              screenDetail: '6.67英寸 3200×1440 OLED 120Hz',
+              priceList: ['8+256 950-1050'], refPrice: '978', hasPrice: true,
+              pros: ['性能强', '外围配置好', '2k屏幕'],
+              cons: ['塑料边框', '屏幕老化多', '5000毫安时和2k屏幕使用续航差', '澎湃系统', '短焦指纹'] },
+            { id: 'aa2', name: '荣耀90GT', brand: '荣耀', tag: '游戏', tagColor: 'pink', rating: 4.0, price: '¥1035', range: '1000-1300', screen: '6.7" 直屏', cpu: '骁龙8 Gen 2', battery: '5000mAh', image: 'aa2.png',
+              camera: '后置IMX906主摄；前置未标注',
+              performance: '骁龙8 Gen 2 + 官方未标注内存规格 + 官方未标注闪存规格',
+              screenDetail: '6.7英寸 视网膜级分辨率 直屏 120Hz',
+              priceList: ['12+256 970-1100'], refPrice: '1035', hasPrice: true,
+              pros: ['性能调度可以', '配置均衡', '有C1射频芯片', '荣耀系统不错'],
+              cons: ['ufs3.1同价位拉垮', '塑料边框'] },
+            { id: 'aa3', name: '红米K70', brand: '红米', tag: '游戏', tagColor: 'pink', rating: 4.5, price: '¥1125', range: '1000-1300', screen: '6.67" OLED直屏', cpu: '骁龙8 Gen 2', battery: '5000mAh', image: 'aa3.jpg',
+              camera: '后置5000万 + 800万 + 200万；前置未标注',
+              performance: '骁龙8 Gen 2 + LPDDR5X + UFS 4.0',
+              screenDetail: '6.67英寸 3200×1440 OLED 120Hz',
+              priceList: ['12+256 960-1100'], refPrice: '1125', hasPrice: true,
+              pros: ['性能不错', '外围不错', '2k屏幕'],
+              cons: ['红米k60同款缺点'] },
+            { id: 'aa4', name: 'iQOO Neo8 Pro', brand: 'iQOO', tag: '性能', tagColor: 'red', rating: 4.0, price: '¥1008', range: '1000-1300', screen: '6.78" AMOLED直屏', cpu: '天玑9200+', battery: '5000mAh', image: 'aa4.png',
+              camera: '后置5000万(IMX866V) + 800万；前置未标注',
+              performance: '天玑9200+ + LPDDR5X + UFS 4.0',
+              screenDetail: '6.78英寸 2800×1260 AMOLED 144Hz',
+              priceList: ['16+256 1000-1200'], refPrice: '1008', hasPrice: true,
+              pros: ['天玑9200+性能强', '16gb运行内存起步', '配置均衡'],
+              cons: ['塑料边框'] },
+            { id: 'aa5', name: '一加Ace 2 Pro', brand: '一加', tag: '性能', tagColor: 'red', rating: 4.0, price: '¥1150', range: '1000-1300', screen: '灵犀触控屏（直屏）', cpu: '骁龙8 Gen 2', battery: '5000mAh', image: 'aa5.jpg',
+              camera: '后置IMX890主摄；前置未标注',
+              performance: '骁龙8 Gen 2 + LPDDR5X + UFS 4.0',
+              screenDetail: '1.5K 灵犀触控屏（直屏）120Hz',
+              priceList: ['12+256 990-1200'], refPrice: '1150', hasPrice: true,
+              pros: ['性能不错', '0916马达', '150w快充'],
+              cons: ['塑料边框', '发热同价位大', '调度同价位拉垮'] },
+            { id: 'aa6', name: '小米13', brand: '小米', tag: '主力', tagColor: 'green', rating: 4.0, price: '¥999', range: '1000-1300', screen: '6.36" AMOLED直屏', cpu: '骁龙8 Gen 2', battery: '4500mAh', image: 'aa6.jpeg',
+              camera: '后置徕卡三摄（50MP主摄 + 10MP长焦 + 12MP超广角）；前置未标注',
+              performance: '骁龙8 Gen 2 + LPDDR5X + UFS 4.0',
+              screenDetail: '6.36英寸 2400×1080 AMOLED 120Hz',
+              priceList: ['12+256 900-1000'], refPrice: '999', hasPrice: true,
+              pros: ['徕卡影像'],
+              cons: ['小屏发热大', '散热差', '续航差'] },
+            { id: 'aa7', name: '小米13 Pro', brand: '小米', tag: '主力', tagColor: 'green', rating: 4.5, price: '¥1150', range: '1000-1300', screen: '6.73" AMOLED曲面屏', cpu: '骁龙8 Gen 2', battery: '4820mAh', image: 'aa7.png',
+              camera: '后置徕卡三摄（1英寸IMX989主摄 + 50MP长焦 + 50MP超广角）；前置未标注',
+              performance: '骁龙8 Gen 2 + LPDDR5X + UFS 4.0',
+              screenDetail: '6.73英寸 3200×1440 AMOLED 1-120Hz LTPO',
+              priceList: ['12+256 1000-1200'], refPrice: '1150', hasPrice: true,
+              pros: ['影像顶级', '大底主摄', '陶瓷后盖手感不错', '2k屏幕'],
+              cons: ['续航差', '机身重量重'] }
         ];
+
+        // 给手机数据打上 type 标记
+        allPhones.forEach(p => { p.type = 'phone'; });
 
         const pricedPhones = allPhones.filter(p => p.hasPrice === true);
         const unpricedPhones = allPhones.filter(p => p.hasPrice === false);
 
         const rangeMap = {
-            '100-200': [1, 2, 3, 4, 5],
+            '100-200': [1, 2, 3, 4, 5, 'id001'],
             '200-350': [6, 7, 8, 15],
             '350-500': [18, 19, 20, 21, 22, 23, 24, 25],
             '500-750': [26, 27, 28, 29, 30, 31, 32],
-            '750-1000': [33, 34, 35, 36]
+            '750-1000': [33, 34, 35, 36],
+            '1000-1300': ['aa1', 'aa2', 'aa3', 'aa4', 'aa5', 'aa6', 'aa7']
         };
 
-        // ============================================================
-        //  平板数据
-        // ============================================================
         const allPads = [
             { id: 'a1', name: '小米平板4', image: 'a1.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
               chip: '高通骁龙660 AIE', screen: '8英寸 1920×1200 LCD 60Hz',
               battery: '6000mAh', charge: '10W', system: 'MIUI 10（基于Android 8.1）',
+              camera: '后置1300万；前置500万',
+              performance: '骁龙660 AIE + LPDDR4X + eMMC 5.1',
+              screenDetail: '8英寸 1920×1200 LCD 60Hz',
               priceList: ['3+32 140-200', '4+64 200往上'], refPrice: '205',
               pros: ['刷机资源多', '日用流畅', 'c口', '价格便宜', '有耳机扣和外接存储卡'],
               cons: ['单扬声器', 'emmc闪存'] },
-            { id: 'a2', name: '荣耀平板5', image: 'a2.png', tag: '备用', tagColor: 'purple', rating: 3.5,
+            { id: 'a2', name: '荣耀平板5', image: 'a2.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
               chip: '海思麒麟659', screen: '10.1英寸 1920×1200 LCD 60Hz',
               battery: '5100mAh（典型值）', charge: '10W', system: 'Magic UI 2.x / 鸿蒙HarmonyOS 2（部分批次）',
+              camera: '后置800万；前置200万',
+              performance: '麒麟659 + LPDDR3 + eMMC 5.1',
+              screenDetail: '10.1英寸 1920×1200 LCD 60Hz',
               priceList: ['3+32 160-200', '4+64 200-230'], refPrice: '195',
               pros: ['对称扬声器', '可升级至鸿蒙2', '性能与去年畅享新机相当'],
               cons: ['micro-USB接口', 'emmc闪存', '要买8英寸版本'] },
-            { id: 'a3', name: '华为平板M5', image: 'a3.png', tag: '备用', tagColor: 'purple', rating: 3.5,
+            { id: 'a3', name: '华为平板M5', image: 'a3.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
               chip: '海思麒麟960s', screen: '8.4英寸/10.8英寸 2560×1600 LCD 60Hz',
               battery: '8.4英寸版5100mAh / 10.8英寸版7500mAh', charge: '18W', system: 'EMUI 9.x（未获鸿蒙正式推送）',
+              camera: '后置1300万；前置800万',
+              performance: '麒麟960s + LPDDR4X + UFS 2.1',
+              screenDetail: '8.4/10.8英寸 2560×1600 LCD 60Hz',
               priceList: ['4+64 220-275'], refPrice: '201',
               pros: ['超高分辨率', '哈曼卡顿双扬', 'type C接口'],
               cons: ['性能价格不值得', '传家宝多'] },
             { id: 'a4', name: 'iPad（第5代）', image: 'a4.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
               chip: '苹果A9仿生', screen: '9.7英寸 2048×1536 Retina LCD 60Hz',
               battery: '32.4瓦时', charge: '12W（标配12W，不支持PD快充）', system: 'iPadOS 16.7.12（最终版本）',
+              camera: '后置800万；前置120万',
+              performance: 'A9 + LPDDR4 + NVMe',
+              screenDetail: '9.7英寸 2048×1536 Retina LCD 60Hz',
               priceList: ['3+32 170-210'], refPrice: '220',
               pros: ['大平板够用', '比例舒适', '系统强', '指纹识别', '看视频漫画一绝'],
               cons: ['传家宝多', '不建议高价位收'] },
-            { id: 'a5', name: '小米平板4 Plus', image: 'a5.jpg', tag: '备用', tagColor: 'purple', rating: 3.5,
+            { id: 'a5', name: '小米平板4 Plus', image: 'a5.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
               chip: '高通骁龙660 AIE', screen: '10.1英寸 1920×1200 LCD 60Hz',
               battery: '8620mAh', charge: '10W', system: 'MIUI 10（基于Android 8.1）',
+              camera: '后置1300万；前置500万',
+              performance: '骁龙660 AIE + LPDDR4X + eMMC 5.1',
+              screenDetail: '10.1英寸 1920×1200 LCD 60Hz',
               priceList: ['4+64 240-295'], refPrice: '267',
               pros: ['可以插卡', '能用4G网络', '10.1英寸大屏幕', '指纹识别'],
               cons: ['单扬声器', '价格不值得'] },
             { id: 'a6', name: '三星Galaxy Tab A7 10.4', image: 'a6.jpeg', tag: '备用', tagColor: 'purple', rating: 3.5,
               chip: '高通骁龙662', screen: '10.4英寸 2000×1200 LCD 60Hz',
               battery: '7040mAh', charge: '15W', system: 'Android 12（One UI 4.1）',
+              camera: '后置800万；前置500万',
+              performance: '骁龙662 + LPDDR4X + eMMC 5.1',
+              screenDetail: '10.4英寸 2000×1200 LCD 60Hz',
               priceList: ['3+32 230-290'], refPrice: '229',
               pros: ['10.4英寸大屏幕', '四扬声器', '视频观看极佳', '成色不错', '外放顶'],
               cons: ['不好收', '传家宝多'] },
             { id: 'a7', name: 'iPad Pro 9.7英寸', image: 'a7.jpeg', tag: '备用', tagColor: 'purple', rating: 3.3,
               chip: '苹果A9X + M9协处理器', screen: '9.7英寸 2048×1536 Retina LCD 60Hz，P3广色域/True Tone',
               battery: '32.4瓦时', charge: '12W（标配12W，不支持29W PD快充）', system: 'iPadOS 16.7.x（最终版本）',
+              camera: '后置1200万；前置500万',
+              performance: 'A9X + LPDDR4 + NVMe',
+              screenDetail: '9.7英寸 2048×1536 Retina LCD 60Hz',
               priceList: ['2+32 250-300'], refPrice: '284',
               pros: ['P3广色域+抗反射膜+原彩显示', '四扬声器', '指纹识别', 'iOS极佳', '性能不错'],
               cons: ['成色普遍差', '屏幕发红老化问题多', '续航差', '价格不值得'] },
-
-            { id: 'a8', name: '华为平板M6', image: 'a8.png', tag: '备用', tagColor: 'purple', rating: 4.5,
+            { id: 'a8', name: '华为平板M6', image: 'a8.jpeg', tag: '备用', tagColor: 'purple', rating: 4.5,
               chip: '海思麒麟980', screen: '8.4英寸/10.8英寸 2560×1600 LCD 60Hz',
               battery: '8.4英寸版6100mAh / 10.8英寸版7500mAh', charge: '18W', system: 'HarmonyOS 2',
+              camera: '后置1300万；前置800万',
+              performance: '麒麟980 + LPDDR4X + UFS 2.1',
+              screenDetail: '8.4/10.8英寸 2560×1600 LCD 60Hz',
               priceList: ['4+64 380-450', '6+128高能版 500-600'], refPrice: '437',
               pros: ['手感不错', '有对称哈曼卡顿扬声器', '支持存储卡扩展', '有插卡版本', '麒麟980神U'],
               cons: ['没有耳机孔', '传家宝多'] },
             { id: 'a9', name: 'iPad mini（第5代）', image: 'a9.jpeg', tag: '游戏', tagColor: 'pink', rating: 4.5,
               chip: '苹果A12仿生', screen: '7.9英寸 2048×1536 Retina LCD 60Hz',
               battery: '19.1瓦时', charge: '20W PD（标配10W充电器）', system: 'iPadOS 18（A12芯片支持到iPadOS 18）',
+              camera: '后置800万；前置700万',
+              performance: 'A12 + LPDDR4X + NVMe',
+              screenDetail: '7.9英寸 2048×1536 Retina LCD 60Hz',
               priceList: ['3+64 450-550', '3+256 550往上'], refPrice: '440',
               pros: ['性能强劲', '配置均衡', '屏幕素质高', '游戏可以选择'],
               cons: ['单扬声器', '可升级至iOS26版本体验卡'] },
-            { id: 'a10', name: '华为MatePad 10.4', image: 'a10.png', tag: '备用', tagColor: 'purple', rating: 4.5,
+            { id: 'a10', name: '华为MatePad 10.4', image: 'a10.jpeg', tag: '备用', tagColor: 'purple', rating: 4.5,
               chip: '海思麒麟810（2020年4月首发）→ 麒麟820（2020年10月改款）', screen: '10.4英寸 2000×1200 LCD 60Hz',
               battery: '7250mAh', charge: '18W（麒麟810版）→ 22.5W（麒麟820版）', system: 'HarmonyOS 2 / HarmonyOS 3（部分批次）',
+              camera: '后置800万；前置800万',
+              performance: '麒麟810/820 + LPDDR4X + UFS 2.1',
+              screenDetail: '10.4英寸 2000×1200 LCD 60Hz',
               priceList: ['4+64 330-370', '6+128 400-500'], refPrice: '422',
               pros: ['性能不错', '支持外接存储卡'],
               cons: ['版本多不好选', '屏幕有残影通病'] },
-            { id: 'a11', name: '荣耀平板V6', image: 'a11.png', tag: '性能', tagColor: 'red', rating: 4.5,
+            { id: 'a11', name: '荣耀平板V6', image: 'a11.jpeg', tag: '性能', tagColor: 'red', rating: 4.5,
               chip: '海思麒麟985', screen: '10.4英寸 2000×1200 LCD 60Hz',
               battery: '7250mAh', charge: '22.5W（标配22.5W，硬件最高可支持40W）', system: 'Magic UI 4.x / 鸿蒙HarmonyOS 2（仅KRJ-W09/KRJ-AN00子型号）',
+              camera: '后置1300万；前置800万',
+              performance: '麒麟985 + LPDDR4X + UFS 2.1',
+              screenDetail: '10.4英寸 2000×1200 LCD 60Hz',
               priceList: ['6+128 350-400'], refPrice: '412',
               pros: ['性能不错', '支持外接存储卡', '四扬声器'],
               cons: ['屏幕有残影通病', '价格不实惠', '鸿蒙系统与Magic OS都可升小心鉴别'] },
-            { id: 'a12', name: '华为MatePad 10.8', image: 'a12.png', tag: '主力', tagColor: 'green', rating: 4.8,
+            { id: 'a12', name: '华为MatePad 10.8', image: 'a12.jpeg', tag: '主力', tagColor: 'green', rating: 4.8,
               chip: '海思麒麟990', screen: '10.8英寸 2560×1600 LCD 60Hz',
               battery: '7500mAh', charge: '22.5W', system: 'HarmonyOS 3 / HarmonyOS 4',
+              camera: '后置1300万；前置800万',
+              performance: '麒麟990 + LPDDR4X + UFS 3.0',
+              screenDetail: '10.8英寸 2560×1600 LCD 60Hz',
               priceList: ['6+128 450-530', '6+256 500-620'], refPrice: '533',
               pros: ['满血鸿蒙', 'pc级别应用适配高', '有耳机孔存储卡', '哈曼卡顿', '四扬声器', '价格无敌'],
               cons: ['没有高刷', '成色普遍不好'] },
             { id: 'a13', name: 'iPad Air（第3代）', image: 'a13.jpeg', tag: '主力', tagColor: 'green', rating: 4.5,
               chip: '苹果A12仿生', screen: '10.5英寸 2224×1668 Retina LCD 60Hz，P3广色域/True Tone',
               battery: '30.2瓦时', charge: '30W PD（标配12W充电器，需另购PD充电器）', system: 'iPadOS 18（A12芯片支持到iPadOS 18）',
+              camera: '后置800万；前置700万',
+              performance: 'A12 + LPDDR4X + NVMe',
+              screenDetail: '10.5英寸 2224×1668 Retina LCD 60Hz',
               priceList: ['3+64 450-610'], refPrice: '600',
               pros: ['配置是MINI5的大屏版本', '影音体验好'],
               cons: ['屏幕通病', '续航差', 'MINI5祖传问题'] },
-            { id: 'a14', name: '华为MatePad Pro 2019', image: 'a14.png', tag: '主力', tagColor: 'green', rating: 4.5,
+            { id: 'a14', name: '华为MatePad Pro 2019', image: 'a14.jpeg', tag: '主力', tagColor: 'green', rating: 4.5,
               chip: '海思麒麟990', screen: '10.8英寸 2560×1600 LCD 60Hz',
               battery: '7250mAh', charge: '40W（标配20W充电器，支持15W无线充电/7.5W反向无线）', system: 'HarmonyOS 4 / HarmonyOS NEXT 5.0（Beta）',
+              camera: '后置1300万；前置800万',
+              performance: '麒麟990 + LPDDR4X + UFS 3.0',
+              screenDetail: '10.8英寸 2560×1600 LCD 60Hz',
               priceList: ['6+128 480-620'], refPrice: '520',
               pros: ['极窄边框', '轻', '质感好', '麒麟990', '鸿蒙4.2', '有无线充'],
               cons: ['没有耳机孔', '没有高刷', '成色普遍不好'] },
             { id: 'a15', name: '荣耀平板V7', image: 'a15.jpeg', tag: '备用', tagColor: 'purple', rating: 4.0,
               chip: '联发科迅鲲900T', screen: '10.4英寸 2000×1200 LCD 90Hz',
               battery: '7250mAh', charge: '22.5W', system: 'Magic UI 6.1（最终稳定版，未获MagicOS 7正式推送）',
+              camera: '后置1300万；前置800万',
+              performance: '迅鲲900T + LPDDR4X + UFS 2.2',
+              screenDetail: '10.4英寸 2000×1200 LCD 90Hz',
               priceList: ['8+128 420-499'], refPrice: '433',
               pros: ['有90hz高刷', '性能够用', '支持外接存储卡'],
               cons: ['没有耳机孔', '系统一般'] },
-
-            { id: 'a16', name: '华为MatePad 11 2021', image: 'a16.png', tag: '主力', tagColor: 'green', rating: 5.0,
+            { id: 'a16', name: '华为MatePad 11 2021', image: 'a16.jpeg', tag: '主力', tagColor: 'green', rating: 5.0,
               chip: '高通骁龙865', screen: '10.95英寸 2560×1600 LCD 120Hz',
               battery: '7250mAh', charge: '22.5W', system: 'HarmonyOS 3（不支持升级HarmonyOS NEXT）',
+              camera: '后置1300万；前置800万',
+              performance: '骁龙865 + LPDDR5 + UFS 3.1',
+              screenDetail: '10.95英寸 2560×1600 LCD 120Hz',
               priceList: ['6+128 630-700', '8+128 700-770'], refPrice: '668',
               pros: ['二手平板界goat', '120赫兹高刷', '鸿蒙4.2', '外接存储卡', '哈曼卡顿', '四扬声器', 'pc级适配高'],
               cons: ['续航充电一般', '内存抽奖（不要买64G）', '还有2023的重置版不要买'] },
-            { id: 'a17', name: 'iPad（第9代）', image: 'a17.png', tag: '主力', tagColor: 'green', rating: 4.7,
+            { id: 'a17', name: 'iPad（第9代）', image: 'a17.jpeg', tag: '主力', tagColor: 'green', rating: 4.7,
               chip: '苹果A13仿生', screen: '10.2英寸 2160×1620 Retina LCD 60Hz',
               battery: '32.4瓦时', charge: '20W PD（标配20W充电器）', system: 'iPadOS 26（当前最新版本，A13芯片仍在支持列表内）',
+              camera: '后置800万；前置1200万超广角',
+              performance: 'A13 + LPDDR4X + NVMe',
+              screenDetail: '10.2英寸 2160×1620 Retina LCD 60Hz',
               priceList: ['3+64 730-860', '3+256 950-1200'], refPrice: '906',
               pros: ['iOS系统强', '流畅稳定', '小巧耐摔', '续航不错', '耳机孔', '指纹识别', '最后一代非全面iPad'],
               cons: ['私人非全贴合', '单扬声器', '内存太小', '不是c口'] },
-            { id: 'a18', name: 'vivo Pad Air', image: 'a18.webp', tag: '主力', tagColor: 'green', rating: 4.6,
+            { id: 'a18', name: 'vivo Pad Air', image: 'a18.jpeg', tag: '主力', tagColor: 'green', rating: 4.6,
               chip: '高通骁龙870', screen: '11.5英寸 2800×1840 LCD 144Hz',
               battery: '8500mAh', charge: '44W', system: 'OriginOS 5（基于Android 15）',
+              camera: '后置1300万；前置800万',
+              performance: '骁龙870 + LPDDR5 + UFS 3.1',
+              screenDetail: '11.5英寸 2800×1840 LCD 144Hz',
               priceList: ['8+128 800-900', '8+250 900-960'], refPrice: '900',
               pros: ['续航不错', '2.8k+144Hz体验无敌', '比例适配不错', '质感好', '有NFC一碰传'],
               cons: ['PC级适配一般'] },
-            { id: 'a19', name: '小米平板6 Pro', image: 'a19.png', tag: '主力', tagColor: 'green', rating: 4.7,
+            { id: 'a19', name: '小米平板6 Pro', image: 'a19.jpeg', tag: '主力', tagColor: 'green', rating: 4.7,
               chip: '高通骁龙8+ Gen1', screen: '11英寸 2880×1800 LCD 144Hz',
               battery: '8600mAh', charge: '67W', system: 'HyperOS 3（基于Android 15/16）',
+              camera: '后置5000万主摄 + 200万景深；前置2000万',
+              performance: '骁龙8+ Gen1 + LPDDR5 + UFS 3.1',
+              screenDetail: '11英寸 2880×1800 LCD 144Hz',
               priceList: ['8+128 900-1000', '12+256 1200-1300'], refPrice: '1050',
               pros: ['性价比高', '性能强', '指纹识别', 'USB3接口', '144Hz高刷', '杜比视界', 'PC适配高'],
               cons: ['澎湃系统拉完了', '质感拉'] },
-            { id: 'a20', name: '荣耀平板V9', image: 'a20.png', tag: '主力', tagColor: 'green', rating: 4.8,
+            { id: 'a20', name: '荣耀平板V9', image: 'a20.jpeg', tag: '主力', tagColor: 'green', rating: 4.8,
               chip: '联发科天玑8350至尊版', screen: '11.5英寸 2800×1840 LCD 144Hz',
               battery: '10100mAh', charge: '66W（标配35W充电器）', system: 'MagicOS 9.0（基于Android 15）',
+              camera: '后置1300万；前置800万',
+              performance: '天玑8350至尊版 + LPDDR5X + UFS 3.1',
+              screenDetail: '11.5英寸 2800×1840 LCD 144Hz',
               priceList: ['8+128 1050-1250', '8+256 1300左右'], refPrice: '1109',
               pros: ['性能不错', '比例显示好', '显示无敌', '八扬声器外放绝', '颜值高', '手感不错', 'PC级适配好', '配置均衡'],
               cons: ['USB2.0'] },
-            { id: 'a21', name: 'vivo Pad3 Pro', image: 'a21.png', tag: '主力&性能', tagColor: 'green', rating: 5.0,
+            { id: 'a21', name: 'vivo Pad3 Pro', image: 'a21.jpeg', tag: '主力&性能', tagColor: 'green', rating: 5.0,
               chip: '联发科天玑9300', screen: '13英寸 3100×2066 LCD 144Hz',
               battery: '11500mAh', charge: '66W', system: 'OriginOS 5（基于Android 15）',
+              camera: '后置1300万；前置800万',
+              performance: '天玑9300 + LPDDR5X + UFS 4.0',
+              screenDetail: '13英寸 3100×2066 LCD 144Hz',
               priceList: ['8+128 1250-1400', '8+256 1450-1600'], refPrice: '1399',
               pros: ['天玑9300神U', '性能无敌', '13英寸超大屏', '比例好', '续航长', '堆料拉满', '全功能c口', 'PC级适配好', '超高分辨率3.1k'],
               cons: ['重', '不方便携带', '二手通病多'] },
             { id: 'a22', name: 'OPPO Pad3 Pro', image: 'a22.jpeg', tag: '主力&性能', tagColor: 'green', rating: 4.8,
               chip: '高通骁龙8 Gen3 领先版', screen: '12.1英寸 2880×1800 LCD 144Hz',
               battery: '9510mAh', charge: '67W', system: 'ColorOS 16（基于Android 16）',
+              camera: '后置1300万；前置800万',
+              performance: '骁龙8 Gen3 领先版 + LPDDR5X + UFS 4.0',
+              screenDetail: '12.1英寸 2880×1800 LCD 144Hz',
               priceList: ['8+256 1350-1500', '12+256 1450-1700'], refPrice: '1599',
               pros: ['骁龙8gen3性能无敌', '12.1英寸大屏', '八扬声器', '配置均衡'],
               cons: ['PC级适配拉', '续航一般'] },
-            { id: 'a23', name: 'iPad Pro 2018', image: 'a23.png', tag: '主力&性能', tagColor: 'green', rating: 4.8,
+            { id: 'a23', name: 'iPad Pro 2018', image: 'a23.jpeg', tag: '主力&性能', tagColor: 'green', rating: 4.8,
               chip: '苹果A12X仿生', screen: '11英寸 2388×1668 / 12.9英寸 2732×2048 Liquid Retina LCD 120Hz',
               battery: '11英寸版29.37瓦时 / 12.9英寸版36.71瓦时', charge: '30W+ PD（标配18W充电器）', system: 'iPadOS 26（最终版本，iPadOS 27已不再支持A12X）',
+              camera: '后置1200万；前置700万',
+              performance: 'A12X + LPDDR4X + NVMe',
+              screenDetail: '11/12.9英寸 2388×1668 / 2732×2048 LCD 120Hz',
               priceList: ['4+64 1100-1250', '4+256 1450-1600'], refPrice: '1499',
               pros: ['iPad生态强', '120Hz高刷', '四扬声器', '体验极佳', '3D人脸识别性能A12X强劲'],
               cons: ['二手老化严重', '传家宝多'] },
-            { id: 'a24', name: '联想小新Pad Pro GT', image: 'a24.jpg', tag: '性能&主力', tagColor: 'red', rating: 5.0,
+            { id: 'a24', name: '联想小新Pad Pro GT', image: 'a24.jpeg', tag: '性能&主力', tagColor: 'red', rating: 5.0,
               chip: '高通骁龙8 Gen3', screen: '11.1英寸 2560×1600 LCD 144Hz',
               battery: '8860mAh', charge: '68W', system: 'Android 14（出厂版本，后续更新视联想推送计划）',
+              camera: '后置1300万；前置800万',
+              performance: '骁龙8 Gen3 + LPDDR5X + UFS 4.0',
+              screenDetail: '11.1英寸 2560×1600 LCD 144Hz',
               priceList: ['8+256 1200-1350', '12+256 1350-1550'], refPrice: '1355',
               pros: ['屏幕素质高', '骁龙8gen3性能爆表', '机身轻薄', 'PC级适配高'],
               cons: ['小厂系统一般', '续航一般'] },
-            { id: 'a25', name: 'OPPO Pad3', image: 'a25.jpg', tag: '主力', tagColor: 'green', rating: 4.5,
+            { id: 'a25', name: 'OPPO Pad3', image: 'a25.jpeg', tag: '主力', tagColor: 'green', rating: 4.5,
               chip: '联发科天玑8350', screen: '11.61英寸 2800×2000 LCD 144Hz',
               battery: '9510mAh', charge: '67W', system: 'ColorOS 16（基于Android 16）',
+              camera: '后置1300万；前置800万',
+              performance: '天玑8350 + LPDDR5X + UFS 3.1',
+              screenDetail: '11.61英寸 2800×2000 LCD 144Hz',
               priceList: ['8+128 1000-1200', '8+256 1200-1400'], refPrice: '—',
               pros: ['性能强', '大屏幕', '闪存好', '屏幕素质高'],
               cons: ['续航一般', '重', 'PC适配差', '涨价'] }
         ];
+
+        // 给平板数据打上 type 标记
+        allPads.forEach(p => { p.type = 'pad'; });
 
         const padRangeMap = {
             '100-300': ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'],
             '300-500': ['a8', 'a9', 'a10', 'a11', 'a12', 'a13', 'a14', 'a15'],
             '500-1500': ['a16', 'a17', 'a18', 'a19', 'a20', 'a21', 'a22', 'a23', 'a24', 'a25']
         };
+
+        // 统一按 id 查找（返回带 type 的完整对象）
+        function findDevice(id) {
+            const sid = String(id);
+            const ph = allPhones.find(p => String(p.id) === sid);
+            if (ph) return ph;
+            const pd = allPads.find(p => String(p.id) === sid);
+            if (pd) return pd;
+            return null;
+        }
+
+        // ============================================================
+        //  收藏 / 对比状态管理（统一转字符串）
+        // ============================================================
+        const FAV_KEY = 'cwtp-favorites';
+        const CMP_KEY = 'cwtp-compare';
+
+        function readList(key) {
+            try {
+                const raw = localStorage.getItem(key);
+                const arr = raw ? JSON.parse(raw) : [];
+                if (!Array.isArray(arr)) return [];
+                return arr.map(id => String(id));
+            } catch (e) { return []; }
+        }
+        function writeList(key, arr) {
+            try {
+                const strArr = arr.map(id => String(id));
+                localStorage.setItem(key, JSON.stringify(strArr));
+            } catch (e) {}
+        }
+
+        function getFav() { return readList(FAV_KEY); }
+        function getCmp() { return readList(CMP_KEY); }
+        function setFav(arr) { writeList(FAV_KEY, arr); }
+        function setCmp(arr) { writeList(CMP_KEY, arr); }
+
+        function isFav(id) { return getFav().includes(String(id)); }
+        function isCmp(id) { return getCmp().includes(String(id)); }
+
+        // 当前对比列表的类型（phone / pad / null）
+        function getCmpType() {
+            const arr = getCmp();
+            if (arr.length === 0) return null;
+            const first = findDevice(arr[0]);
+            return first ? first.type : null;
+        }
+
+        function toggleFav(id) {
+            const strId = String(id);
+            let arr = getFav();
+            if (arr.includes(strId)) {
+                arr = arr.filter(x => x !== strId);
+            } else {
+                arr.push(strId);
+            }
+            setFav(arr);
+            refreshCurrentView();
+        }
+
+        function toggleCmp(id) {
+            const strId = String(id);
+            const device = findDevice(strId);
+            if (!device) return;
+            let arr = getCmp();
+            const already = arr.includes(strId);
+            if (already) {
+                arr = arr.filter(x => x !== strId);
+                setCmp(arr);
+                refreshCurrentView();
+                return;
+            }
+            // 禁止手机与平板混合对比
+            const curType = getCmpType();
+            if (curType && curType !== device.type) {
+                showToast('手机与平板不能混合对比，请先清空对比栏');
+                return;
+            }
+            if (arr.length >= 3) {
+                showToast('最多对比 3 台机型');
+                return;
+            }
+            arr.push(strId);
+            setCmp(arr);
+            refreshCurrentView();
+        }
+
+        function clearCmp() {
+            setCmp([]);
+            refreshCurrentView();
+        }
+
+        function updateCompareBar() {
+            const bar = document.getElementById('compareBar');
+            const countEl = document.getElementById('cmpCount');
+            const typeTagEl = document.getElementById('cmpTypeTag');
+            const goBtn = document.getElementById('cmpGo');
+            const arr = getCmp();
+            const n = arr.length;
+            countEl.textContent = n;
+
+            const cmpType = getCmpType();
+            if (cmpType === 'phone') {
+                typeTagEl.textContent = '（手机）';
+                typeTagEl.style.display = '';
+            } else if (cmpType === 'pad') {
+                typeTagEl.textContent = '（平板）';
+                typeTagEl.style.display = '';
+            } else {
+                typeTagEl.textContent = '';
+                typeTagEl.style.display = 'none';
+            }
+
+            const hideOnPages = ['compare', 'favorites', 'more'];
+            if (n > 0 && !hideOnPages.includes(currentPage)) {
+                bar.classList.add('active');
+            } else {
+                bar.classList.remove('active');
+            }
+            if (n >= 2) {
+                goBtn.classList.remove('disabled');
+            } else {
+                goBtn.classList.add('disabled');
+            }
+        }
+
+        function refreshCurrentView() {
+            document.querySelectorAll('.phone-card-item').forEach(card => {
+                const id = card.dataset.pid;
+                if (!id) return;
+                const favBtn = card.querySelector('.card-action-btn.fav');
+                const cmpBtn = card.querySelector('.card-action-btn.compare');
+                const fav = getFav();
+                const cmp = getCmp();
+                const cmpType = getCmpType();
+                const device = findDevice(id);
+                if (favBtn) {
+                    if (fav.includes(id)) favBtn.classList.add('active');
+                    else favBtn.classList.remove('active');
+                }
+                if (cmpBtn) {
+                    if (cmp.includes(id)) {
+                        cmpBtn.classList.add('active');
+                        card.classList.add('selected');
+                    } else {
+                        cmpBtn.classList.remove('active');
+                        card.classList.remove('selected');
+                    }
+                    // 禁用条件：已满 3 台，或已选类型与当前设备类型不同
+                    const typeMismatch = cmpType && device && device.type !== cmpType;
+                    if ((!cmp.includes(id) && cmp.length >= 3) || (!cmp.includes(id) && typeMismatch)) {
+                        cmpBtn.classList.add('disabled');
+                    } else {
+                        cmpBtn.classList.remove('disabled');
+                    }
+                }
+            });
+
+            if (currentPage === 'favorites') {
+                renderFavorites();
+            }
+            if (currentPage === 'compare') {
+                renderCompare();
+            }
+            updateCompareBar();
+        }
 
         // ============================================================
         //  页面逻辑
@@ -1122,9 +1979,13 @@ v1.1版本上线 版本名称为「十月庆典」
         const pageMore = document.getElementById('pageMore');
         const pagePadPrice = document.getElementById('pagePadPrice');
         const pagePadDetail = document.getElementById('pagePadDetail');
+        const pageFavorites = document.getElementById('pageFavorites');
+        const pageCompare = document.getElementById('pageCompare');
         const phoneGrid = document.getElementById('phoneGrid');
         const moreGrid = document.getElementById('moreGrid');
         const padGrid = document.getElementById('padGrid');
+        const favGrid = document.getElementById('favGrid');
+        const compareGrid = document.getElementById('compareGrid');
         const rangeTitle = document.getElementById('rangeTitle');
         const padRangeTitle = document.getElementById('padRangeTitle');
 
@@ -1158,7 +2019,158 @@ v1.1版本上线 版本名称为「十月庆典」
                 pagePadDetail.classList.add('active'); currentPage = 'padDetail';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 history.pushState({ page: 'padDetail', padRange: currentPadRange }, '');
+            } else if (pageId === 'favorites') {
+                pageFavorites.classList.add('active'); currentPage = 'favorites';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: 'favorites' }, '');
+            } else if (pageId === 'compare') {
+                pageCompare.classList.add('active'); currentPage = 'compare';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                history.pushState({ page: 'compare' }, '');
             }
+            updateCompareBar();
+        }
+
+        function specRow(icon, key, value) {
+            return `<span class="spec-line"><span class="spec-icon"><i class="fas ${icon}"></i></span><span><span class="spec-key">${key}</span>${value}</span></span>`;
+        }
+        function specRowNoIcon(key, value) {
+            return `<span class="spec-line"><span class="spec-noicon"><span class="spec-key">${key}</span>${value}</span></span>`;
+        }
+
+        // 卡片右下角操作按钮（手机 / 平板通用）
+        function cardActions(id) {
+            const favActive = isFav(id) ? ' active' : '';
+            const cmpActive = isCmp(id) ? ' active' : '';
+            const device = findDevice(id);
+            const cmpType = getCmpType();
+            const typeMismatch = cmpType && device && device.type !== cmpType;
+            const cmpDisabled = (!isCmp(id) && (getCmp().length >= 3 || typeMismatch)) ? ' disabled' : '';
+            return `<div class="card-actions">
+                <button class="card-action-btn fav${favActive}" data-action="fav" data-id="${id}" title="收藏">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <button class="card-action-btn compare${cmpActive}${cmpDisabled}" data-action="compare" data-id="${id}" title="加入对比">
+                    <i class="fas fa-columns"></i>
+                </button>
+            </div>`;
+        }
+
+        function bindCardActions(container) {
+            container.querySelectorAll('.card-action-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const action = this.dataset.action;
+                    const id = this.dataset.id;
+                    if (!id) return;
+                    if (action === 'fav') {
+                        toggleFav(id);
+                    } else if (action === 'compare') {
+                        toggleCmp(id);
+                    }
+                });
+            });
+        }
+
+        // 渲染手机卡片
+        function renderPhoneCard(p) {
+            const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
+            const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
+            const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
+            let prosHtml = '';
+            if (p.pros && p.pros.length > 0) prosHtml = p.pros.map(t => `<span class="tag-item pro">${t}</span>`).join('');
+            let consHtml = '';
+            if (p.cons && p.cons.length > 0) consHtml = p.cons.map(t => `<span class="tag-item con">${t}</span>`).join('');
+            const prosConsHtml = (prosHtml || consHtml) ? `<div class="pros-cons">${prosHtml}${consHtml}</div>` : '';
+            let priceRowsHtml = '';
+            if (p.priceList && p.priceList.length > 0) {
+                p.priceList.forEach((item, index) => {
+                    const parts = item.split(' ');
+                    const mem = parts[0] || '';
+                    const rangeVal = parts.slice(1).join(' ') || '';
+                    const refDisplay = (index === 0 && p.refPrice && p.refPrice.trim() !== '' && p.refPrice !== '—')
+                        ? `<span class="right">¥${p.refPrice} <span class="label">参考价</span></span>`
+                        : (index === 0 ? `<span class="right empty">—</span>` : '');
+                    priceRowsHtml += `<div class="price-row"><span class="left"><span class="mem">${mem}</span> ${rangeVal}</span>${refDisplay}</div>`;
+                });
+            } else {
+                priceRowsHtml = `<div class="price-row"><span class="left" style="color:var(--text-muted);font-weight:400;">—</span></div>`;
+            }
+            let altHtml = p.alt ? `<div class="alt-models"><span>${p.alt}</span></div>` : '';
+            let moreBtnHtml = p.showMore ? `<div class="more-btn"><button onclick="showMorePage()">📱 其他推荐机型（仅供参考）</button></div>` : '';
+            const selectedClass = isCmp(p.id) ? ' selected' : '';
+            return `<div class="phone-card-item${selectedClass}" data-pid="${p.id}">
+                ${cardActions(p.id)}
+                <div class="phone-image">
+                    <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
+                    <span class="brand-placeholder">${p.brand || ''}</span>
+                </div>
+                <div class="info-area">
+                    <div>
+                        <div class="name-row"><span class="name">${p.name}</span>${tagHtml}${ratingHtml}</div>
+                        <div class="spec-list">
+                            ${specRow('fa-microchip', '性能', p.performance || p.cpu || '—')}
+                            ${specRowNoIcon('屏幕', p.screenDetail || p.screen || '—')}
+                            ${specRow('fa-camera', '影像', p.camera || '—')}
+                            ${specRow('fa-battery-full', '续航', p.battery || '—')}
+                        </div>
+                    </div>
+                    ${prosConsHtml}
+                    <div class="price-area">${priceRowsHtml}</div>
+                    ${altHtml}
+                    ${moreBtnHtml}
+                </div>
+            </div>`;
+        }
+
+        // 渲染平板卡片（比手机多充电、系统两行）
+        function renderPadCard(p) {
+            const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
+            const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
+            const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
+            let prosHtml = '';
+            if (p.pros && p.pros.length > 0) prosHtml = p.pros.map(t => `<span class="tag-item pro">${t}</span>`).join('');
+            let consHtml = '';
+            if (p.cons && p.cons.length > 0) consHtml = p.cons.map(t => `<span class="tag-item con">${t}</span>`).join('');
+            const prosConsHtml = (prosHtml || consHtml) ? `<div class="pros-cons">${prosHtml}${consHtml}</div>` : '';
+            let priceRowsHtml = '';
+            if (p.priceList && p.priceList.length > 0) {
+                p.priceList.forEach((item, index) => {
+                    const parts = item.split(' ');
+                    const mem = parts[0] || '';
+                    const rangeVal = parts.slice(1).join(' ') || '';
+                    const refDisplay = (index === 0 && p.refPrice && p.refPrice.trim() !== '' && p.refPrice !== '—')
+                        ? `<span class="right">¥${p.refPrice} <span class="label">参考价</span></span>`
+                        : (index === 0 ? `<span class="right empty">—</span>` : '');
+                    priceRowsHtml += `<div class="price-row"><span class="left"><span class="mem">${mem}</span> ${rangeVal}</span>${refDisplay}</div>`;
+                });
+            } else {
+                priceRowsHtml = `<div class="price-row"><span class="left" style="color:var(--text-muted);font-weight:400;">—</span></div>`;
+            }
+            const selectedClass = isCmp(p.id) ? ' selected' : '';
+            return `<div class="phone-card-item${selectedClass}" data-pid="${p.id}">
+                ${cardActions(p.id)}
+                <div class="phone-image">
+                    <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
+                    <span class="brand-placeholder">${String(p.id).toUpperCase()}</span>
+                </div>
+                <div class="info-area">
+                    <div>
+                        <div class="name-row"><span class="name">${p.name}</span>${tagHtml}${ratingHtml}</div>
+                        <div class="spec-list">
+                            ${specRow('fa-microchip', '性能', p.performance || p.chip || '—')}
+                            ${specRowNoIcon('屏幕', p.screenDetail || p.screen || '—')}
+                            ${specRow('fa-camera', '影像', p.camera || '—')}
+                            ${specRow('fa-battery-full', '续航', p.battery || '—')}
+                            ${specRow('fa-bolt', '充电', p.charge || '—')}
+                            ${specRow('fa-code-branch', '系统', p.system || '—')}
+                        </div>
+                    </div>
+                    ${prosConsHtml}
+                    <div class="price-area">${priceRowsHtml}</div>
+                </div>
+            </div>`;
         }
 
         function renderPhones(range) {
@@ -1168,52 +2180,8 @@ v1.1版本上线 版本名称为「十月庆典」
                 phoneGrid.innerHTML = `<div style="text-align:center; padding:30px 0; color:var(--text-muted); font-size:16px;">该价位暂无机型</div>`;
                 return;
             }
-            phoneGrid.innerHTML = list.map(p => {
-                const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
-                const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
-                const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
-                let prosHtml = '';
-                if (p.pros && p.pros.length > 0) prosHtml = p.pros.map(t => `<span class="tag-item pro">${t}</span>`).join('');
-                let consHtml = '';
-                if (p.cons && p.cons.length > 0) consHtml = p.cons.map(t => `<span class="tag-item con">${t}</span>`).join('');
-                const prosConsHtml = (prosHtml || consHtml) ? `<div class="pros-cons">${prosHtml}${consHtml}</div>` : '';
-                let priceRowsHtml = '';
-                if (p.priceList && p.priceList.length > 0) {
-                    p.priceList.forEach((item, index) => {
-                        const parts = item.split(' ');
-                        const mem = parts[0] || '';
-                        const rangeVal = parts.slice(1).join(' ') || '';
-                        const refDisplay = (index === 0 && p.refPrice && p.refPrice.trim() !== '' && p.refPrice !== '—')
-                            ? `<span class="right">¥${p.refPrice} <span class="label">参考价</span></span>`
-                            : (index === 0 ? `<span class="right empty">—</span>` : '');
-                        priceRowsHtml += `<div class="price-row"><span class="left"><span class="mem">${mem}</span> ${rangeVal}</span>${refDisplay}</div>`;
-                    });
-                } else {
-                    priceRowsHtml = `<div class="price-row"><span class="left" style="color:var(--text-muted);font-weight:400;">—</span></div>`;
-                }
-                let altHtml = p.alt ? `<div class="alt-models"><span>${p.alt}</span></div>` : '';
-                let moreBtnHtml = p.showMore ? `<div class="more-btn"><button onclick="showMorePage()">📱 其他推荐机型（仅供参考）</button></div>` : '';
-                return `<div class="phone-card-item">
-                    <div class="phone-image">
-                        <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
-                        <span class="brand-placeholder">${p.brand}</span>
-                    </div>
-                    <div class="info-area">
-                        <div>
-                            <div class="name-row"><span class="name">${p.name}</span>${tagHtml}${ratingHtml}</div>
-                            <div class="spec-list">
-                                <span><span class="spec-icon"><i class="fas fa-mobile-screen"></i></span>${p.screen}</span>
-                                <span><span class="spec-icon"><i class="fas fa-microchip"></i></span>${p.cpu}</span>
-                                <span><span class="spec-icon"><i class="fas fa-battery-full"></i></span>${p.battery}</span>
-                            </div>
-                        </div>
-                        ${prosConsHtml}
-                        <div class="price-area">${priceRowsHtml}</div>
-                        ${altHtml}
-                        ${moreBtnHtml}
-                    </div>
-                </div>`;
-            }).join('');
+            phoneGrid.innerHTML = list.map(renderPhoneCard).join('');
+            bindCardActions(phoneGrid);
         }
 
         function renderMorePhones() {
@@ -1225,18 +2193,20 @@ v1.1版本上线 版本名称为「十月庆典」
                 const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
                 const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
                 const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
-                return `<div class="phone-card-item">
+                return `<div class="phone-card-item" data-pid="${p.id}">
+                    ${cardActions(p.id)}
                     <div class="phone-image">
                         <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
-                        <span class="brand-placeholder">${p.brand}</span>
+                        <span class="brand-placeholder">${p.brand || ''}</span>
                     </div>
                     <div class="info-area">
                         <div>
                             <div class="name-row"><span class="name">${p.name}</span>${tagHtml}${ratingHtml}</div>
                             <div class="spec-list">
-                                <span><span class="spec-icon"><i class="fas fa-mobile-screen"></i></span>${p.screen}</span>
-                                <span><span class="spec-icon"><i class="fas fa-microchip"></i></span>${p.cpu}</span>
-                                <span><span class="spec-icon"><i class="fas fa-battery-full"></i></span>${p.battery}</span>
+                                ${specRow('fa-microchip', '性能', p.performance || p.cpu || '—')}
+                                ${specRowNoIcon('屏幕', p.screenDetail || p.screen || '—')}
+                                ${specRow('fa-camera', '影像', p.camera || '—')}
+                                ${specRow('fa-battery-full', '续航', p.battery || '—')}
                             </div>
                         </div>
                         <div class="price-area" style="border-top:none;padding-top:0;display:flex;justify-content:center;align-items:center;min-height:28px;">
@@ -1245,6 +2215,7 @@ v1.1版本上线 版本名称为「十月庆典」
                     </div>
                 </div>`;
             }).join('');
+            bindCardActions(moreGrid);
         }
 
         function renderPadPhones(range) {
@@ -1254,7 +2225,43 @@ v1.1版本上线 版本名称为「十月庆典」
                 padGrid.innerHTML = `<div style="text-align:center; padding:30px 0; color:var(--text-muted); font-size:16px;">该价位暂无平板</div>`;
                 return;
             }
-            padGrid.innerHTML = list.map(p => {
+            padGrid.innerHTML = list.map(renderPadCard).join('');
+            bindCardActions(padGrid);
+        }
+
+        // 收藏页：同时包含手机和平板
+        function renderFavorites() {
+            const favIds = getFav();
+            const phoneList = allPhones.filter(p => favIds.includes(String(p.id)));
+            const padList = allPads.filter(p => favIds.includes(String(p.id)));
+            const parts = [];
+            if (phoneList.length > 0) {
+                parts.push(`<div class="fav-section-label" style="width:100%;font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:4px 0 2px;">手机</div>`);
+                parts.push(phoneList.map(renderPhoneCard).join(''));
+            }
+            if (padList.length > 0) {
+                parts.push(`<div class="fav-section-label" style="width:100%;font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin:16px 0 2px;">平板</div>`);
+                parts.push(padList.map(renderPadCard).join(''));
+            }
+            if (parts.length === 0) {
+                favGrid.innerHTML = `<div class="empty-hint"><i class="fas fa-heart-broken"></i>还没有收藏任何机型<br>在机型卡片右下角点 ♡ 即可收藏</div>`;
+                return;
+            }
+            favGrid.innerHTML = parts.join('');
+            bindCardActions(favGrid);
+        }
+
+        // 对比页：手机和平板分开渲染（禁止混合）
+        function renderCompare() {
+            const cmpIds = getCmp();
+            const phoneList = allPhones.filter(p => cmpIds.includes(String(p.id)));
+            const padList = allPads.filter(p => cmpIds.includes(String(p.id)));
+            const list = phoneList.concat(padList);
+            if (list.length === 0) {
+                compareGrid.innerHTML = `<div class="empty-hint"><i class="fas fa-columns"></i>还没有选择对比机型<br>在机型卡片右下角点对比按钮，最多选 3 台<br><span style="font-size:13px;">（手机与平板不能混合对比）</span></div>`;
+                return;
+            }
+            compareGrid.innerHTML = list.map(p => {
                 const imgSrc = p.image ? `${IMAGE_BASE}${p.image}` : '';
                 const tagHtml = p.tag ? `<span class="tag ${p.tagColor}">${p.tag}</span>` : '';
                 const ratingHtml = p.rating ? `<span class="rating">${renderStars(p.rating)}</span>` : '';
@@ -1262,47 +2269,48 @@ v1.1版本上线 版本名称为「十月庆典」
                 if (p.pros && p.pros.length > 0) prosHtml = p.pros.map(t => `<span class="tag-item pro">${t}</span>`).join('');
                 let consHtml = '';
                 if (p.cons && p.cons.length > 0) consHtml = p.cons.map(t => `<span class="tag-item con">${t}</span>`).join('');
-                const prosConsHtml = (prosHtml || consHtml) ? `<div class="pros-cons">${prosHtml}${consHtml}</div>` : '';
-                let priceRowsHtml = '';
-                if (p.priceList && p.priceList.length > 0) {
-                    p.priceList.forEach((item, index) => {
-                        const parts = item.split(' ');
-                        const mem = parts[0] || '';
-                        const rangeVal = parts.slice(1).join(' ') || '';
-                        const refDisplay = (index === 0 && p.refPrice && p.refPrice.trim() !== '' && p.refPrice !== '—')
-                            ? `<span class="right">¥${p.refPrice} <span class="label">参考价</span></span>`
-                            : (index === 0 ? `<span class="right empty">—</span>` : '');
-                        priceRowsHtml += `<div class="price-row"><span class="left"><span class="mem">${mem}</span> ${rangeVal}</span>${refDisplay}</div>`;
-                    });
-                } else {
-                    priceRowsHtml = `<div class="price-row"><span class="left" style="color:var(--text-muted);font-weight:400;">—</span></div>`;
+                const prosConsHtml = (prosHtml || consHtml) ? `<div class="cmp-pros-cons">${prosHtml}${consHtml}</div>` : '';
+                const priceText = p.refPrice && p.refPrice.trim() !== '' && p.refPrice !== '—'
+                    ? `¥${p.refPrice}` : (p.price || '—');
+                const typeLabel = p.type === 'pad' ? '<span style="font-size:11px;color:var(--text-muted);margin-left:4px;">平板</span>' : '';
+                let extraRows = '';
+                if (p.type === 'pad') {
+                    extraRows = `
+                        <div class="cmp-row"><span class="k">充电</span><span class="v">${p.charge || '—'}</span></div>
+                        <div class="cmp-row"><span class="k">系统</span><span class="v">${p.system || '—'}</span></div>
+                    `;
                 }
-                return `<div class="phone-card-item">
-                    <div class="phone-image">
-                        <img src="${imgSrc}" alt="${p.name}" onerror="this.classList.add('error')">
-                        <span class="brand-placeholder">${p.id.toUpperCase()}</span>
+                return `<div class="compare-card">
+                    <button class="cmp-remove" data-action="remove" data-id="${p.id}" title="移除">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="cmp-img">
+                        <img src="${imgSrc}" alt="${p.name}" onerror="this.style.display='none'">
                     </div>
-                    <div class="info-area">
-                        <div>
-                            <div class="name-row"><span class="name">${p.name}</span>${tagHtml}${ratingHtml}</div>
-                            <div class="spec-list">
-                                <span><span class="spec-icon"><i class="fas fa-microchip"></i></span>${p.chip}</span>
-                                <span><span class="spec-icon"><i class="fas fa-mobile-screen"></i></span>${p.screen}</span>
-                                <span><span class="spec-icon"><i class="fas fa-battery-full"></i></span>${p.battery}</span>
-                                <span><span class="spec-icon"><i class="fas fa-bolt"></i></span>${p.charge}</span>
-                                <span><span class="spec-icon"><i class="fas fa-code-branch"></i></span>${p.system}</span>
-                            </div>
-                        </div>
-                        ${prosConsHtml}
-                        <div class="price-area">${priceRowsHtml}</div>
-                    </div>
+                    <div class="cmp-name">${p.name}${typeLabel}</div>
+                    <div class="cmp-meta">${tagHtml}${ratingHtml}</div>
+                    <div class="cmp-row"><span class="k">性能</span><span class="v">${p.performance || p.cpu || p.chip || '—'}</span></div>
+                    <div class="cmp-row"><span class="k">屏幕</span><span class="v">${p.screenDetail || p.screen || '—'}</span></div>
+                    <div class="cmp-row"><span class="k">影像</span><span class="v">${p.camera || '—'}</span></div>
+                    <div class="cmp-row"><span class="k">续航</span><span class="v">${p.battery || '—'}</span></div>
+                    ${extraRows}
+                    ${prosConsHtml}
+                    <div class="cmp-price">${priceText}</div>
                 </div>`;
             }).join('');
+
+            compareGrid.querySelectorAll('.cmp-remove').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    if (!id) return;
+                    toggleCmp(id);
+                });
+            });
         }
 
         function showMorePage() { renderMorePhones(); showPage('more'); }
         function showDetail(range) {
-            const labels = { '100-200': '¥100-200', '200-350': '¥200-350', '350-500': '¥350-500', '500-750': '¥500-750', '750-1000': '¥750-1000' };
+            const labels = { '100-200': '¥100-200', '200-350': '¥200-350', '350-500': '¥350-500', '500-750': '¥500-750', '750-1000': '¥750-1000', '1000-1300': '¥1000-1300' };
             currentRange = range;
             rangeTitle.textContent = labels[range] || range;
             renderPhones(range);
@@ -1316,13 +2324,35 @@ v1.1版本上线 版本名称为「十月庆典」
             showPage('padDetail');
         }
 
+        function showFavorites() {
+            renderFavorites();
+            showPage('favorites');
+        }
+        function showComparePage() {
+            renderCompare();
+            showPage('compare');
+        }
+
+        // 事件绑定
         document.getElementById('phoneEntry').addEventListener('click', function(e) { e.preventDefault(); showPage('phone'); });
         document.getElementById('padEntry').addEventListener('click', function(e) { e.preventDefault(); showPage('padPrice'); });
+        document.getElementById('compareEntry').addEventListener('click', function(e) { e.preventDefault(); showComparePage(); });
+        document.getElementById('favHeaderBtn').addEventListener('click', function() { showFavorites(); });
         document.getElementById('backHomeFromPhone').addEventListener('click', function() { showPage('home'); });
         document.getElementById('backHomeFromPad').addEventListener('click', function() { showPage('home'); });
         document.getElementById('backPhone').addEventListener('click', function() { showPage('phone'); });
         document.getElementById('backMore').addEventListener('click', function() { showPage('detail'); });
         document.getElementById('backPad').addEventListener('click', function() { showPage('padPrice'); });
+        document.getElementById('backHomeFromFav').addEventListener('click', function() { showPage('home'); });
+        document.getElementById('backFromCompare').addEventListener('click', function() { showPage('home'); });
+
+        document.getElementById('cmpClear').addEventListener('click', function() {
+            clearCmp();
+        });
+        document.getElementById('cmpGo').addEventListener('click', function() {
+            if (getCmp().length < 2) return;
+            showComparePage();
+        });
 
         document.querySelectorAll('.price-card[data-range]').forEach(card => {
             card.addEventListener('click', function(e) {
@@ -1345,7 +2375,7 @@ v1.1版本上线 版本名称为「十月庆典」
                 else if (e.state.page === 'phone') { showPage('phone'); }
                 else if (e.state.page === 'detail' && e.state.range) {
                     currentRange = e.state.range;
-                    const labels = { '100-200': '¥100-200', '200-350': '¥200-350', '350-500': '¥350-500', '500-750': '¥500-750', '750-1000': '¥750-1000' };
+                    const labels = { '100-200': '¥100-200', '200-350': '¥200-350', '350-500': '¥350-500', '500-750': '¥500-750', '750-1000': '¥750-1000', '1000-1300': '¥1000-1300' };
                     rangeTitle.textContent = labels[currentRange] || currentRange;
                     renderPhones(currentRange);
                     showPage('detail');
@@ -1357,12 +2387,17 @@ v1.1版本上线 版本名称为「十月庆典」
                     padRangeTitle.textContent = labels[currentPadRange] || currentPadRange;
                     renderPadPhones(currentPadRange);
                     showPage('padDetail');
+                } else if (e.state.page === 'favorites') {
+                    renderFavorites(); showPage('favorites');
+                } else if (e.state.page === 'compare') {
+                    renderCompare(); showPage('compare');
                 }
             } else {
                 if (currentPage === 'home') return;
                 if (currentPage === 'more') showPage('detail');
                 else if (currentPage === 'detail') showPage('phone');
                 else if (currentPage === 'padDetail') showPage('padPrice');
+                else if (currentPage === 'favorites' || currentPage === 'compare') showPage('home');
                 else showPage('home');
             }
         });
@@ -1387,12 +2422,15 @@ v1.1版本上线 版本名称为「十月庆典」
                 else if (currentPage === 'phone') showPage('home');
                 else if (currentPage === 'padDetail') showPage('padPrice');
                 else if (currentPage === 'padPrice') showPage('home');
+                else if (currentPage === 'favorites' || currentPage === 'compare') showPage('home');
                 isSwiping = false;
             }
         }, { passive: false });
 
         document.addEventListener('touchend', function() { isSwiping = false; }, { passive: true });
 
+        // 初始化
+        updateCompareBar();
         showPage('home');
         history.replaceState({ page: 'home' }, '');
     </script>
